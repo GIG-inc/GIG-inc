@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "api_gateway_service",
+    "auth_service",
+]
