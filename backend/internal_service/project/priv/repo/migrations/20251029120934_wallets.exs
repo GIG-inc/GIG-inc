@@ -7,10 +7,14 @@ defmodule Project.Repo.Migrations.Wallets do
       add :walletid, :uuid, primary_key: true, null: false
       add :cashbalance, :bigint, null: false, default: 0
       add :goldbalance, :bigint, null: false, default: 0
+      add :wallet
       add :status, :wallet_status, null: false, default: "active"
-      add :user, references(:userstable, column: :appuserid, type: :uuid, on_delete: :delete_all)
+      add :globaluserid, :uuid, null: false
+      add :localuserid, references(:userstable, column: :appuserid, type: :uuid, on_delete: :delete_all)
       timestamps()
     end
-
+    # by doing this we make these columns index which allows for faster lookups
+    create unique_index(:walletstable, [:localuserid])
+    create unique_index(:walletstable, [:globaluserid])
   end
 end

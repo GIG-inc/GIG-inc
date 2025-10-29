@@ -14,20 +14,18 @@ This is the file that is responsible for handling transfers of amounts
   def make_transfer(request) do
     GenServer.call(__MODULE__,{:transfer, request})
   end
-  # TODO: remove this state
-  :state
   # TODO: we must pass state when initializing it
-  def init(state) do
+  def init(_opts) do
     IO.puts("transfer server started")
     Process.send_after(self(), :timeout,600_000)
-    {:ok, state}
+    {:ok,Project.Events}
   end
 
   @impl true
-  def handle_call({:tranfer, request}, _from, state) do
+  def handle_call({:transfer, request}, _from, state) do
     Process.send_after(self(), :timeout,600_000)
-    # this is where to handle transfer logic
     IO.puts("it has reached the handle call logic", request)
+
 
   end
   def handle_info(:timeout, state) do

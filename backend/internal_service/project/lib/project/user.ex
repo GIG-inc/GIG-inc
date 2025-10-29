@@ -4,15 +4,28 @@ defmodule Project.User do
   use Ecto.Schema
   import Changeset
   @primary_key{:appuserid, :binary_id, autogenerate: true}
-
   schema "user" do
-    field :appuserid, :binary_id
-    field :fullname
-    field :userid, :binary_id
+    field :localuserid, :binary_id
+    field :globaluserid, :binary_id
+    field :phonenumber, :string
+    field :kycstatus, Ecto.Enum, values: [:registered, :pending, :rejected, :not_available], default: :not_available
+    field :kyclevel, :string, Ecto.Enum, values: [:standard, :advanced, :pro], default: :standard
+    field :transactionlimit, :string
+    field :accountstatus, values: [:active, :inactive, :banned], default: :active
     field :acceptterms, :boolean, virtual: true
     field :hasacceptedterms, :boolean, default: false
-    has_one :wallet, Project.Wallet, foreign_key: :appuserid
     timestamps()
   end
+
+  @type t :: %__MODULE__{
+    localuserid: Ecto.UUID.t(),
+    globaluserid: Ecto.UUID.t(),
+    phonenumber: String.t(),
+    kycstatus: atom(),
+    kyclevel: atom(),
+    transctionlimit: String.t(),
+    accountstatus: atom(),
+    hasacceptedterms: boolean(),
+  }
 
 end

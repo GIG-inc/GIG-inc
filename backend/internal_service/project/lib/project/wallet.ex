@@ -5,8 +5,11 @@ defmodule Project.Wallet do
 
   @primary_key(:walletid, :binary_id, autogenerate: true)
   schema "wallets" do
-    field :walletid, :binary_id,
-
-    belongs_to :user, Project.User, foreign_key: appuserid, type: :binary_id
+    field :walletid, :binary_id
+    field :cashbalance, :integer
+    field :goldbalance, :integer
+    field :status, values: [:active, :inactive, :banned], default: :standard
+    field :globaluserid, :binary_id
+    belongs_to :user, Project.User, foreign_key: localuserid, type: :binary_id
   end
 end
