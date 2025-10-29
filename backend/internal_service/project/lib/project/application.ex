@@ -2,6 +2,7 @@ defmodule Project.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
+alias ElixirLS.LanguageServer.DialyzerIncremental
 
   use Application
 
@@ -9,11 +10,11 @@ defmodule Project.Application do
   def start(_type, _args) do
     children = [
       Project.Repo,
+      {DynamicSupervisor, name: Project.Dynamicsupervisor, strategy: :one_for_one}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Project.Supervisor]
-    Supervisor.start_link(children, opts)
+    Supervisor.start_link(children, strategy: :one_for_one )
   end
 end

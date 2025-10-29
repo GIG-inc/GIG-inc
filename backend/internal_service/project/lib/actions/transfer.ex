@@ -14,6 +14,8 @@ This is the file that is responsible for handling transfers of amounts
   def make_transfer(request) do
     GenServer.call(__MODULE__,{:transfer, request})
   end
+  # TODO: remove this state
+  :state
   # TODO: we must pass state when initializing it
   def init(state) do
     IO.puts("transfer server started")
@@ -38,8 +40,8 @@ This is the file that is responsible for handling transfers of amounts
     IO.puts("saving state for user #{state.userid}")
     # here we put the code for saving the users state and saving sort of adding it to events
   end
-  @spec transferlogic(%Transfertype{})
+  @spec transferlogic(TransferReq.t()) :: any()
   def transferlogic(request) do
-
+    IO.puts(request)
   end
 end
