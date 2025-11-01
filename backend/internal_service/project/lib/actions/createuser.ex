@@ -10,8 +10,8 @@ defmodule Actions.Createuser do
   end
 
 
-  @spec create_user(CreateUserReq.t()) :: CreateUserResp.t()
-  def create_user(request) do
+  @spec create_user(atom(), CreateUserReq.t()) :: CreateUserResp.t()
+  def create_user(:createuser, request) do
     GenServer.call(__MODULE__, {:createuser, request})
   end
 
@@ -39,12 +39,12 @@ defmodule Actions.Createuser do
     %Project.User{}
   end
 
-  @spec createnewuser(Project.User.t()) :: {{:ok, String.t()} | {:error, Keyword}}
+  @spec createnewuser(%Project.User{}) :: {:ok, String.t()} | {:error, Keyword.t()} | {:error, String.t()}
   defp createnewuser(newuser) do
     case DatabaseConn.Getuser.checkuser(newuser.globaluserid) do
-      :ok ->
+      {:ok, nil} ->
         IO.puts("there is a request to create a new user")
-        changeset = User.createuserchangeset(%Project.User{}, Map.from_struct(newuser))
+        changeset = User.createuserchangeset(newuser)
         case Repo.insert(changeset) do
           {:ok, user} ->
             IO.puts("create a new user with id #{user.localuserid}")
@@ -53,7 +53,7 @@ defmodule Actions.Createuser do
             IO.puts("error creating user: #{inspect(changeset.errors)}")
             {:error, changeset.errors}
         end
-      {:error,user} ->
+      {:error,user = %Project.User{}} ->
         IO.puts("there was a new issue in creating this user #{:error}")
         {:error, "there is a user with this id #{user.username}"}
     end

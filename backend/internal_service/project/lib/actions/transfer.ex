@@ -15,6 +15,7 @@ This is the file that is responsible for handling transfers of amounts
     GenServer.call(__MODULE__,{:transfer, request})
   end
   # TODO: we must pass state when initializing it
+  @impl true
   def init(_opts) do
     IO.puts("transfer server started")
     Process.send_after(self(), :timeout,600_000)
@@ -22,19 +23,17 @@ This is the file that is responsible for handling transfers of amounts
   end
 
   @impl true
-  def handle_call({:transfer, request}, _from, state) do
+  def handle_call({:transfer, request}, _from, _state) do
     Process.send_after(self(), :timeout,600_000)
-    IO.puts("it has reached the handle call logic", request)
-    IO.puts(state)
-
-
+    IO.puts("it has reached the handle call logic #{request}")
   end
+  @impl true
   def handle_info(:timeout, state) do
     # this will send a message timeout and since it is not from call or cast it will be directed here and hence it will time out
     IO.puts("user inactive. shutting down")
     {:stop, :normal, state}
   end
-
+  @impl true
   def terminate(:normal, state) do
     IO.puts("saving state for user #{state.userid}")
     # here we put the code for saving the users state and saving sort of adding it to events

@@ -1,9 +1,6 @@
 defmodule Comms.Receiver do
   use GRPC.Server , service: Protoservice.Gigservice.Service
 
-  alias GRPC.Stream
-  alias Protoservice.{TransferReq,TransferResp,CreateUserReq,CreateUserResp}
-  alias DatabaseConn.Getuser
   alias Actions.Createuser
 
   # @spec transfer(TransferReq.t()) :: TransferResp.t()
@@ -14,8 +11,7 @@ defmodule Comms.Receiver do
   #   Transfer.make_transfer(request)
 
   # end
-
-  @spec createaccount(CreateUserReq.t()) :: CreateUserResp.t()
+  alias Protoservice.{CreateUserReq, CreateUserResp}
   def createaccount(%CreateUserReq{} = newuserdetails,_stream) do
    GRPC.Stream.unary(newuserdetails)
    |>GRPC.Stream.map(fn %CreateUserReq{} = req ->

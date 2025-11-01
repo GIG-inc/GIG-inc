@@ -17,15 +17,17 @@ defmodule Project.User do
     field :hasacceptedterms, :boolean, default: false
     timestamps()
   end
-  def createuserchangeset(%Project.User{}=newuser) do
+  def createuserchangeset(%Project.User{} = newuser) do
     newuser
+    # change wraps the data in a changeset
+    |>Ecto.Changeset.change()
     # |>cast(newuser, [:globaluserid, :phonenumber, :kycstatus, :kyclevel, :transactionlimit, :accountstatus, :acceptterms, :username])
-    |>validate_required([:globaluserid, :phonenumber, :kycstatus, :kyclevel, :acceptterms, :username])
-    |>validate_change(:acceptterms, fn :acceptterms, value ->
+    |>Ecto.Changeset.validate_required([:globaluserid, :phonenumber, :kycstatus, :kyclevel, :acceptterms, :username])
+    |>Ecto.Changeset.validate_change(:acceptterms, fn :acceptterms, value ->
       if value == false, do: [acceptterms: "you must accept term and conditions"]
     end)
-    |>validate_safe_string([:phonenumber,:username])
-    |>put_change(:hasacceptedterms, true)
+    |>validate_several_strings([:phonenumber,:username])
+    |>Ecto.Changeset.put_change(:hasacceptedterms, true)
   end
 
   # updateuser
