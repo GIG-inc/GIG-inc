@@ -12,7 +12,8 @@ defmodule Comms.Receiver do
 
   # end
   alias Protoservice.{CreateUserReq, CreateUserResp}
-  def createaccount(%CreateUserReq{} = newuserdetails,_stream) do
+  @spec createaccount(Protoservice.CreateUserReq.t(), any()) :: any()
+  def createaccount(%CreateUserReq{} = newuserdetails,%CreateWallet{} = newwallet,_stream) do
    GRPC.Stream.unary(newuserdetails)
    |>GRPC.Stream.map(fn %CreateUserReq{} = req ->
       case Createuser.create_user(:createuser, req) do

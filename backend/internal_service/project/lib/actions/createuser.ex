@@ -33,15 +33,15 @@ defmodule Actions.Createuser do
       acceptterms: request.acceptterms,
       username: request.username
     }
-    result = createnewuser(newuser)
+    result = createnewuser(newuser,request)
     {:reply, result, state}
   end
   def initialuserstate() do
     %Project.User{}
   end
 
-  @spec createnewuser(%Project.User{}) :: {:ok, String.t()} | {:error, Keyword.t()} | {:error, String.t()}
-  defp createnewuser(newuser) do
+  @spec createnewuser(%Project.User{}, %Protoservice.CreateUserReq{}) :: {:ok, String.t()} | {:error, Keyword.t()} | {:error, String.t()}
+  defp createnewuser(newuser,request) do
     case DatabaseConn.Getuser.checkuser(newuser.globaluserid) do
       {:ok, nil} ->
         IO.puts("there is a request to create a new user")
@@ -49,8 +49,9 @@ defmodule Actions.Createuser do
         case Repo.insert(changeset) do
           {:ok, user} ->
             IO.puts("create a new user with id #{user.localuserid}")
-            case Actions.Createwallet.create_wallet(:createwallet, user) do
+            case Actions.Createwallet.create_wallet(:createwallet, user,request.wallet) do
               {:ok, wallet = %Project.Wallet{}} ->
+                IO.puts(wallet.walletid)
                 {:ok, "successfully added #{user.username}"}
               {:error, errorchangeset} ->
                 IO.puts("error in creating user's wallet #{errorchangeset}")

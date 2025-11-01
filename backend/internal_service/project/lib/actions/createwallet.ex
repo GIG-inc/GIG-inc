@@ -9,28 +9,29 @@ defmodule Actions.Createwallet do
     Process.send_after(self(), :timeout, 600_000)
   end
 
-  @spec(atom(), %Project.User{}) :: any()
-  def create_wallet(:createwallet , user ) do
+  @spec create_wallet(atom(), %Project.User{},%Protoservice.CreateWallet{}) :: any()
+  def create_wallet(:createwallet , user, wallet) do
     # received request to create a wallet
     IO.puts("received a request to create a wallet")
-    GenServer.call(__MODULE__, {:createwallet, user})
+    GenServer.call(__MODULE__, {:createwallet, user,wallet})
   end
 
-  def handle_call({:createwallet,user}, _from, _state) do
+  def handle_call({:createwallet,user,wallet}, _from, _state) do
     newwallet = %Project.Wallet{
-      cashbalance: cashamount,
+      cashbalance: wallet.cashamount,
       globaluserid: user.globaluserid,
-      goldbalance: goldamount,
+      goldbalance: wallet.goldamount,
       status: :active,
+      lockversion: 0
     }
-    Ecto.build_assoc(user,  :wallet, newwallet)
-    |>case Project.Repo.insert() do
+    built_wallet = Ecto.build_assoc(user,  :wallet, newwallet)
+    case Project.Repo.insert(built_wallet) do
       {:ok, wallet} ->
         IO.puts("successfully created a new wallet")
-        {:ok, wallet}
+        {:reply, :ok, wallet}
       {:error, changeset} ->
         IO.puts("error in creating a new wallet/ inserting")
-        {:error, changeset}
+        {:reply, :error, changeset}
     end
   end
   @impl true

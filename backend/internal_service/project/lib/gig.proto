@@ -12,6 +12,11 @@ message create_user_req{
     string acceptterms=5;
     int64 transactionlimit=6;
     string username=7;
+    create_wallet wallet=8;
+}
+message create_wallet{
+    string cashbalance=1;
+    string goldbalance=2;
 }
 message create_user_resp{
     string status=1;

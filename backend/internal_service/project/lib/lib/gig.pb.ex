@@ -10,6 +10,16 @@ defmodule Protoservice.CreateUserReq do
   field :acceptterms, 5, type: :string
   field :transactionlimit, 6, type: :int64
   field :username, 7, type: :string
+  field :wallet, 8, type: Protoservice.CreateWallet
+end
+
+defmodule Protoservice.CreateWallet do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :cashbalance, 1, type: :string
+  field :goldbalance, 2, type: :string
 end
 
 defmodule Protoservice.CreateUserResp do
