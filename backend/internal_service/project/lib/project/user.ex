@@ -15,6 +15,7 @@ defmodule Project.User do
     field :accountstatus,Ecto.Enum, values: [:active, :inactive, :banned], default: :active
     field :acceptterms, :boolean, virtual: true, default: false
     field :hasacceptedterms, :boolean, default: false
+    has_one :wallet, Project.Wallet
     timestamps()
   end
   def createuserchangeset(%Project.User{} = newuser) do

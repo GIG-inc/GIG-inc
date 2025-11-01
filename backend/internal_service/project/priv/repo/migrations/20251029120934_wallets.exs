@@ -7,10 +7,9 @@ defmodule Project.Repo.Migrations.Wallets do
       add :walletid, :uuid, primary_key: true, null: false
       add :cashbalance, :bigint, null: false, default: 0
       add :goldbalance, :bigint, null: false, default: 0
-      add :wallet
       add :status, :wallet_status, null: false, default: "active"
       add :globaluserid, :uuid, null: false
-      add :lockversion, :integer, default: 1
+      add :lockversion, :integer, default: 0
       add :localuserid, references(:userstable, column: :appuserid, type: :uuid, on_delete: :delete_all)
       timestamps()
     end

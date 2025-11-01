@@ -16,12 +16,14 @@ defmodule Comms.Receiver do
    GRPC.Stream.unary(newuserdetails)
    |>GRPC.Stream.map(fn %CreateUserReq{} = req ->
       case Createuser.create_user(:createuser, req) do
-        {:ok, message} ->
-          %CreateUserResp{status: :ok, message: message}
+        {:ok, user = %Project.User{}} ->
+          %CreateUserResp{status: :ok, message: "created user #{user.username}"}
         {:error, message} ->
           %CreateUserResp{status: :error, message: message}
       end
     end)
   |>GRPC.Stream.run()
    end
+
+
 end

@@ -1,4 +1,5 @@
 defmodule Actions.Createuser do
+  alias Ecto.Changeset
   alias Protoservice.{CreateUserReq, CreateUserResp}
   alias Project.{User, Repo}
 
@@ -48,8 +49,13 @@ defmodule Actions.Createuser do
         case Repo.insert(changeset) do
           {:ok, user} ->
             IO.puts("create a new user with id #{user.localuserid}")
-            {:ok, "successfully added #{user.username}"}
-          {:error, changeset} ->
+            case Actions.Createwallet.create_wallet(:createwallet, user) do
+              {:ok, wallet = %Project.Wallet{}} ->
+                {:ok, "successfully added #{user.username}"}
+              {:error, errorchangeset} ->
+                IO.puts("error in creating user's wallet #{errorchangeset}")
+            end
+          {:error, changeset= %Changeset{}} ->
             IO.puts("error creating user: #{inspect(changeset.errors)}")
             {:error, changeset.errors}
         end
