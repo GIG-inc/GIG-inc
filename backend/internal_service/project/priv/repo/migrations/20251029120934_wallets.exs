@@ -10,6 +10,7 @@ defmodule Project.Repo.Migrations.Wallets do
       add :wallet
       add :status, :wallet_status, null: false, default: "active"
       add :globaluserid, :uuid, null: false
+      add :lockversion, :integer, default: 1
       add :localuserid, references(:userstable, column: :appuserid, type: :uuid, on_delete: :delete_all)
       timestamps()
     end
@@ -17,4 +18,5 @@ defmodule Project.Repo.Migrations.Wallets do
     create unique_index(:walletstable, [:localuserid])
     create unique_index(:walletstable, [:globaluserid])
   end
+
 end

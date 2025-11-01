@@ -1,6 +1,6 @@
 defmodule Actions.Transfer do
 
-  alias Protoserver.TransferReq
+  alias Protoservice.TransferReq
   use GenServer
 @moduledoc """
 This is the file that is responsible for handling transfers of amounts
@@ -10,7 +10,7 @@ This is the file that is responsible for handling transfers of amounts
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 # call this from anywhere else in the application
-  @spec make_transfer(TransferReq.t()) :: %{sucess: boolean(), message: String.t()}
+  @spec make_transfer(TransferReq.t()) :: %{sucess: boolean(), message: String.t()| {}}
   def make_transfer(request) do
     GenServer.call(__MODULE__,{:transfer, request})
   end
@@ -25,6 +25,7 @@ This is the file that is responsible for handling transfers of amounts
   def handle_call({:transfer, request}, _from, state) do
     Process.send_after(self(), :timeout,600_000)
     IO.puts("it has reached the handle call logic", request)
+    IO.puts(state)
 
 
   end

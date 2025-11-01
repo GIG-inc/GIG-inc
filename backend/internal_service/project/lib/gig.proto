@@ -4,6 +4,29 @@ syntax="proto3";
  package protoservice;
 
 // here we should describe the request from the api_gateway
+message create_user_req{
+    string globaluserid =1;
+    string phonenumber= 2;
+    string kycstatus=3;
+    string kyclevel=4;
+    string acceptterms=5;
+    int64 transactionlimit=6;
+    string username=7;
+}
+message create_user_resp{
+    string status=1;
+    optional string message=2;
+    optional changeseterrors errors=3;
+}
+
+message validationerror{
+    string field=1;
+    string message=2;
+}
+message changeseterrors{
+    repeated validationerror errors=1;
+}
+
 message user_account_data_req{
     string id =1;
 }
@@ -84,4 +107,5 @@ service gigservice{
     rpc sale (sale_req) returns(sale_resp);
     rpc history(history_req) returns (history_resp);
     rpc opening(history_req) returns (history_resp);
+    rpc createaccount(create_user_req) returns (create_user_resp);
 }
