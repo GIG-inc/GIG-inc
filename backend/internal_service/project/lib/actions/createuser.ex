@@ -10,17 +10,13 @@ defmodule Actions.Createuser do
   end
 
 
-  def create_user(:createuser, request) do
-    GenServer.call(__MODULE__, {:createuser, request})
-  end
-
   def init(_opts) do
     IO.puts("create user process started")
     Process.send_after(self(), :timeout, 600_000)
-    {:ok,initialuserstate()}
+    {:ok, %Project.User{}}
   end
 
-  def handle_call({:createuser, request }, _from, state) do
+  def handle_call({:createuser, request }, _from, _state) do
     newuser = %Project.User{
       globaluserid: request.globaluser,
       phonenumber: request.phone,
@@ -31,14 +27,29 @@ defmodule Actions.Createuser do
       acceptterms: request.acceptterms,
       username: request.username
     }
-    result = createnewuser(newuser,request)
-    {:reply, result, state}
-  end
-  def initialuserstate() do
-    %Project.User{}
+
+    {response,state} = case createnewuser(newuser,request) do
+      {:ok, message,%Project.User{} = user} ->
+        {%Protoservice.CreateUserResp{
+          status: "ok",
+          message: message
+        }, user}
+      {:inputerror, %Ecto.Changeset{} = changeset} ->
+        errors = Ecto.Changeset.traverse_errors(changeset, fn {msg, _} -> msg end)
+        {%Protoservice.CreateUserResp{
+          status: "error",
+          message: inspect(errors)
+        }, nil}
+      {:userexistserror, msg, %Project.User{} = user} ->
+        {%Protoservice.CreateUserResp{
+          status: "userexisterror",
+          message: msg,
+        }, user}
+    end
+    {:reply, response, state}
   end
 
-  @spec createnewuser(%Project.User{}, %Protoservice.CreateUserReq{}) :: {:ok, String.t()} | {:error, Keyword.t()} | {:error, String.t()}
+  @spec createnewuser(%Project.User{}, %Protoservice.CreateUserReq{}) :: {:ok, String.t(),%Project.User{}} | {:inputerror, Changeset.t()} | {:userexistserror, String.t(), %Project.User{}}
   defp createnewuser(newuser,request) do
     case DatabaseConn.Getuser.checkuser(newuser.globaluserid) do
       {:ok, nil} ->
@@ -50,18 +61,19 @@ defmodule Actions.Createuser do
             case Actions.Createwallet.create_wallet(:createwallet, user,request.wallet) do
               {:ok, wallet = %Project.Wallet{}} ->
                 IO.puts(wallet.walletid)
-                {:ok, "successfully added #{user.username}"}
-              {:error, errorchangeset} ->
+                {:ok, "successfully added #{user.username}",user}
+              {:error, %Changeset{} = errorchangeset} ->
                 IO.puts("error in creating user's wallet #{errorchangeset}")
+                {:error, errorchangeset}
                 # TODO: remember to add a return type here
             end
           {:error, changeset= %Changeset{}} ->
             IO.puts("error creating user: #{inspect(changeset.errors)}")
-            {:error, changeset}
+            {:inputerror, changeset}
         end
       {:error,user = %Project.User{}} ->
         IO.puts("there was a new issue in creating this user #{:error}")
-        {:error, "there is a user with this id #{user.username}"}
+        {:userexistserror, "there is a user with this id #{user.username}", user}
     end
   end
 end

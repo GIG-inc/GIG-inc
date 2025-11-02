@@ -8,6 +8,7 @@ defmodule Actions.Createwallet do
   def init(_init_args) do
     IO.puts("starting the create wallet server")
     Process.send_after(self(), :timeout, 600_000)
+    {:ok, %Project.Wallet{}}
   end
 
   @spec create_wallet(atom(), %Project.User{},%Protoservice.CreateWallet{}) :: any()
@@ -38,10 +39,12 @@ defmodule Actions.Createwallet do
   @impl true
   def handle_info(:timeout, _state) do
     IO.puts("this users wallet is inactive")
+    {:noreply, nil}
   end
   @impl true
   def terminate(:normal, _state) do
     IO.puts("cleaning up before exiting")
+    :ok
   end
 
 end

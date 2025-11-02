@@ -1,43 +1,47 @@
 defmodule Comms.Receiver do
   use GRPC.Server , service: Protoservice.Gigservice.Service
 
-  alias Actions.Createuser
-
-  @spec transfer(Protoservice.TransferReq.t()) :: TransferResp.t()
+  alias GrpcReflection.DynamicSupervisor
+  alias Actions.{Createuser,Transfer}
   # this should be named as the rpc in the service and it should have the same parameter as the rpc and response type
-  def transfer(request) do
-    GRPC.Stream.unary(request)|>
-    GRPC.Stream.map(fn %Protoservice.TransferReq{} ->
-      case Actions.Transfer.make_transfer do
-      # this is for the case the sender does not exist
-      {:msg}  ->
-        IO.puts("sender does not exist #{:msg}")
-      {:ok,:msg} ->
-        IO.puts("success fully updated the amount #{:msg}")
-      {:error, :error_transfer} ->
-        IO.puts("there was an issue updating #{:error_transfer}")
+  @spec transfer(Enumerable.t(), GRPC.Server.Stream.t()) :: :ok
+  def transfer(request, stream) do
+    GRPC.Stream.from(request)
+    |>GRPC.Stream.map(fn req ->
+      userid = req.from_id
+      case Registry.lookup(Project.Dynamicsupervisor, userid) do
+        [{pid, _}] ->
+          GenServer.call(pid, {:transfer, req})
+        [] ->
+          case DynamicSupervisor.start_child(Project.Dynamicsupervisor, {Transfer, name: userid}) do
+            {:ok, pid} ->
+              GenServer.call(pid,{:transfer, req})
+          end
       end
-
     end)
-
-    Transfer.make_transfer(request)
-
+    |> GRPC.Stream.run_with(stream)
   end
-  alias Protoservice.{CreateUserReq, CreateUserResp}
-  @spec createaccount(Protoservice.CreateUserReq.t(), any()) :: any()
-  def createaccount(%CreateUserReq{} = newuserdetails,_stream) do
-   GRPC.Stream.unary(newuserdetails)
-   |>GRPC.Stream.map(fn %CreateUserReq{} = req ->
-      case Createuser.create_user(:createuser, req) do
-        {:ok, message = %Project.User{}} ->
-          %CreateUserResp{status: :ok, message: message}
-        {:error, errors} ->
-           message = Ecto.Changeset.traverse_errors(errors, fn {msg, _opt} -> msg  end)
-          %CreateUserResp{status: :error, message: message}
+  alias Protoservice.{CreateUserResp}
+  @spec createaccount(Enumerable.t(), GRPC.Server.Stream.t()) :: :ok
+  def createaccount(request,stream) do
+   GRPC.Stream.from(request)
+   |> GRPC.Stream.map(fn req->
+      case Registry.lookup(Project.Registry, req.globaluserid) do
+        [{pid,_}] ->
+          GenServer.call(pid, {:createuser, req})
+        [] ->
+          case DynamicSupervisor.start_child(Project.Dynamicsupervisor, {Createuser, name: req.globaluserid}) do
+            {:ok, pid} ->
+              GenServer.call(pid,{:createuser, req})
+            {:error, message} ->
+              IO.puts("error iko hapa #{message}" )
+              %CreateUserResp{
+                status: "error",
+                message: "error creating process"
+              }
+          end
       end
     end)
-  |>GRPC.Stream.run()
+  |>GRPC.Stream.run_with(stream)
    end
-
-
 end

@@ -1,18 +1,12 @@
 defmodule Actions.Transfer do
 
-  alias Protoservice.TransferReq
   use GenServer
 @moduledoc """
 This is the file that is responsible for handling transfers of amounts
 """
 # call this on server start
-  def start_link(_opts) do
-    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
-  end
-# call this from anywhere else in the application
-  @spec make_transfer(TransferReq.t()) :: %{sucess: boolean(), message: String.t()| {}}
-  def make_transfer(request) do
-    GenServer.call(__MODULE__,{:transfer, request})
+  def start_link(opts) do
+    GenServer.start_link(__MODULE__, %{},opts)
   end
 
   # TODO: we must pass state when initializing it
@@ -27,8 +21,41 @@ This is the file that is responsible for handling transfers of amounts
   def handle_call({:transfer, request}, _from, _state) do
     Process.send_after(self(), :timeout,600_000)
     IO.puts("it has reached the handle call logic #{request}")
-    transfer_logic(request)
+    {response, state} = case transfer_logic(request) do
+      {:errorsenderdoesnotexist, msg} ->
+        {%Protoservice.TransferResp{
+          from: nil,
+          to: nil,
+          gold_amount: nil,
+          money_amount: nil,
+          success: false,
+          reason: msg
+        }, nil}
+      {:inadequateamounterror, msg} ->
+        {%Protoservice.TransferResp{
+          from: nil,
+          to: nil,
+          gold_amount: nil,
+          money_amount: nil,
+          success: false,
+          reason: msg
+        }, nil}
+      {:receivernotfounderror, msg} ->
+        {%Protoservice.TransferResp{
+          from: nil,
+          to: nil,
+          gold_amount: nil,
+          money_amount: nil,
+          success: false,
+          reason: msg
+        }, nil}
+      {:ok, result} ->
+        IO.puts("successfully completed the transfer #{result}")
+      {:error, result} ->
+        IO.puts("error in completing the transfer #{result}")
+    end
 
+    {:reply, response, state}
   end
 
   @impl true
@@ -44,7 +71,8 @@ This is the file that is responsible for handling transfers of amounts
     # here we put the code for saving the users state and saving sort of adding it to events
   end
 
-  @spec transfer_logic(%Protoservice.TransferReq{}) :: any()
+  @spec transfer_logic(%Protoservice.TransferReq{}) :: {:errorsenderdoesnotexist,String.t()} |{:receivernotfounderror, String.t()}|{:inadequateamounterror, String.t()} | {:ok, any()} | {:error, any()}
+
   defp transfer_logic(transfer) do
     # first check if the user exists
     # second then check the transfers balance
@@ -52,7 +80,7 @@ This is the file that is responsible for handling transfers of amounts
     # this is to check that the sender exists
     case user do
       nil ->
-        {:reply, "The transfer was not found" = :msg}
+        {:errorsenderdoesnotexist, "You do not have a wallet"}
       sender ->
         # this is to check if the sender has enough funds to execute the transaction
         case sender.wallet.goldbalance > transfer.gold_amount.amount do
@@ -60,13 +88,13 @@ This is the file that is responsible for handling transfers of amounts
           # this is to check that the receiver exists
           case Project.Repo.get(Project.User, transfer.to_id)|>Project.Repo.preload(:wallet) do
             nil ->
-              {:reply, "The reciever does not exist" = :msg}
+              {:receivernotfounderror, "The reciever does not exist"}
             receiver ->
               # here we send the sender and receiver to the transfer function
               transfer_gold(sender, receiver, transfer.gold_amount)
           end
         false ->
-          {:reply, "The transfer is not possible please select a lower amount or top up" = :msg}
+          {:inadequateamounterror, "The transfer is not possible please select a lower amount or top up you working balance is #{user.wallet.goldbalance}" }
         end
     end
   end
@@ -76,17 +104,17 @@ This is the file that is responsible for handling transfers of amounts
     # USE project.Repo.transaction
     # subtract said amount from the sender
     # add said amount to the receiver
-    Project.Repo.transact( fn sender,reciever, amount ->
+    Project.Repo.transact( fn ->
       # sender's part of the execution
       senderwallet = sender.wallet
       newsenderbalance = senderwallet.goldbalance - amount
       senderchangeset = Project.Wallet.updateuserchangeset(senderwallet, %{goldbalance: newsenderbalance})
-      Project.Repo.update(Project.Wallet, senderchangeset)
+      Project.Repo.update(senderchangeset)
 
       receiverwallet = reciever.wallet
       newreceiverbalance = receiverwallet.goldbalance + amount
       receiverchangeset = Project.Wallet.updateuserchangeset(receiverwallet, %{goldbalance: newreceiverbalance})
-      Project.Repo.update(Project.Wallet,receiverchangeset)
+      Project.Repo.update(receiverchangeset)
     end)
 
   end

@@ -11,7 +11,7 @@ defmodule Project.Wallet do
     field :lockversion, :integer, default: 0
     belongs_to :user, Project.User, foreign_key: :localuserid,references: :localuserid, type: :binary_id
   end
-  def updateuserchangeset(%Project.Wallet{} = wallet, params \\{}) do
+  def updateuserchangeset(%Project.Wallet{} = wallet, params \\%{}) do
     wallet
     |> cast(params, [:goldbalance, :cashbalance])
     |>Ecto.Changeset.optimistic_lock(:lockversion)

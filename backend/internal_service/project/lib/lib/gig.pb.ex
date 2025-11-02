@@ -173,7 +173,7 @@ defmodule Protoservice.Gigservice.Service do
 
   rpc :account_details, Protoservice.UserAccountDataReq, Protoservice.UserDataResp
 
-  rpc :transfer, Protoservice.TransferReq, Protoservice.TransferResp
+  rpc :transfer, stream(Protoservice.TransferReq), stream(Protoservice.TransferResp)
 
   rpc :sale, Protoservice.SaleReq, Protoservice.SaleResp
 
@@ -181,7 +181,7 @@ defmodule Protoservice.Gigservice.Service do
 
   rpc :opening, Protoservice.HistoryReq, Protoservice.HistoryResp
 
-  rpc :createaccount, Protoservice.CreateUserReq, Protoservice.CreateUserResp
+  rpc :createaccount, stream(Protoservice.CreateUserReq), stream(Protoservice.CreateUserResp)
 end
 
 defmodule Protoservice.Gigservice.Stub do

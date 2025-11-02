@@ -108,9 +108,9 @@ message amounts{
 }
 service gigservice{
     rpc account_details(user_account_data_req) returns (user_data_resp);
-    rpc transfer(transfer_req)returns (transfer_resp);
+    rpc transfer(stream transfer_req)returns (stream transfer_resp);
     rpc sale (sale_req) returns(sale_resp);
     rpc history(history_req) returns (history_resp);
     rpc opening(history_req) returns (history_resp);
-    rpc createaccount(create_user_req) returns (create_user_resp);
+    rpc createaccount(stream create_user_req) returns (stream create_user_resp);
 }
