@@ -15,7 +15,7 @@ defmodule Project.User do
     field :accountstatus,Ecto.Enum, values: [:active, :inactive, :banned], default: :active
     field :acceptterms, :boolean, virtual: true, default: false
     field :hasacceptedterms, :boolean, default: false
-    has_one :wallet, Project.Wallet
+    has_one :wallet, Project.Wallet, foreign_key: :localuserid
     timestamps()
   end
   def createuserchangeset(%Project.User{} = newuser) do
@@ -30,6 +30,7 @@ defmodule Project.User do
     |>validate_several_strings([:phonenumber,:username])
     |>Ecto.Changeset.put_change(:hasacceptedterms, true)
   end
+
 
   # updateuser
 

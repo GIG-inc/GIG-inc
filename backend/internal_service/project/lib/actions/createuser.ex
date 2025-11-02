@@ -1,6 +1,5 @@
 defmodule Actions.Createuser do
   alias Ecto.Changeset
-  alias Protoservice.{CreateUserReq, CreateUserResp}
   alias Project.{User, Repo}
 
   use GenServer
@@ -11,7 +10,6 @@ defmodule Actions.Createuser do
   end
 
 
-  @spec create_user(atom(), CreateUserReq.t()) :: CreateUserResp.t()
   def create_user(:createuser, request) do
     GenServer.call(__MODULE__, {:createuser, request})
   end
@@ -55,10 +53,11 @@ defmodule Actions.Createuser do
                 {:ok, "successfully added #{user.username}"}
               {:error, errorchangeset} ->
                 IO.puts("error in creating user's wallet #{errorchangeset}")
+                # TODO: remember to add a return type here
             end
           {:error, changeset= %Changeset{}} ->
             IO.puts("error creating user: #{inspect(changeset.errors)}")
-            {:error, changeset.errors}
+            {:error, changeset}
         end
       {:error,user = %Project.User{}} ->
         IO.puts("there was a new issue in creating this user #{:error}")
