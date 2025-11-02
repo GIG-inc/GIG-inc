@@ -10,3 +10,10 @@ Enable transfer
             initiate the transfer process(deducting from sender and adding to receiver and make sure it is an atomic transaction)
             update the user dashboard 
     store it in the registry
+
+logic to do
+wallet 
+transfer
+
+finished 
+create user

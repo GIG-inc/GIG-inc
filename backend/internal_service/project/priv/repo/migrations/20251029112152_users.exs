@@ -6,7 +6,6 @@ defmodule Project.Repo.Migrations.Users do
     execute "create type kycstatus as enum('registered', 'pending','rejected', 'not_available')"
     execute "create type kyclevel as enum('standard', 'advanced', 'pro')"
     create table(:userstable, primary_key: false) do
-      add :localuserid, :uuid, primary_key: true, null: false
       add :globaluserid, :uuid, null: false
       add :fullname, :string, null: false
       add :phonenumber, :string, null: false

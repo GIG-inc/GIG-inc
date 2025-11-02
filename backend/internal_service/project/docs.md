@@ -7,4 +7,4 @@ transfer,
 createaccount(includes create wallet),
 buyinggold
 saleofgold
-addedamount
+addedamount (mark)

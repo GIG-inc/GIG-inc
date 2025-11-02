@@ -3,19 +3,36 @@ defmodule Project.User do
   alias Ecto.Changeset
   use Ecto.Schema
   import Changeset
-  @primary_key{:appuserid, :binary_id, autogenerate: true}
+  # change set is some type of recorder for actions happening in the process of processing User
+  @primary_key{:localuserid, :binary_id, autogenerate: true}
   schema "user" do
-    field :localuserid, :binary_id
     field :globaluserid, :binary_id
     field :phonenumber, :string
+    field :username, :string
     field :kycstatus, Ecto.Enum, values: [:registered, :pending, :rejected, :not_available], default: :not_available
-    field :kyclevel, :string, Ecto.Enum, values: [:standard, :advanced, :pro], default: :standard
-    field :transactionlimit, :string
-    field :accountstatus, values: [:active, :inactive, :banned], default: :active
-    field :acceptterms, :boolean, virtual: true
+    field :kyclevel,  Ecto.Enum, values: [:standard, :advanced, :pro], default: :standard
+    field :transactionlimit, :integer, default: 0
+    field :accountstatus,Ecto.Enum, values: [:active, :inactive, :banned], default: :active
+    field :acceptterms, :boolean, virtual: true, default: false
     field :hasacceptedterms, :boolean, default: false
+    has_one :wallet, Project.Wallet, foreign_key: :localuserid
     timestamps()
   end
+  def createuserchangeset(%Project.User{} = newuser) do
+    newuser
+    # change wraps the data in a changeset
+    |>Ecto.Changeset.change()
+    # |>cast(newuser, [:globaluserid, :phonenumber, :kycstatus, :kyclevel, :transactionlimit, :accountstatus, :acceptterms, :username])
+    |>Ecto.Changeset.validate_required([:globaluserid, :phonenumber, :kycstatus, :kyclevel, :acceptterms, :username])
+    |>Ecto.Changeset.validate_change(:acceptterms, fn :acceptterms, value ->
+      if value == false, do: [acceptterms: "you must accept term and conditions"]
+    end)
+    |>validate_several_strings([:phonenumber,:username])
+    |>Ecto.Changeset.put_change(:hasacceptedterms, true)
+  end
+
+
+  # updateuser
 
   @type t :: %__MODULE__{
     localuserid: Ecto.UUID.t(),
@@ -23,9 +40,24 @@ defmodule Project.User do
     phonenumber: String.t(),
     kycstatus: atom(),
     kyclevel: atom(),
-    transctionlimit: String.t(),
+    username: String.t(),
+    transactionlimit: integer(),
     accountstatus: atom(),
     hasacceptedterms: boolean(),
   }
+  def validate_safe_string(changeset, field) do
+    validate_change(changeset, field, fn _,value ->
+      if String.match?(value,  ~r/<script|select|insert|update|delete|drop|alter|--|;|exec|union/i) do
+        [{:error, field, "contains potentially malicious code"}]
+      else
+        []
+      end
+    end)
+  end
 
+  def validate_several_strings(changeset, fields) when is_list(fields) do
+    Enum.reduce(fields,changeset, fn field, acc ->
+      validate_safe_string(acc, field)
+    end)
+  end
 end

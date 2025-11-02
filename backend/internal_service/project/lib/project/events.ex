@@ -4,7 +4,7 @@ defmodule Project.Events do
     schema "events" do
       field :eventid, :binary_id
       field :aggregateid, :binary_id
-      field :aggregatetype, values: [
+      field :aggregatetype, Ecto.Enum, values: [
       :fundsdepositcashinitiated,
       :fundsdepositcashcompleted,
       :fundswithrawalinitiated,
@@ -24,7 +24,7 @@ defmodule Project.Events do
       :kycchanged,
       :walletcreated
       ]
-      field :eventtype, values: [:wallet, :user, :transfer, :kyc]
+      field :eventtype,Ecto.Enum,  values: [:wallet, :user, :transfer, :kyc]
       field :metadata, :map
       field :sequencenumber, :integer
    end

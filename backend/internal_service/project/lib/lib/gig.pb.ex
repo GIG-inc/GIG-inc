@@ -1,3 +1,54 @@
+defmodule Protoservice.CreateUserReq do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :globaluserid, 1, type: :string
+  field :phonenumber, 2, type: :string
+  field :kycstatus, 3, type: :string
+  field :kyclevel, 4, type: :string
+  field :acceptterms, 5, type: :string
+  field :transactionlimit, 6, type: :int64
+  field :username, 7, type: :string
+  field :wallet, 8, type: Protoservice.CreateWallet
+end
+
+defmodule Protoservice.CreateWallet do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :cashbalance, 1, type: :string
+  field :goldbalance, 2, type: :string
+end
+
+defmodule Protoservice.CreateUserResp do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :status, 1, type: :string
+  field :message, 2, proto3_optional: true, type: :string
+  field :errors, 3, proto3_optional: true, type: Protoservice.Changeseterrors
+end
+
+defmodule Protoservice.Validationerror do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :field, 1, type: :string
+  field :message, 2, type: :string
+end
+
+defmodule Protoservice.Changeseterrors do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :errors, 1, repeated: true, type: Protoservice.Validationerror
+end
+
 defmodule Protoservice.UserAccountDataReq do
   @moduledoc false
 
@@ -122,13 +173,15 @@ defmodule Protoservice.Gigservice.Service do
 
   rpc :account_details, Protoservice.UserAccountDataReq, Protoservice.UserDataResp
 
-  rpc :transfer, Protoservice.TransferReq, Protoservice.TransferResp
+  rpc :transfer, stream(Protoservice.TransferReq), stream(Protoservice.TransferResp)
 
   rpc :sale, Protoservice.SaleReq, Protoservice.SaleResp
 
   rpc :history, Protoservice.HistoryReq, Protoservice.HistoryResp
 
   rpc :opening, Protoservice.HistoryReq, Protoservice.HistoryResp
+
+  rpc :createaccount, stream(Protoservice.CreateUserReq), stream(Protoservice.CreateUserResp)
 end
 
 defmodule Protoservice.Gigservice.Stub do

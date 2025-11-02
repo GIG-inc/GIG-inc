@@ -2,13 +2,13 @@ defmodule Project.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
-alias ElixirLS.LanguageServer.DialyzerIncremental
 
   use Application
 
   @impl true
   def start(_type, _args) do
     children = [
+      {Registry, keys: :unique, name: Project.Registry},
       Project.Repo,
       {DynamicSupervisor, name: Project.Dynamicsupervisor, strategy: :one_for_one}
     ]
