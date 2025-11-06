@@ -13,12 +13,12 @@ type Create_user struct {
 	Password string `json:"password" validate:"required, min=8, max=30, passwd"`
 }
 
-func (user *Create_user) Validate_input(input *Create_user) error {
+func (user *Create_user) Validate_input() error {
 	validate := validator.New()
 	validate.RegisterValidation("paswd", func(fl validator.FieldLevel) bool {
 		password := fl.Field().String()
 		re := regexp.MustCompile(`^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$`)
 		return re.MatchString(password)
 	})
-	return validate.Struct(input)
+	return validate.Struct(user)
 }
