@@ -40,4 +40,21 @@ func Routes(router *mux.Router) {
 		}
 		config.Logger.Printf("reached create user api")
 	})
+	router.HandleFunc("/api/login", func(w http.ResponseWriter, r *http.Request) {
+		var login *types.Login
+		json.NewDecoder(r.Body).Decode(&login)
+
+		// first receive
+	})
+
+	router.HandleFunc("/api/createtransfer", func(w http.ResponseWriter, r *http.Request) {
+		// TODO: first receive the data from the user end
+		var transferreq *types.Transfer
+		json.NewDecoder(r.Body).Decode(&transferreq)
+		handlers.Handletransfer(transferreq)
+		//TODO: verify the user data from the front end(
+		// check if user is logged in
+		// )
+
+	})
 }

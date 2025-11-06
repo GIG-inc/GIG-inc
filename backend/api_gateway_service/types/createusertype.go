@@ -1,9 +1,11 @@
 package types
 
 import (
+	"gateway/config"
 	"regexp"
 
 	"github.com/go-playground/validator/v10"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type Create_user struct {
@@ -21,4 +23,17 @@ func (user *Create_user) Validate_input() error {
 		return re.MatchString(password)
 	})
 	return validate.Struct(user)
+}
+
+func (user *Create_user) hashpassword() (errortype, []byte) {
+	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	if err != nil {
+		config.Logger.Printf("There was an error generating the password: %s", err.Error())
+		return errortype{
+			errtype: "hashpassword",
+			aerr:    err,
+		}, nil
+	}
+	return errortype{}, hash
+
 }
