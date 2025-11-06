@@ -11,5 +11,5 @@ type Transfer struct {
 
 func (transfer *Transfer) Checktransfer() Errortype {
 	validate := validator.New()
-	return Errortype{errtype: "validationerror", aerr: validate.Struct(transfer)}
+	return Errortype{Errtype: "validationerror", Aerr: validate.Struct(transfer)}
 }

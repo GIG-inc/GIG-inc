@@ -1,13 +1,13 @@
 package types
 
 type Errortype struct {
-	errtype string
-	aerr    error
+	Errtype string
+	Aerr    error
 }
 
 func (err *Errortype) Check() (bool, string) {
-	if err.aerr != nil {
-		return true, err.aerr.Error()
+	if err.Aerr != nil {
+		return true, err.Aerr.Error()
 	}
 	return false, ""
 }

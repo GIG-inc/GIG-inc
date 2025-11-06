@@ -10,7 +10,7 @@ type Login struct {
 func (login *Login) Validation() Errortype {
 	validate := validator.New()
 	return Errortype{
-		errtype: "validationerr",
-		aerr:    validate.Struct(login),
+		Errtype: "validationerr",
+		Aerr:    validate.Struct(login),
 	}
 }

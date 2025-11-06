@@ -48,12 +48,32 @@ func Routes(router *mux.Router) {
 	})
 
 	router.HandleFunc("/api/createtransfer", func(w http.ResponseWriter, r *http.Request) {
-		// TODO: first receive the data from the user end
+		// first receive the data from the user end
 		var transferreq *types.Transfer
+		token := r.Header.Get("Authorization")[7:]
+		//  check if the user is logged
+		claim, err := config.Validate_token(token)
+		if bool, _ := err.Check(); bool {
+			http.Error(
+				w,
+				"Please login again to attempt a transfer",
+				http.StatusBadRequest,
+			)
+		}
+		//  check for the user in redis(at this point the token has not been tampered with)
+		// TODO: remember to extend the user's session with every request
+		client, ctx := config.Redis_conn()
+		val, geterr := client.Get(ctx, claim.ID).Result()
+		if geterr != nil {
+			http.Error(
+				w,
+				"Your sesion has expired",
+				http.StatusBadRequest,
+			)
+		}
 		json.NewDecoder(r.Body).Decode(&transferreq)
 		handlers.Handletransfer(transferreq)
 		//TODO: verify the user data from the front end(
-		// check if user is logged in
 		// )
 
 	})
