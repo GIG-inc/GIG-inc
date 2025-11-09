@@ -1,6 +1,6 @@
 syntax="proto3";
 
-option go_package= "gateway/types/genrated/gateway";
+option go_package= "./proto";
 // here we should describe the request from the api_gateway
 message create_user_req{
     string globaluserid =1;

@@ -1,20 +1,21 @@
 package main
 
 import (
-	"gateway/config"
 	"gateway/routes"
-	"github.com/gorilla/mux"
-	"github.com/lpernett/godotenv"
+	"gateway/types"
 	"net/http"
 	"os"
+
+	"github.com/gorilla/mux"
+	"github.com/lpernett/godotenv"
 )
 
 func main() {
-	config.Initlogger()
-	config.Logger.Println("server starting")
+	types.Initlogger()
+	types.Logger.Println("server starting")
 	err := godotenv.Load("./.env")
 	if err != nil {
-		config.Logger.Printf(config.Gototenvloaderror, err)
+		types.Logger.Printf(types.Gototenvloaderror, err)
 	}
 	port := os.Getenv("PORT")
 	r := mux.NewRouter()

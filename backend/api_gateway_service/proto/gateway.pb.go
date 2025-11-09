@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v3.21.12
-// source: types/gateway.proto
+// source: proto/gateway.proto
 
-package gateway
+package proto
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -38,7 +38,7 @@ type CreateUserReq struct {
 
 func (x *CreateUserReq) Reset() {
 	*x = CreateUserReq{}
-	mi := &file_types_gateway_proto_msgTypes[0]
+	mi := &file_proto_gateway_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -50,7 +50,7 @@ func (x *CreateUserReq) String() string {
 func (*CreateUserReq) ProtoMessage() {}
 
 func (x *CreateUserReq) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[0]
+	mi := &file_proto_gateway_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -63,7 +63,7 @@ func (x *CreateUserReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserReq.ProtoReflect.Descriptor instead.
 func (*CreateUserReq) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{0}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *CreateUserReq) GetGlobaluserid() string {
@@ -132,7 +132,7 @@ type CreateWallet struct {
 
 func (x *CreateWallet) Reset() {
 	*x = CreateWallet{}
-	mi := &file_types_gateway_proto_msgTypes[1]
+	mi := &file_proto_gateway_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -144,7 +144,7 @@ func (x *CreateWallet) String() string {
 func (*CreateWallet) ProtoMessage() {}
 
 func (x *CreateWallet) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[1]
+	mi := &file_proto_gateway_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -157,7 +157,7 @@ func (x *CreateWallet) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateWallet.ProtoReflect.Descriptor instead.
 func (*CreateWallet) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{1}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *CreateWallet) GetCashbalance() string {
@@ -185,7 +185,7 @@ type CreateUserResp struct {
 
 func (x *CreateUserResp) Reset() {
 	*x = CreateUserResp{}
-	mi := &file_types_gateway_proto_msgTypes[2]
+	mi := &file_proto_gateway_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -197,7 +197,7 @@ func (x *CreateUserResp) String() string {
 func (*CreateUserResp) ProtoMessage() {}
 
 func (x *CreateUserResp) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[2]
+	mi := &file_proto_gateway_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -210,7 +210,7 @@ func (x *CreateUserResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserResp.ProtoReflect.Descriptor instead.
 func (*CreateUserResp) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{2}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *CreateUserResp) GetStatus() string {
@@ -244,7 +244,7 @@ type Validationerror struct {
 
 func (x *Validationerror) Reset() {
 	*x = Validationerror{}
-	mi := &file_types_gateway_proto_msgTypes[3]
+	mi := &file_proto_gateway_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -256,7 +256,7 @@ func (x *Validationerror) String() string {
 func (*Validationerror) ProtoMessage() {}
 
 func (x *Validationerror) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[3]
+	mi := &file_proto_gateway_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -269,7 +269,7 @@ func (x *Validationerror) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Validationerror.ProtoReflect.Descriptor instead.
 func (*Validationerror) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{3}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *Validationerror) GetField() string {
@@ -295,7 +295,7 @@ type Changeseterrors struct {
 
 func (x *Changeseterrors) Reset() {
 	*x = Changeseterrors{}
-	mi := &file_types_gateway_proto_msgTypes[4]
+	mi := &file_proto_gateway_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -307,7 +307,7 @@ func (x *Changeseterrors) String() string {
 func (*Changeseterrors) ProtoMessage() {}
 
 func (x *Changeseterrors) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[4]
+	mi := &file_proto_gateway_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -320,7 +320,7 @@ func (x *Changeseterrors) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Changeseterrors.ProtoReflect.Descriptor instead.
 func (*Changeseterrors) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{4}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *Changeseterrors) GetErrors() []*Validationerror {
@@ -339,7 +339,7 @@ type UserAccountDataReq struct {
 
 func (x *UserAccountDataReq) Reset() {
 	*x = UserAccountDataReq{}
-	mi := &file_types_gateway_proto_msgTypes[5]
+	mi := &file_proto_gateway_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -351,7 +351,7 @@ func (x *UserAccountDataReq) String() string {
 func (*UserAccountDataReq) ProtoMessage() {}
 
 func (x *UserAccountDataReq) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[5]
+	mi := &file_proto_gateway_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -364,7 +364,7 @@ func (x *UserAccountDataReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserAccountDataReq.ProtoReflect.Descriptor instead.
 func (*UserAccountDataReq) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{5}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *UserAccountDataReq) GetId() string {
@@ -386,7 +386,7 @@ type TransferReq struct {
 
 func (x *TransferReq) Reset() {
 	*x = TransferReq{}
-	mi := &file_types_gateway_proto_msgTypes[6]
+	mi := &file_proto_gateway_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -398,7 +398,7 @@ func (x *TransferReq) String() string {
 func (*TransferReq) ProtoMessage() {}
 
 func (x *TransferReq) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[6]
+	mi := &file_proto_gateway_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -411,7 +411,7 @@ func (x *TransferReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TransferReq.ProtoReflect.Descriptor instead.
 func (*TransferReq) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{6}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *TransferReq) GetFromId() string {
@@ -454,7 +454,7 @@ type SaleReq struct {
 
 func (x *SaleReq) Reset() {
 	*x = SaleReq{}
-	mi := &file_types_gateway_proto_msgTypes[7]
+	mi := &file_proto_gateway_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -466,7 +466,7 @@ func (x *SaleReq) String() string {
 func (*SaleReq) ProtoMessage() {}
 
 func (x *SaleReq) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[7]
+	mi := &file_proto_gateway_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -479,7 +479,7 @@ func (x *SaleReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SaleReq.ProtoReflect.Descriptor instead.
 func (*SaleReq) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{7}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *SaleReq) GetFromId() string {
@@ -518,7 +518,7 @@ type OpeningReq struct {
 
 func (x *OpeningReq) Reset() {
 	*x = OpeningReq{}
-	mi := &file_types_gateway_proto_msgTypes[8]
+	mi := &file_proto_gateway_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -530,7 +530,7 @@ func (x *OpeningReq) String() string {
 func (*OpeningReq) ProtoMessage() {}
 
 func (x *OpeningReq) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[8]
+	mi := &file_proto_gateway_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -543,7 +543,7 @@ func (x *OpeningReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpeningReq.ProtoReflect.Descriptor instead.
 func (*OpeningReq) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{8}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{8}
 }
 
 type HistoryReq struct {
@@ -554,7 +554,7 @@ type HistoryReq struct {
 
 func (x *HistoryReq) Reset() {
 	*x = HistoryReq{}
-	mi := &file_types_gateway_proto_msgTypes[9]
+	mi := &file_proto_gateway_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -566,7 +566,7 @@ func (x *HistoryReq) String() string {
 func (*HistoryReq) ProtoMessage() {}
 
 func (x *HistoryReq) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[9]
+	mi := &file_proto_gateway_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -579,7 +579,7 @@ func (x *HistoryReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HistoryReq.ProtoReflect.Descriptor instead.
 func (*HistoryReq) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{9}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{9}
 }
 
 // request i am thinking should be values like get_account_amount(account_details)
@@ -598,7 +598,7 @@ type UserDataResp struct {
 
 func (x *UserDataResp) Reset() {
 	*x = UserDataResp{}
-	mi := &file_types_gateway_proto_msgTypes[10]
+	mi := &file_proto_gateway_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -610,7 +610,7 @@ func (x *UserDataResp) String() string {
 func (*UserDataResp) ProtoMessage() {}
 
 func (x *UserDataResp) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[10]
+	mi := &file_proto_gateway_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -623,7 +623,7 @@ func (x *UserDataResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserDataResp.ProtoReflect.Descriptor instead.
 func (*UserDataResp) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{10}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *UserDataResp) GetGoldAmount() *Amounts {
@@ -655,7 +655,7 @@ type SaleResp struct {
 
 func (x *SaleResp) Reset() {
 	*x = SaleResp{}
-	mi := &file_types_gateway_proto_msgTypes[11]
+	mi := &file_proto_gateway_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -667,7 +667,7 @@ func (x *SaleResp) String() string {
 func (*SaleResp) ProtoMessage() {}
 
 func (x *SaleResp) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[11]
+	mi := &file_proto_gateway_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -680,7 +680,7 @@ func (x *SaleResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SaleResp.ProtoReflect.Descriptor instead.
 func (*SaleResp) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{11}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *SaleResp) GetId() string {
@@ -748,7 +748,7 @@ type TransferResp struct {
 
 func (x *TransferResp) Reset() {
 	*x = TransferResp{}
-	mi := &file_types_gateway_proto_msgTypes[12]
+	mi := &file_proto_gateway_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -760,7 +760,7 @@ func (x *TransferResp) String() string {
 func (*TransferResp) ProtoMessage() {}
 
 func (x *TransferResp) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[12]
+	mi := &file_proto_gateway_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -773,7 +773,7 @@ func (x *TransferResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TransferResp.ProtoReflect.Descriptor instead.
 func (*TransferResp) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{12}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *TransferResp) GetTranserId() string {
@@ -836,7 +836,7 @@ type OpeningResp struct {
 
 func (x *OpeningResp) Reset() {
 	*x = OpeningResp{}
-	mi := &file_types_gateway_proto_msgTypes[13]
+	mi := &file_proto_gateway_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -848,7 +848,7 @@ func (x *OpeningResp) String() string {
 func (*OpeningResp) ProtoMessage() {}
 
 func (x *OpeningResp) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[13]
+	mi := &file_proto_gateway_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -861,7 +861,7 @@ func (x *OpeningResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpeningResp.ProtoReflect.Descriptor instead.
 func (*OpeningResp) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{13}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *OpeningResp) GetAmount() *Amounts {
@@ -887,7 +887,7 @@ type HistoryResp struct {
 
 func (x *HistoryResp) Reset() {
 	*x = HistoryResp{}
-	mi := &file_types_gateway_proto_msgTypes[14]
+	mi := &file_proto_gateway_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -899,7 +899,7 @@ func (x *HistoryResp) String() string {
 func (*HistoryResp) ProtoMessage() {}
 
 func (x *HistoryResp) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[14]
+	mi := &file_proto_gateway_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -912,7 +912,7 @@ func (x *HistoryResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HistoryResp.ProtoReflect.Descriptor instead.
 func (*HistoryResp) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{14}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *HistoryResp) GetRequest() []*History {
@@ -936,7 +936,7 @@ type History struct {
 
 func (x *History) Reset() {
 	*x = History{}
-	mi := &file_types_gateway_proto_msgTypes[15]
+	mi := &file_proto_gateway_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -948,7 +948,7 @@ func (x *History) String() string {
 func (*History) ProtoMessage() {}
 
 func (x *History) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[15]
+	mi := &file_proto_gateway_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -961,7 +961,7 @@ func (x *History) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use History.ProtoReflect.Descriptor instead.
 func (*History) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{15}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *History) GetOpeningDate() string {
@@ -1015,7 +1015,7 @@ type Amounts struct {
 
 func (x *Amounts) Reset() {
 	*x = Amounts{}
-	mi := &file_types_gateway_proto_msgTypes[16]
+	mi := &file_proto_gateway_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1027,7 +1027,7 @@ func (x *Amounts) String() string {
 func (*Amounts) ProtoMessage() {}
 
 func (x *Amounts) ProtoReflect() protoreflect.Message {
-	mi := &file_types_gateway_proto_msgTypes[16]
+	mi := &file_proto_gateway_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1040,7 +1040,7 @@ func (x *Amounts) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Amounts.ProtoReflect.Descriptor instead.
 func (*Amounts) Descriptor() ([]byte, []int) {
-	return file_types_gateway_proto_rawDescGZIP(), []int{16}
+	return file_proto_gateway_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *Amounts) GetAmount() int64 {
@@ -1050,11 +1050,11 @@ func (x *Amounts) GetAmount() int64 {
 	return 0
 }
 
-var File_types_gateway_proto protoreflect.FileDescriptor
+var File_proto_gateway_proto protoreflect.FileDescriptor
 
-const file_types_gateway_proto_rawDesc = "" +
+const file_proto_gateway_proto_rawDesc = "" +
 	"\n" +
-	"\x13types/gateway.proto\"\xa3\x02\n" +
+	"\x13proto/gateway.proto\"\xa3\x02\n" +
 	"\x0fcreate_user_req\x12\"\n" +
 	"\fglobaluserid\x18\x01 \x01(\tR\fglobaluserid\x12 \n" +
 	"\vphonenumber\x18\x02 \x01(\tR\vphonenumber\x12\x1c\n" +
@@ -1148,22 +1148,22 @@ const file_types_gateway_proto_rawDesc = "" +
 	".sale_resp\x12&\n" +
 	"\ahistory\x12\f.history_req\x1a\r.history_resp\x12&\n" +
 	"\aopening\x12\f.history_req\x1a\r.history_resp\x128\n" +
-	"\rcreateaccount\x12\x10.create_user_req\x1a\x11.create_user_resp(\x010\x01B Z\x1egateway/types/genrated/gatewayb\x06proto3"
+	"\rcreateaccount\x12\x10.create_user_req\x1a\x11.create_user_resp(\x010\x01B\tZ\a./protob\x06proto3"
 
 var (
-	file_types_gateway_proto_rawDescOnce sync.Once
-	file_types_gateway_proto_rawDescData []byte
+	file_proto_gateway_proto_rawDescOnce sync.Once
+	file_proto_gateway_proto_rawDescData []byte
 )
 
-func file_types_gateway_proto_rawDescGZIP() []byte {
-	file_types_gateway_proto_rawDescOnce.Do(func() {
-		file_types_gateway_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_types_gateway_proto_rawDesc), len(file_types_gateway_proto_rawDesc)))
+func file_proto_gateway_proto_rawDescGZIP() []byte {
+	file_proto_gateway_proto_rawDescOnce.Do(func() {
+		file_proto_gateway_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_proto_gateway_proto_rawDesc), len(file_proto_gateway_proto_rawDesc)))
 	})
-	return file_types_gateway_proto_rawDescData
+	return file_proto_gateway_proto_rawDescData
 }
 
-var file_types_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_types_gateway_proto_goTypes = []any{
+var file_proto_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_proto_gateway_proto_goTypes = []any{
 	(*CreateUserReq)(nil),      // 0: create_user_req
 	(*CreateWallet)(nil),       // 1: create_wallet
 	(*CreateUserResp)(nil),     // 2: create_user_resp
@@ -1182,7 +1182,7 @@ var file_types_gateway_proto_goTypes = []any{
 	(*History)(nil),            // 15: history
 	(*Amounts)(nil),            // 16: amounts
 }
-var file_types_gateway_proto_depIdxs = []int32{
+var file_proto_gateway_proto_depIdxs = []int32{
 	1,  // 0: create_user_req.wallet:type_name -> create_wallet
 	4,  // 1: create_user_resp.errors:type_name -> changeseterrors
 	3,  // 2: changeseterrors.errors:type_name -> validationerror
@@ -1220,29 +1220,29 @@ var file_types_gateway_proto_depIdxs = []int32{
 	0,  // [0:18] is the sub-list for field type_name
 }
 
-func init() { file_types_gateway_proto_init() }
-func file_types_gateway_proto_init() {
-	if File_types_gateway_proto != nil {
+func init() { file_proto_gateway_proto_init() }
+func file_proto_gateway_proto_init() {
+	if File_proto_gateway_proto != nil {
 		return
 	}
-	file_types_gateway_proto_msgTypes[2].OneofWrappers = []any{}
-	file_types_gateway_proto_msgTypes[11].OneofWrappers = []any{}
-	file_types_gateway_proto_msgTypes[12].OneofWrappers = []any{}
+	file_proto_gateway_proto_msgTypes[2].OneofWrappers = []any{}
+	file_proto_gateway_proto_msgTypes[11].OneofWrappers = []any{}
+	file_proto_gateway_proto_msgTypes[12].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_types_gateway_proto_rawDesc), len(file_types_gateway_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_gateway_proto_rawDesc), len(file_proto_gateway_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_types_gateway_proto_goTypes,
-		DependencyIndexes: file_types_gateway_proto_depIdxs,
-		MessageInfos:      file_types_gateway_proto_msgTypes,
+		GoTypes:           file_proto_gateway_proto_goTypes,
+		DependencyIndexes: file_proto_gateway_proto_depIdxs,
+		MessageInfos:      file_proto_gateway_proto_msgTypes,
 	}.Build()
-	File_types_gateway_proto = out.File
-	file_types_gateway_proto_goTypes = nil
-	file_types_gateway_proto_depIdxs = nil
+	File_proto_gateway_proto = out.File
+	file_proto_gateway_proto_goTypes = nil
+	file_proto_gateway_proto_depIdxs = nil
 }

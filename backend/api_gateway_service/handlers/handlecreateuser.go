@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"gateway/config"
 	"gateway/types"
 
 	"github.com/microcosm-cc/bluemonday"
@@ -12,7 +11,7 @@ func Createuser(newuser *types.Create_user) error {
 	// TODO: we need to authenticate the incoming data (sanitized the values that came in)
 	err := newuser.Validate_input()
 	if err != nil {
-		config.Logger.Printf("There was an error validating the user details")
+		types.Logger.Printf("There was an error validating the user details")
 		return err
 	}
 	holder := map[string]string{

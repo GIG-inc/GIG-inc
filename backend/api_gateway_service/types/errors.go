@@ -1,13 +1,7 @@
 package types
 
-type Errortype struct {
-	Errtype string
-	Aerr    error
-}
-
-func (err *Errortype) Check() (bool, string) {
-	if err.Aerr != nil {
-		return true, err.Aerr.Error()
-	}
-	return false, ""
-}
+const (
+	Gototenvloaderror = "there was an issue loading the dotenv file %v"
+	invaliduserinput  = "you did not provide all the details %v"
+	transfercheckerr  = "you eith"
+)

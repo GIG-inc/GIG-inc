@@ -1,7 +1,6 @@
 package types
 
 import (
-	"gateway/config"
 	"regexp"
 
 	"github.com/go-playground/validator/v10"
@@ -25,15 +24,15 @@ func (user *Create_user) Validate_input() error {
 	return validate.Struct(user)
 }
 
-func (user *Create_user) hashpassword() (errortype, []byte) {
+func (user *Create_user) hashpassword() (Errortype, []byte) {
 	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
-		config.Logger.Printf("There was an error generating the password: %s", err.Error())
-		return errortype{
-			errtype: "hashpassword",
-			aerr:    err,
+		Logger.Printf("There was an error generating the password: %s", err.Error())
+		return Errortype{
+			Errtype: "hashpassword",
+			Aerr:    err,
 		}, nil
 	}
-	return errortype{}, hash
+	return Errortype{}, hash
 
 }

@@ -11,5 +11,7 @@ func Handletransfer(req *types.Transfer) string {
 	if bool {
 		return resp
 	}
-	// TODO: check
+	// TODO: pass the data to elixir to handle the transfer logic
+	// config.
+	return ""
 }

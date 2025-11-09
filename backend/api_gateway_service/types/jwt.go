@@ -1,7 +1,6 @@
-package config
+package types
 
 import (
-	"gateway/types"
 	"os"
 	"time"
 
@@ -16,7 +15,7 @@ type customclaim struct {
 
 var key = []byte(os.Getenv("JWT_TOKEN"))
 
-func Jwt_generator(id string) (string, types.Errortype) {
+func Jwt_generator(id string) (string, Errortype) {
 	Claims := customclaim{
 		Id: id,
 
@@ -32,25 +31,25 @@ func Jwt_generator(id string) (string, types.Errortype) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, Claims)
 	tokenstring, err := token.SignedString(key)
 	if err != nil {
-		return "", types.Errortype{
+		return "", Errortype{
 			Errtype: "jwterror",
 			Aerr:    err,
 		}
 	}
-	return tokenstring, types.Errortype{}
+	return tokenstring, Errortype{}
 }
 
-func Validate_token(token string) (*customclaim, types.Errortype) {
+func Validate_token(token string) (*customclaim, Errortype) {
 	claim := &customclaim{}
 	key, err := jwt.ParseWithClaims(token, claim, func(t *jwt.Token) (interface{}, error) {
 		return key, nil
 	})
 
 	if err != nil || !key.Valid {
-		return &customclaim{}, types.Errortype{
+		return &customclaim{}, Errortype{
 			Errtype: "jwterror",
 			Aerr:    err,
 		}
 	}
-	return claim, types.Errortype{}
+	return claim, Errortype{}
 }
