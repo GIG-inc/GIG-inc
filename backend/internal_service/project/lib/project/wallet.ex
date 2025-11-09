@@ -3,25 +3,23 @@ defmodule Project.Wallet do
 
   @primary_key {:walletid, :binary_id, autogenerate: true}
   schema "wallets" do
-    field :cashbalance, :integer
-    field :goldbalance, :integer
+    field :cashbalance, :integer, default: 0
+    field :goldbalance, :integer, default: 0
     field :status,Ecto.Enum, values: [:active, :inactive, :banned], default: :active
     field :globaluserid, :binary_id
     field :lockversion, :integer, default: 0
     belongs_to :user, Project.User, foreign_key: :localuserid,references: :localuserid, type: :binary_id
   end
 
-  def updateuserchangeset(%Project.Wallet{} = wallet) do
+  def updatewalletchangeset(%Project.Wallet{} = wallet, params) do
     wallet
-    |> Ecto.Changeset.change(wallet)
+    |> Ecto.Changeset.cast(params)
     |>Ecto.Changeset.optimistic_lock(:lockversion)
-    |>Project.Repo.update()
   end
   # TODO: test this vigourously
-  def changeset(%Project.Wallet{} = wallet) do
+  def createwalletchangeset(%Project.Wallet{} = wallet) do
     wallet
-    |>Project.Wallet.changeset()
+    |>Ecto.Changeset.change()
     |>Ecto.Changeset.optimistic_lock(:lockversion)
-    |>Project.Repo.update()
   end
 end

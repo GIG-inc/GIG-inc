@@ -72,7 +72,6 @@ This is the file that is responsible for handling transfers of amounts
   end
 
   @spec transfer_logic(%Protoservice.TransferReq{}) :: {:errorsenderdoesnotexist,String.t()} |{:receivernotfounderror, String.t()}|{:inadequateamounterror, String.t()} | {:ok, any()} | {:error, any()}
-
   defp transfer_logic(transfer) do
     # first check if the user exists
     # second then check the transfers balance
