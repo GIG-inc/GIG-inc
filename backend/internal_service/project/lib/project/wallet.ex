@@ -1,6 +1,5 @@
 defmodule Project.Wallet do
   use Ecto.Schema
-  import Ecto.Changeset
 
   @primary_key {:walletid, :binary_id, autogenerate: true}
   schema "wallets" do
@@ -11,15 +10,18 @@ defmodule Project.Wallet do
     field :lockversion, :integer, default: 0
     belongs_to :user, Project.User, foreign_key: :localuserid,references: :localuserid, type: :binary_id
   end
-  def updateuserchangeset(%Project.Wallet{} = wallet, params \\%{}) do
+
+  def updateuserchangeset(%Project.Wallet{} = wallet) do
     wallet
-    |> cast(params, [:goldbalance, :cashbalance])
+    |> Ecto.Changeset.change(wallet)
     |>Ecto.Changeset.optimistic_lock(:lockversion)
+    |>Project.Repo.update()
   end
-  # def changeset(wallet, params \\ %{}) do
-  #   wallet
-  #   |>Project.Wallet.changeset()
-  #   |>Ecto.Changeset.optimistic_lock(:lockversion)
-  #   |>Project.Repo.update()
-  # end
+  # TODO: test this vigourously
+  def changeset(%Project.Wallet{} = wallet) do
+    wallet
+    |>Project.Wallet.changeset()
+    |>Ecto.Changeset.optimistic_lock(:lockversion)
+    |>Project.Repo.update()
+  end
 end

@@ -32,6 +32,6 @@ defmodule Project.Repo.Migrations.Events do
       add :sequencenumber, :bigserial, null: false
       timestamps()
     end
-
+    create unique_index(:eventstable, [:aggregateid])
   end
 end

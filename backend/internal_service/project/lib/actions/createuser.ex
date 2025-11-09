@@ -63,7 +63,7 @@ defmodule Actions.Createuser do
                 IO.puts(wallet.walletid)
                 {:ok, "successfully added #{user.username}",user}
               {:error, %Changeset{} = errorchangeset} ->
-                IO.puts("error in creating user's wallet #{errorchangeset}")
+                IO.puts("error in creating user's wallet #{inspect(errorchangeset)}")
                 {:error, errorchangeset}
                 # TODO: remember to add a return type here
             end

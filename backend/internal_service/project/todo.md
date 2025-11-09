@@ -14,6 +14,14 @@ Enable transfer
 logic to do
 wallet 
 transfer
+enable sale
+    receive sale request
+    user sends sale request(field requeired include)
+        from_id
+        to_id
+        gold_amount
+        cash_amount
+        timestamps
 
+    
 finished 
-create user

@@ -10,11 +10,12 @@ defmodule Project.Application do
     children = [
       {Registry, keys: :unique, name: Project.Registry},
       Project.Repo,
+      {Comms.Endpoint, [port: 50052]},
       {DynamicSupervisor, name: Project.Dynamicsupervisor, strategy: :one_for_one}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    Supervisor.start_link(children, strategy: :one_for_one )
+    Supervisor.start_link(children, strategy: :one_for_one, name: __MODULE__ )
   end
 end
