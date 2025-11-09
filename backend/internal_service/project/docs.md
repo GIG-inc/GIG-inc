@@ -1,5 +1,5 @@
 <!-- this is the command to run for proto file generation -->
-protoc --elixir_out=plugins=grpc:./lib ./lib/gig.proto
+protoc --elixir_out=plugins=grpc:. ./lib/proto/gig.proto
 <!-- run this for local development to take the log messages to a file  -->
 elixir --no-halt -s mix run > log/dev.log 2>&1
 

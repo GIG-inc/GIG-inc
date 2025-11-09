@@ -105,13 +105,21 @@ defmodule Protoservice.SaleResp do
 
   use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
 
+  field :successdata, 1, proto3_optional: true, type: Protoservice.SuccessSale
+  field :success, 2, type: :bool
+  field :reason, 3, proto3_optional: true, type: :string
+end
+
+defmodule Protoservice.SuccessSale do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
   field :id, 1, type: :string
   field :from, 2, type: :string
   field :to, 3, type: :string
   field :goldamount, 4, type: Protoservice.Amounts
   field :moneyamount, 5, type: Protoservice.Amounts
-  field :success, 6, type: :bool
-  field :reason, 7, proto3_optional: true, type: :string
 end
 
 defmodule Protoservice.TransferResp do

@@ -67,13 +67,16 @@ message user_data_resp{
 }
 
 message sale_resp{
+    optional success_sale successdata=1;
+    bool success = 2;
+    optional string reason=3;
+}
+message success_sale{
     string id = 1;
     string from = 2;
     string to = 3;
     amounts goldamount = 4;
     amounts moneyamount = 5;
-    bool success = 6;
-    optional string reason=7;
 }
 // for gold every
 message transfer_resp{

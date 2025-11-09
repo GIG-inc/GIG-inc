@@ -31,7 +31,6 @@ defmodule Project.Events do
    def eventschangeset(%Project.Events{} = event) do
      event
      |> Ecto.Changeset.change()
-     |> Ecto.Changeset.validate_required(:aggregateid, :aggregatetype, :eventtype, :metadata)
-     |> Ecto.Changeset.optimistic_lock(:lock_version)
+     |> Ecto.Changeset.validate_required([:aggregateid, :aggregatetype, :eventtype, :metadata])
    end
 end

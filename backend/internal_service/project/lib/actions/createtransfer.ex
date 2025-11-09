@@ -107,12 +107,12 @@ This is the file that is responsible for handling transfers of amounts
       # sender's part of the execution
       senderwallet = sender.wallet
       newsenderbalance = senderwallet.goldbalance - amount
-      senderchangeset = Project.Wallet.updateuserchangeset(senderwallet, %{goldbalance: newsenderbalance})
+      senderchangeset = Project.Wallet.updatewalletchangeset(senderwallet, %{goldbalance: newsenderbalance})
       Project.Repo.update(senderchangeset)
 
       receiverwallet = reciever.wallet
       newreceiverbalance = receiverwallet.goldbalance + amount
-      receiverchangeset = Project.Wallet.updateuserchangeset(receiverwallet, %{goldbalance: newreceiverbalance})
+      receiverchangeset = Project.Wallet.updatewalletchangeset(receiverwallet, %{goldbalance: newreceiverbalance})
       Project.Repo.update(receiverchangeset)
     end)
 

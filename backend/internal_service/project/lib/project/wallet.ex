@@ -13,7 +13,7 @@ defmodule Project.Wallet do
 
   def updatewalletchangeset(%Project.Wallet{} = wallet, params) do
     wallet
-    |> Ecto.Changeset.cast(params)
+    |> Ecto.Changeset.cast(params, [:cashbalance, :goldbalance])
     |>Ecto.Changeset.optimistic_lock(:lockversion)
   end
   # TODO: test this vigourously
