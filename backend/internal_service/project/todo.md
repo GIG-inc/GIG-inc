@@ -24,4 +24,14 @@ enable sale
         timestamps
 
     
+check that creating a new user will be added to events
+wire the project to use commanded and eventstore db to store events 
+
 finished 
+
+actions
+deposit
+withdraw
+createaccount(create wallet)
+transfer
+sale

@@ -82,7 +82,29 @@ defmodule Comms.Receiver do
     |> GRPC.Stream.run_with(stream)
   end
 
-  def history() do
+  def history(request, stream) do
+    GRPC.Stream.from(request)
+    |> GRPC.Stream.map(fn req ->
+      case Registry.lookup(Project.Registy, req.from_id) do
+        [{pid, _}] ->
+          GenServer.call(pid, {:create_sale,req})
+        [] ->
+          case DynamicSupervisor.start_child(
+            Project.Dynamicsupervisor,
+            {Actions.Createsale, name: "sale:req.from_id"}
+          ) do
+            {:ok, pid} ->
+              GenServer.call(pid, req)
+            {:error, message} ->
+              Logger.error("There was an issue starting a sale process #{message}")
+              %SaleResp{
+                success: false,
+                reason: "There was a server error"
+              }
+          end
+      end
+    end)
+    |> GRPC.Stream.run_with(stream)
   end
 
   def opening() do

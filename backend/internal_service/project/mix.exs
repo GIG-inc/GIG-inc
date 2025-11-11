@@ -28,7 +28,10 @@ defmodule Project.MixProject do
     {:protobuf, "~> 0.14"}, # optional for import wellknown google types
     {:grpc_reflection, "~> 0.2"},
     {:ecto_sql, "~> 3.0"},
-    {:postgrex, ">= 0.0.0"}
+    {:postgrex, ">= 0.0.0"},
+    {:commanded, "~> 1.4"},
+    {:jason, "~> 1.3"},
+    {:eventstore, "~> 1.4"}
     ]
   end
 end

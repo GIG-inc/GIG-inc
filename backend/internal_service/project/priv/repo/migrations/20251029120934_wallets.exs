@@ -1,10 +1,12 @@
 defmodule Project.Repo.Migrations.Wallets do
+  @moduledoc """
+  creation of a user wallet and it makes sure the same user cannot have more that wallet by the use of unique_index
+  """
   use Ecto.Migration
 
   def change do
     execute "create type wallet_status as enum ('active', 'inactive','banned')"
     create table(:walletstable, primary_key: false) do
-      add :walletid, :uuid, primary_key: true, null: false
       add :cashbalance, :bigint, null: false, default: 0
       add :goldbalance, :bigint, null: false, default: 0
       add :status, :wallet_status, null: false, default: "active"
@@ -14,8 +16,8 @@ defmodule Project.Repo.Migrations.Wallets do
       timestamps()
     end
     # by doing this we make these columns index which allows for faster lookups
-    create unique_index(:walletstable, [:localuserid])
-    create unique_index(:walletstable, [:globaluserid])
+    create unique_index(:walletstable, [:localuserid, :globaluserid])
+
   end
 
 end

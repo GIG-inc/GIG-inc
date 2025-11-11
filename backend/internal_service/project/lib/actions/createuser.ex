@@ -1,4 +1,7 @@
 defmodule Actions.Createuser do
+  alias EventStore.Storage.Database
+  alias Commanded.Commands
+  alias EventStore.UUID
   alias Ecto.Changeset
   alias Project.{User, Repo}
 
@@ -17,7 +20,8 @@ defmodule Actions.Createuser do
   end
 
   def handle_call({:createuser, request }, _from, _state) do
-    newuser = %Project.User{
+    newuser = %Commands.Accountcreationcommand{
+      accountid: UUID.uuid4(),
       globaluserid: request.globaluser,
       phonenumber: request.phone,
       kycstatus: request.kycstatus,
@@ -49,6 +53,20 @@ defmodule Actions.Createuser do
     {:reply, response, state}
   end
 
+  def sendtoeventstore(bnewuser, request) do
+    case DatabaseConn.Getuser.checkuser(newuser.globaluserid) do
+      {:ok, nil} ->
+        IO.puts("there is a request to create a new user")
+        # check if the user has agreed to terms and conditions
+
+        # pass the data to eventstore
+
+      {:error,user = %Project.User{}} ->
+        IO.puts("there was a new issue in creating this user #{:error}")
+        {:userexistserror, "there is a user with this id #{user.username}", user}
+    end
+
+  end
   @spec createnewuser(%Project.User{}, %Protoservice.CreateUserReq{}) :: {:ok, String.t(),%Project.User{}} | {:inputerror, Changeset.t()} | {:userexistserror, String.t(), %Project.User{}}
   defp createnewuser(newuser,request) do
     case DatabaseConn.Getuser.checkuser(newuser.globaluserid) do

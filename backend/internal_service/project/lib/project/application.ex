@@ -11,7 +11,8 @@ defmodule Project.Application do
       {Registry, keys: :unique, name: Project.Registry},
       Project.Repo,
       {Comms.Endpoint, [port: 50052]},
-      {DynamicSupervisor, name: Project.Dynamicsupervisor, strategy: :one_for_one}
+      {DynamicSupervisor, name: Project.Dynamicsupervisor, strategy: :one_for_one},
+      Project.CommandedApp
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
