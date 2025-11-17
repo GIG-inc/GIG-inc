@@ -29,19 +29,25 @@ pub struct RefreshRequest {
     pub refresh_token: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct AuthResponse {
-    pub access_token: Option<String>,
-    pub refresh_token: Option<String>,
-    pub user: Option<User>,
+    pub access_token: String,
+    pub refresh_token: String,
+    pub expires_in: i64,
+    pub token_type: String,
+    pub user: crate::models::supabase_client::User,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct User {
     pub id: String,
-    pub email: Option<String>,
-    pub created_at: Option<String>,
-    pub updated_at: Option<String>,
+    pub email: String,
+    pub phone: Option<String>,
+    pub confirmed_at: Option<String>,
+    pub last_sign_in_at: Option<String>,
+    pub role: String,
+    pub created_at: String,
+    pub updated_at: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

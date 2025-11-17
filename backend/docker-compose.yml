@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  bank_service:
+    build:
+      context: .
+      dockerfile: bank_service/Dockerfile
+    container_name: bank_service
+    ports:
+      - "8000:8000"
+    networks:
+      - gig-network
+
+networks:
+  gig-network:
+    driver: bridge

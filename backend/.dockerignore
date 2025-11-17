@@ -1,0 +1,14 @@
+# Rust build outputs
+*/target/
+**/target/
+
+# Git and environment
+**/.git/
+**/.env
+
+# Logs and temp
+**/*.log
+*.tmp
+*.swp
+*.swo
+.DS_Store

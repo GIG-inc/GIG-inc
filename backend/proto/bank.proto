@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package bank_service;
+
+message DepositRequest {
+  string phone = 1;
+  double amount = 2;
+}
+
+message DepositResponse {
+  bool success = 1;
+  string message = 2;
+  string transaction_id = 3;
+}
+
+message MpesaWithdrawRequest{
+  string phone = 1;
+  double amount = 2;
+}
+
+message MpesaWithdrawResponse {
+  bool success = 1;
+  string message = 2;
+  string transaction_id = 3;
+}
+
+service BankService {
+  rpc Deposit (DepositRequest) returns (DepositResponse);
+  rpc MpesaWithdraw (MpesaWithdrawRequest) returns (MpesaWithdrawResponse);
+}
+

@@ -16,7 +16,7 @@ Thumbs.db
 *.log
 
 # Environment files
-.env
+# .env
 
 # C/C++ build artifacts
 **/CMakeLists.txt
