@@ -6,6 +6,8 @@ defstruct [
   :fromid,
   :toid,
   :goldamount,
-  :cashamount
+  :cashamount,
+  :sender,
+  :receiver
 ]
 end

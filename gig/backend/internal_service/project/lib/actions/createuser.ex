@@ -34,8 +34,6 @@ defmodule Actions.Createuser do
       acceptterms: request.acceptterms,
       username: request.username
     }
-
-
     {response, state} = case sendtoeventstore(newuser,request) do
 
 		{:accepttermsfalse, msg} ->
@@ -71,7 +69,7 @@ def sendtoeventstore(newuser, _request) do
       if not newuser.acceptterms do
         {:accepttermsfalse, "To register as a user you have to accept the terms and conditions"}
       else
-        # Dispatch the command to the router
+        # Dispatch the command to the router TODO: check if this is the correct place to put this
         :ok = Router.dispatch(newuser, consistency: :strong)
 		case response do
           :ok ->

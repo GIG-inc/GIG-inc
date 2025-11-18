@@ -19,8 +19,6 @@ This is the file that is responsible for handling transfers of amounts
 
   @impl true
   defp handle_call({:transfer, request}, _from, _state) do
-
-
     Process.send_after(self(), :timeout,600_000)
     IO.puts("it has reached the handle call logic #{request}")
     {response, state} = case transfer_logic(request) do
@@ -56,7 +54,6 @@ This is the file that is responsible for handling transfers of amounts
       {:error, result} ->
         IO.puts("error in completing the transfer #{result}")
     end
-
     {:reply, response, state}
   end
 
@@ -91,17 +88,19 @@ This is the file that is responsible for handling transfers of amounts
             nil ->
               {:receivernotfounderror, "The reciever does not exist"}
             receiver ->
+              ExtraData
               # here we send the sender and receiver to the transfer function
               command = %Projectcommands.Transfercommands{
                 transferid: Ecto.UUID.generate(),
                 fromid: transfer.from_id,
                 toid: transfer.to_id,
                 goldamount: transfer.gold_amount,
-                cashamount: transfer.cash_amount
+                cashamount: transfer.cash_amount,
+                sender: sender,
+                receiver: receiver
               }
-              CommandedApp.dispatch(command, application: Project)
-
-
+              # TODO: work on response here
+              CommandedApp.dispatch(command)
           end
         false ->
           {:inadequateamounterror, "The transfer is not possible please select a lower amount or top up you working balance is #{user.wallet.goldbalance}" }
@@ -110,25 +109,5 @@ This is the file that is responsible for handling transfers of amounts
   end
   def handle_transfer() do
     transfer_gold()
-  end
-  @spec transfer_gold(%Project.User{}, %Project.User{}, integer()) :: any()
-  defp transfer_gold(sender,reciever, amount) do
-    # pass the gold amount to be sent here
-    # USE project.Repo.transaction
-    # subtract said amount from the sender
-    # add said amount to the receiver
-    Project.Repo.transact( fn ->
-      # sender's part of the execution
-      senderwallet = sender.wallet
-      newsenderbalance = senderwallet.goldbalance - amount
-      senderchangeset = Project.Wallet.updatewalletchangeset(senderwallet, %{goldbalance: newsenderbalance})
-      Project.Repo.update(senderchangeset)
-
-      receiverwallet = reciever.wallet
-      newreceiverbalance = receiverwallet.goldbalance + amount
-      receiverchangeset = Project.Wallet.updatewalletchangeset(receiverwallet, %{goldbalance: newreceiverbalance})
-      Project.Repo.update(receiverchangeset)
-    end)
-
   end
 end

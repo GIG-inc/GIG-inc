@@ -2,6 +2,8 @@
 protoc --elixir_out=plugins=grpc:. ./lib/proto/gig.proto
 <!-- run this for local development to take the log messages to a file  -->
 elixir --no-halt -s mix run > log/dev.log 2>&1
+<!-- this is how to create migrations -->
+mix ecto.gen.migration name_of_migration
 
 <!-- to generate an ecto migration file is mix ecto.gen.migration filename -->
 

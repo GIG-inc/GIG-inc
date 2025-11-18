@@ -87,11 +87,11 @@ defmodule Comms.Receiver do
     |> GRPC.Stream.map(fn req ->
       case Registry.lookup(Project.Registy, req.from_id) do
         [{pid, _}] ->
-          GenServer.call(pid, {:create_sale,req})
+          GenServer.call(pid, {:history,req})
         [] ->
           case DynamicSupervisor.start_child(
             Project.Dynamicsupervisor,
-            {Actions.Createsale, name: "sale:req.from_id"}
+            {Project.History, name: "history:req.from_id"}
           ) do
             {:ok, pid} ->
               GenServer.call(pid, req)

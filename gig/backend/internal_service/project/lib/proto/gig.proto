@@ -50,6 +50,7 @@ message sale_req{
 message opening_req{
 }
 message history_req{
+    string globaluserid=1;
 }
 
 /*
