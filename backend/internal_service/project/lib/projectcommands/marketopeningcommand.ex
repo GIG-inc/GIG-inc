@@ -1,4 +1,5 @@
 defmodule Projectcommands.Marketopeningcommand do
+  @enforce_keys[:openingid,]
   defstruct [
     :openingid,
     :raiseid,

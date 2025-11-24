@@ -5,6 +5,7 @@ defmodule Project.CommandedApp do
     router: [
      Routers.Accountopenrouter.Accountrouter,
      Routers.Transferrouter,
-     Routers.Salerouter
+     Routers.Salerouter,
+     Routers.Capitalraise,
     ]
 end

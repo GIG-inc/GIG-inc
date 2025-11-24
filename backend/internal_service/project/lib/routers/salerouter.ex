@@ -4,5 +4,5 @@ defmodule Routers.Salerouter do
   dispatch Projectcommands.Salecommands,
   aggregate: Aggregates.Saleaggregate,
   to: Events.Saleevent,
-  identity: saleid
+  identity: :saleid
 end

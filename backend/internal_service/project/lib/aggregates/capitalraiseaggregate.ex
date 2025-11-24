@@ -1,4 +1,5 @@
 defmodule Aggregates.Capitalraiseaggregate do
+
   defstruct [
     :openingid,
     :raiseid,
