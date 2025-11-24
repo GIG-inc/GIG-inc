@@ -24,7 +24,7 @@ func (user *Create_user) Validate_input() error {
 	return validate.Struct(user)
 }
 
-func (user *Create_user) hashpassword() (Errortype, []byte) {
+func (user *Create_user) Hashpassword() (Errortype, []byte) {
 	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		Logger.Printf("There was an error generating the password: %s", err.Error())

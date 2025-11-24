@@ -1,24 +1,21 @@
 defmodule Actions.Createsale do
+  alias Project.CommandedApp
   use GenServer
   require Logger
 
   def init(_opt) do
     Logger.info("The create sale server has been started")
-    Process.send_after(self(), :timeout, 600-000)
+    Process.send_after(self(), :timeout, 600_000)
     {:ok, %Project.User{}}
   end
 
   def handle_call({:create_sale,request}, _from, state) do
-    salereq = %Project.Events{
-      # note these ids are global ids
-      aggregateid: request.from_id,
-      aggregatetype: :goldsalecompleted,
-      eventtype: :wallet,
-      metadata: %{
-        buyer: request.to_id,
-        gold_amount: request.gold_amount,
-        cash_amount: request.cash_amount
-      }
+    salereq = %ProjectCommands.Salecommands{
+      saleid: Ecto.UUID.generate(),
+      fromid: request.from_id,
+      toid: request.to_id,
+      goldamount: request.gold_amount,
+      cashamount: request.cash_amount
     }
     response = handle_sale(salereq, request)
     {check, newstate} = case response do
@@ -89,11 +86,18 @@ defmodule Actions.Createsale do
                   false ->
                     {:insufficientfunds, "The person attempting to purchase your gold does not have enough funds"}
                   true ->
+                    # command = %
+
                     response = sale_execution(user, receiver,sale)
+
                     case response do
                       {:ok, _message} ->
-                        # insert takes a changeset
+
+                        # i am using one insert into eventstore db because of atomicity to keep ACID properties
+                        CommandedApp.dispatch(event)
+                        # insert takes a changeset TODO: change this and by creating a sale migration
                         eventchangeset = Project.Events.eventschangeset(event)
+
                         resp = Project.Repo.insert(eventchangeset)
                         case resp do
                           {:ok, returned} ->
@@ -119,6 +123,7 @@ defmodule Actions.Createsale do
     newsellergoldbalance = sellerwallet.goldbalance - request.gold_amount
     newsellercashbalance= sellerwallet.cashbalance + request.cash_amount
     sellerchangeset = Project.Wallet.updatewalletchangeset(sellerwallet, %{cashbalance: newsellercashbalance, goldbalance: newsellergoldbalance})
+
     Project.Repo.update(sellerchangeset)
     buyerwallet = buyer.wallet
     buyergoldbalance = buyerwallet.goldbalance + request.gold_amount

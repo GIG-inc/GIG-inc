@@ -35,3 +35,10 @@ withdraw
 createaccount(create wallet)
 transfer
 sale
+ 
+ delete
+ createsale.ex
+ events.ex
+
+TODO 
+handle transfer for money too

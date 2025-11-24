@@ -1,4 +1,7 @@
 defmodule Actions.Createuser do
+  require Commanded.Commands.Router
+  require Logger
+  alias Commanded.Commands.Router
   alias EventStore.Storage.Database
   alias Commanded.Commands
   alias EventStore.UUID
@@ -20,78 +23,94 @@ defmodule Actions.Createuser do
   end
 
   def handle_call({:createuser, request }, _from, _state) do
-    newuser = %Commands.Accountcreationcommand{
-      accountid: UUID.uuid4(),
+    newuser = %Projectcommands.Accountcreationcommand{
+      accountid: Ecto.UUID.generate(),
       globaluserid: request.globaluser,
       phonenumber: request.phone,
       kycstatus: request.kycstatus,
+      fullname: request.fullname,
       kyclevel: request.kyclevel,
       transactionlimit: request.transactionlimit,
-      accountstatus: :active,
       acceptterms: request.acceptterms,
       username: request.username
     }
+    {response, state} = case sendtoeventstore(newuser,request) do
 
-    {response,state} = case createnewuser(newuser,request) do
-      {:ok, message,%Project.User{} = user} ->
-        {%Protoservice.CreateUserResp{
-          status: "ok",
-          message: message
-        }, user}
-      {:inputerror, %Ecto.Changeset{} = changeset} ->
-        errors = Ecto.Changeset.traverse_errors(changeset, fn {msg, _} -> msg end)
-        {%Protoservice.CreateUserResp{
-          status: "error",
-          message: inspect(errors)
-        }, nil}
-      {:userexistserror, msg, %Project.User{} = user} ->
-        {%Protoservice.CreateUserResp{
-          status: "userexisterror",
-          message: msg,
-        }, user}
+		{:accepttermsfalse, msg} ->
+			{%Protoservice.CreateUserResp{
+				status: "accepttermserror",
+				message: msg
+			},nil}
+		{:userexistserror, msg, %Project.User{} = user} ->
+			{%Protoservice.CreateUserResp{
+			status: "userexisterror",
+			message: msg,
+			}, user}
+		{:ok, msg} ->
+			{%Protoservice.CreateUserResp{
+				status: "ok",
+				message: msg
+			},nil}
+		{:error, reason}->
+			{%Protoservice.CreateUserResp{
+				status: "error",
+				message: reason
+			}, nil}
     end
     {:reply, response, state}
   end
 
-  def sendtoeventstore(bnewuser, request) do
-    case DatabaseConn.Getuser.checkuser(newuser.globaluserid) do
-      {:ok, nil} ->
-        IO.puts("there is a request to create a new user")
-        # check if the user has agreed to terms and conditions
+def sendtoeventstore(newuser, _request) do
+  case DatabaseConn.Getuser.checkuser(newuser.globaluserid) do
+    {:ok, nil} ->
+      IO.puts("There is a request to create a new user")
 
-        # pass the data to eventstore
-
-      {:error,user = %Project.User{}} ->
-        IO.puts("there was a new issue in creating this user #{:error}")
-        {:userexistserror, "there is a user with this id #{user.username}", user}
-    end
-
-  end
-  @spec createnewuser(%Project.User{}, %Protoservice.CreateUserReq{}) :: {:ok, String.t(),%Project.User{}} | {:inputerror, Changeset.t()} | {:userexistserror, String.t(), %Project.User{}}
-  defp createnewuser(newuser,request) do
-    case DatabaseConn.Getuser.checkuser(newuser.globaluserid) do
-      {:ok, nil} ->
-        IO.puts("there is a request to create a new user")
-        changeset = User.createuserchangeset(newuser)
-        case Repo.insert(changeset) do
-          {:ok, user} ->
-            IO.puts("create a new user with id #{user.localuserid}")
-            case Actions.Createwallet.create_wallet(:createwallet, user,request.wallet) do
-              {:ok, wallet = %Project.Wallet{}} ->
-                IO.puts(wallet.walletid)
-                {:ok, "successfully added #{user.username}",user}
-              {:error, %Changeset{} = errorchangeset} ->
-                IO.puts("error in creating user's wallet #{inspect(errorchangeset)}")
-                {:error, errorchangeset}
-                # TODO: remember to add a return type here
-            end
-          {:error, changeset= %Changeset{}} ->
-            IO.puts("error creating user: #{inspect(changeset.errors)}")
-            {:inputerror, changeset}
+      # Check terms and conditions
+      if not newuser.acceptterms do
+        {:accepttermsfalse, "To register as a user you have to accept the terms and conditions"}
+      else
+        # Dispatch the command to the router TODO: check if this is the correct place to put this
+        :ok = Router.dispatch(newuser, consistency: :strong)
+		case response do
+          :ok ->
+            {:ok, "successfully created the user"}
         end
-      {:error,user = %Project.User{}} ->
-        IO.puts("there was a new issue in creating this user #{:error}")
-        {:userexistserror, "there is a user with this id #{user.username}", user}
-    end
+      end
+
+    {:ok, %Project.User{} = user} ->
+      IO.puts("User already exists: #{user.username}")
+      {:userexistserror, "There is a user with this id #{user.username}", user}
+
+    {:error, reason} ->
+      {:error, "Error checking user: #{inspect(reason)}"}
   end
+end
+
+  @spec createnewuser(%Project.User{}, %Protoservice.CreateUserReq{}) :: {:ok, String.t(),%Project.User{}} | {:inputerror, Changeset.t()} | {:userexistserror, String.t(), %Project.User{}}
+#   defp createnewuser(newuser,request) do
+#     case DatabaseConn.Getuser.checkuser(newuser.globaluserid) do
+#       {:ok, nil} ->
+#         IO.puts("there is a request to create a new user")
+#         changeset = User.createuserchangeset(newuser)
+#         case Repo.insert(changeset) do
+#           {:ok, user} ->
+#             IO.puts("create a new user with id #{user.localuserid}")
+#             case Actions.Createwallet.create_wallet(:createwallet, user,request.wallet) do
+#               {:ok, wallet = %Project.Wallet{}} ->
+#                 IO.puts(wallet.walletid)
+#                 {:ok, "successfully added #{user.username}",user}
+#               {:error, %Changeset{} = errorchangeset} ->
+#                 IO.puts("error in creating user's wallet #{inspect(errorchangeset)}")
+#                 {:error, errorchangeset}
+#                 # TODO: remember to add a return type here
+#             end
+#           {:error, changeset= %Changeset{}} ->
+#             IO.puts("error creating user: #{inspect(changeset.errors)}")
+#             {:inputerror, changeset}
+#         end
+#       {:error,user = %Project.User{}} ->
+#         IO.puts("there was a new issue in creating this user #{:error}")
+#         {:userexistserror, "there is a user with this id #{user.username}", user}
+#     end
+#   end
 end

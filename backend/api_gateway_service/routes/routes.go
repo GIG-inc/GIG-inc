@@ -36,7 +36,6 @@ func Routes(router *mux.Router) {
 					return
 				}
 			}
-
 		}
 		types.Logger.Printf("reached create user api")
 	})

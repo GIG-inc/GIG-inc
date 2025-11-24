@@ -1,5 +1,5 @@
 defmodule Actions.Transfer do
-
+  alias Project.CommandedApp
   use GenServer
 @moduledoc """
 This is the file that is responsible for handling transfers of amounts
@@ -18,7 +18,7 @@ This is the file that is responsible for handling transfers of amounts
   end
 
   @impl true
-  def handle_call({:transfer, request}, _from, _state) do
+  defp handle_call({:transfer, request}, _from, _state) do
     Process.send_after(self(), :timeout,600_000)
     IO.puts("it has reached the handle call logic #{request}")
     {response, state} = case transfer_logic(request) do
@@ -54,7 +54,6 @@ This is the file that is responsible for handling transfers of amounts
       {:error, result} ->
         IO.puts("error in completing the transfer #{result}")
     end
-
     {:reply, response, state}
   end
 
@@ -71,50 +70,44 @@ This is the file that is responsible for handling transfers of amounts
     # here we put the code for saving the users state and saving sort of adding it to events
   end
 
-  @spec transfer_logic(%Protoservice.TransferReq{}) :: {:errorsenderdoesnotexist,String.t()} |{:receivernotfounderror, String.t()}|{:inadequateamounterror, String.t()} | {:ok, any()} | {:error, any()}
+  @spec transfer_logic(%Events.Tranferevent{}) :: {:errorsenderdoesnotexist,String.t()} |{:receivernotfounderror, String.t()}|{:inadequateamounterror, String.t()} | {:ok, any()} | {:error, any()}
   defp transfer_logic(transfer) do
     # first check if the user exists
     # second then check the transfers balance
-    user = Project.Repo.get(Project.User, transfer.from_id)|>Project.Repo.preload(:wallet)
+    user = Project.Repo.get(Project.User, transfer.fromid)|>Project.Repo.preload(:wallet)
     # this is to check that the sender exists
     case user do
       nil ->
         {:errorsenderdoesnotexist, "You do not have a wallet"}
       sender ->
         # this is to check if the sender has enough funds to execute the transaction
-        case sender.wallet.goldbalance > transfer.gold_amount.amount do
+        case sender.wallet.goldbalance > transfer.goldamount do
         true ->
           # this is to check that the receiver exists
-          case Project.Repo.get(Project.User, transfer.to_id)|>Project.Repo.preload(:wallet) do
+          case Project.Repo.get(Project.User, transfer.toid)|>Project.Repo.preload(:wallet) do
             nil ->
               {:receivernotfounderror, "The reciever does not exist"}
             receiver ->
+              ExtraData
               # here we send the sender and receiver to the transfer function
-              transfer_gold(sender, receiver, transfer.gold_amount)
+              command = %Projectcommands.Transfercommands{
+                transferid: Ecto.UUID.generate(),
+                fromid: transfer.from_id,
+                toid: transfer.to_id,
+                goldamount: transfer.gold_amount,
+                cashamount: transfer.cash_amount,
+                sender: sender,
+                receiver: receiver
+              }
+              # TODO: work on response here
+              CommandedApp.dispatch(command)
           end
         false ->
           {:inadequateamounterror, "The transfer is not possible please select a lower amount or top up you working balance is #{user.wallet.goldbalance}" }
         end
     end
   end
-  @spec transfer_gold(%Project.User{}, %Project.User{}, integer()) :: any()
-  defp transfer_gold(sender,reciever, amount) do
-    # pass the gold amount to be sent here
-    # USE project.Repo.transaction
-    # subtract said amount from the sender
-    # add said amount to the receiver
-    Project.Repo.transact( fn ->
-      # sender's part of the execution
-      senderwallet = sender.wallet
-      newsenderbalance = senderwallet.goldbalance - amount
-      senderchangeset = Project.Wallet.updatewalletchangeset(senderwallet, %{goldbalance: newsenderbalance})
-      Project.Repo.update(senderchangeset)
-
-      receiverwallet = reciever.wallet
-      newreceiverbalance = receiverwallet.goldbalance + amount
-      receiverchangeset = Project.Wallet.updatewalletchangeset(receiverwallet, %{goldbalance: newreceiverbalance})
-      Project.Repo.update(receiverchangeset)
-    end)
-
+  def handle_transfer() do
+    transfer_gold()
   end
 end

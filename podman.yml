@@ -1,0 +1,28 @@
+version: "3.9"
+db:
+  image: postgres:16
+  environment:
+    -POSTGRES_USER=deeznuts
+    -POSTGRES_PASSWORD=0000
+    -POSTGRES-DB=giginc
+  volumes:
+    -db_data:/var/lib/postgresql/data
+  networks:
+    - backend-net
+services: 
+  elixir_api:
+    build:./backend/internal_service/project
+    environment: 
+      -DB_HOST=localhost
+      -DB_USER=deeznuts
+      -DB_PASSWORD=0000
+      -DB_NAME=giginc
+    networks:
+      -backend-net
+    depend_on:
+      - db
+    ports: 
+      - "4000:4000"
+networks:
+  backend-net:
+

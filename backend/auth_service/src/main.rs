@@ -6,7 +6,6 @@ mod handlers;
 mod services;
 mod models;
 mod utilis;
-mod grpc;
 
 use std::net::SocketAddr;
 use std::sync::Arc;

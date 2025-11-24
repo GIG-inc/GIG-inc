@@ -26,6 +26,7 @@ defmodule Actions.Createwallet do
       status: :active,
       lockversion: 0
     }
+    # build assoc is what is responsible for creating the association between the user and the wallet
     built_wallet = Ecto.build_assoc(user,  :wallet, newwallet)
     case Project.Repo.insert(built_wallet) do
       {:ok, wallet} ->
@@ -41,6 +42,11 @@ defmodule Actions.Createwallet do
     IO.puts("this users wallet is inactive")
     {:noreply, nil}
   end
+  @doc """
+  TODO
+  first we need to remove the create wallet and bring it to the eventhandler for creating a user
+  check what is the issue wit hall the eventstore based structs
+  """
   @impl true
   def terminate(:normal, _state) do
     IO.puts("cleaning up before exiting")

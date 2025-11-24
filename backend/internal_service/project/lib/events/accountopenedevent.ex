@@ -9,8 +9,9 @@ defmodule Events.Accountopenedevent do
     :phonenumber,
     :kycstatus,
     :kyclevel,
-    :acceptterms,
+    :hasacceptedterms,
     :transactionlimit,
-    :username
+    :username,
+    :fullname
   ]
 end

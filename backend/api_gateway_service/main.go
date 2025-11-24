@@ -3,11 +3,10 @@ package main
 import (
 	"gateway/routes"
 	"gateway/types"
-	"net/http"
-	"os"
-
 	"github.com/gorilla/mux"
 	"github.com/lpernett/godotenv"
+	"net/http"
+	"os"
 )
 
 func main() {

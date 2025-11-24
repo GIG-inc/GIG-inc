@@ -9,13 +9,8 @@ import (
 	"google.golang.org/grpc"
 )
 
-type Server struct {
-	pb.UnimplementedGigserviceServer
-}
-
-func grpcclientconn() (Errortype, pb.GigserviceClient) {
+func grpcclientconn() (Errortype, pb.GigserviceClient, *grpc.ClientConn) {
 	// TODO: remember to set up the secure part of grpc
-	// var opts []grpc.DialOption
 	port := os.Getenv("GRPC_SERVER")
 	conn, err := grpc.NewClient(port)
 	if err != nil {
@@ -23,15 +18,18 @@ func grpcclientconn() (Errortype, pb.GigserviceClient) {
 		return Errortype{
 			Errtype: "grpc err",
 			Aerr:    err,
-		}, nil
+		}, nil, nil
 	}
-	defer conn.Close()
 
 	client := pb.NewGigserviceClient(conn)
-	return Errortype{}, client
+	return Errortype{}, client, conn
 }
 func Createuser(user *pb.CreateUserReq) (Errortype, *pb.CreateUserResp) {
-	err, clientstub := grpcclientconn()
+	err, clientstub, conn := grpcclientconn()
+	// close the connection after user
+	if conn != nil {
+		defer conn.Close()
+	}
 	temp, _ := err.Check()
 	if temp {
 		Logger.Fatalf("There was an issue in establishing the connection for grpc in Createuser %v", err)

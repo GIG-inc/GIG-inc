@@ -7,7 +7,7 @@ defmodule Project.Wallet do
     field :goldbalance, :integer, default: 0
     field :status,Ecto.Enum, values: [:active, :inactive, :banned], default: :active
     field :globaluserid, :binary_id
-    field :lockversion, :integer, default: 0
+    field :lockversion, :integer, default: 1
     belongs_to :user, Project.User, foreign_key: :localuserid,references: :localuserid, type: :binary_id
   end
 

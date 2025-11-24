@@ -24,3 +24,5 @@ config :project, Project.CommandedApp,
   ],
   pubsub: :local,
   registry: :local
+config :project, :globalsettings,
+    defaulttransactionlimit: 10000

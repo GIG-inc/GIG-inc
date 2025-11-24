@@ -1,7 +1,9 @@
 main api gateway 
 
-
-
+TODOs: 
+connect with auth(supabase) and ensure it stores password in hashed format
+ensure that internal service connects to api gateway
+ask how we are going to handle money and the format of gold(grams)
 
 api-gateway/
 ├── main.go                 # Entry point, server setup only
@@ -58,5 +60,5 @@ routes/
 └── payment_routes.go   # Routes that proxy to payment service
 
 
-
+authentication
 

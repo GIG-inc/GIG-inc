@@ -4,29 +4,42 @@ defmodule Project.User do
   use Ecto.Schema
   import Changeset
   # change set is some type of recorder for actions happening in the process of processing User
-  @primary_key{:localuserid, :binary_id, autogenerate: true}
-  schema "user" do
+  schema "userstable" do
+    field :localuserid, :binary_id
     field :globaluserid, :binary_id
+    field :fullname, :string
     field :phonenumber, :string
     field :username, :string
     field :kycstatus, Ecto.Enum, values: [:registered, :pending, :rejected, :not_available], default: :not_available
     field :kyclevel,  Ecto.Enum, values: [:standard, :advanced, :pro], default: :standard
     field :transactionlimit, :integer, default: 0
     field :accountstatus,Ecto.Enum, values: [:active, :inactive, :banned], default: :active
-    field :acceptterms, :boolean, virtual: true, default: false
     field :hasacceptedterms, :boolean, default: false
     has_one :wallet, Project.Wallet, foreign_key: :localuserid
     timestamps()
   end
   def createuserchangeset(%Project.User{} = newuser) do
     newuser
-    # change wraps the data in a changeset
-    |>Ecto.Changeset.change()
+    # cast checks that the incoming stuct does not have the wrong type or if ecto expects type it ensure the rules are followed
+    |>Ecto.Changeset.cast(Map.from_struct(newuser),
+      [
+       :localuserid,
+       :globaluserid,
+       :fullname,
+       :phonenumber,
+       :username,
+       :kycstatus,
+       :kyclevel,
+       :transactionlimit,
+       :accountstatus,
+       :hasacceptedterms
+      ]
+    )
     # |>cast(newuser, [:globaluserid, :phonenumber, :kycstatus, :kyclevel, :transactionlimit, :accountstatus, :acceptterms, :username])
-    |>Ecto.Changeset.validate_required([:globaluserid, :phonenumber, :kycstatus, :kyclevel, :acceptterms, :username])
-    |>Ecto.Changeset.validate_change(:acceptterms, fn :acceptterms, value ->
-      if value == false, do: [acceptterms: "you must accept term and conditions"]
-    end)
+    |>Ecto.Changeset.validate_required([:localuserid, :globaluserid, :phonenumber, :kycstatus, :kyclevel, :hasacceptedterms, :username, :fullname])
+    # |>Ecto.Changeset.validate_change(:acceptterms, fn :acceptterms, value ->
+    #   if value == false, do: [acceptterms: "you must accept term and conditions"]
+    # end)
     |>validate_several_strings([:phonenumber,:username])
     |>Ecto.Changeset.put_change(:hasacceptedterms, true)
   end
