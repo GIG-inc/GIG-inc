@@ -21,7 +21,9 @@ func Routes(router *mux.Router) {
 		// json.NewEncoder()
 		var newuser types.Create_user
 		if jsonerr := json.NewDecoder(r.Body).Decode(&newuser); jsonerr != nil {
+			fmt.Printf("this is the fullname %s", newuser.Fullname)
 			types.Logger.Printf("There was an error decoding json in create user handle func %v", jsonerr)
+			http.Error(resp, "Invalid JSON", http.StatusBadRequest)
 		}
 		err := handlers.Createuser(&newuser)
 		bool, _ := err.Check()

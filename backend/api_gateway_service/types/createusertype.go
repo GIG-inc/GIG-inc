@@ -12,7 +12,7 @@ type Create_user struct {
 	Fullname string `json:"fullname" validate:"required,min=3"`
 	Username string `json:"username" validate:"required,min=3,max=30"`
 	Email    string `json:"email" validate:"required,email"`
-	Phone    string `json:"phonenumber" validate:"required,numeric,contains=254,len=12"`
+	Phone    string `json:"phonenumber" validate:"required,numeric,contains=254,min=11,max=14"`
 	Password string `json:"password" validate:"required,min=8,max=30,passwd"`
 }
 

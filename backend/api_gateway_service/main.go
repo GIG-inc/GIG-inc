@@ -32,7 +32,7 @@ func main() {
 	// amw :=
 	go func() {
 		types.Logger.Printf("starting server on port: %s", port)
-		if err := http.ListenAndServe(port, r); err != nil {
+		if err := http.ListenAndServe(port, types.EnableCORS(r)); err != nil {
 			types.Logger.Fatalf("Http server failed to start %v", err)
 		}
 	}()
