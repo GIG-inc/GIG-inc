@@ -34,7 +34,6 @@ impl GrpcAuthServer {
 #[tonic::async_trait]
 impl AuthService for GrpcAuthServer {
 
-    // ----------------- SIGNUP -------------------
     async fn signup(
         &self,
         request: Request<SignupRequest>,
@@ -51,7 +50,6 @@ impl AuthService for GrpcAuthServer {
     }
 
 
-    // -------------- LOGIN -----------------------
     async fn login(
         &self,
         _request: Request<LoginRequest>,
@@ -59,7 +57,6 @@ impl AuthService for GrpcAuthServer {
         Err(Status::unimplemented("login not implemented"))
     }
 
-    // -------------- LOGOUT -----------------------
     async fn logout(
         &self,
         _request: Request<LogoutRequest>,
@@ -67,7 +64,6 @@ impl AuthService for GrpcAuthServer {
         Err(Status::unimplemented("logout not implemented"))
     }
 
-    // -------------- PASSWORD RESET --------------
     async fn password_reset(
         &self,
         _request: Request<PasswordResetRequest>,
@@ -75,7 +71,6 @@ impl AuthService for GrpcAuthServer {
         Err(Status::unimplemented("password_reset not implemented"))
     }
 
-    // -------------- REFRESH SESSION --------------
     async fn refresh_session(
         &self,
         _request: Request<RefreshRequest>,
@@ -83,7 +78,6 @@ impl AuthService for GrpcAuthServer {
         Err(Status::unimplemented("refresh_session not implemented"))
     }
 
-    // -------------- VERIFY SESSION --------------
     async fn verify_session(
         &self,
         _request: Request<VerifyRequest>,
@@ -91,7 +85,6 @@ impl AuthService for GrpcAuthServer {
         Err(Status::unimplemented("verify not implemented"))
     }
 
-    // -------------- GET PROFILE ------------------
     async fn get_profile(
         &self,
         _request: Request<ProfileRequest>,
@@ -99,7 +92,6 @@ impl AuthService for GrpcAuthServer {
         Err(Status::unimplemented("profile not implemented"))
     }
 
-    // -------------- UPDATE USER ------------------
     async fn update_user(
         &self,
         _request: Request<UpdateUserRequest>,
