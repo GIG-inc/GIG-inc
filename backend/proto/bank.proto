@@ -2,6 +2,11 @@ syntax = "proto3";
 
 package bank_service;
 
+service BankService {
+  rpc Deposit (DepositRequest) returns (DepositResponse);
+  rpc MpesaWithdraw (MpesaWithdrawRequest) returns (MpesaWithdrawResponse);
+}
+
 message DepositRequest {
   string phone = 1;
   double amount = 2;
@@ -24,8 +29,4 @@ message MpesaWithdrawResponse {
   string transaction_id = 3;
 }
 
-service BankService {
-  rpc Deposit (DepositRequest) returns (DepositResponse);
-  rpc MpesaWithdraw (MpesaWithdrawRequest) returns (MpesaWithdrawResponse);
-}
 

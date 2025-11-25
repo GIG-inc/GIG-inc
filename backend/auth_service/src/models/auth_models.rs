@@ -4,12 +4,37 @@ use serde::{Deserialize, Serialize};
 pub struct SignupRequest {
     pub email: String,
     pub password: String,
+    pub phone: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct LoginRequest {
     pub email: String,
     pub password: String,
+    pub phone: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct AuthResponse {
+    pub access_token: Option<String>,
+    pub refresh_token: Option<String>,
+    pub user: Option<User>,
+    pub token_type: Option<String>,
+    pub expires_in: Option<i64>,
+    pub confirmed_at: Option<String>,
+    pub last_sign_in_at: Option<String>
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct User {
+    pub id: Option<String>,
+    pub email: Option<String>,
+    pub phone: Option<String>,
+    pub confirmed_at: Option<String>,
+    pub last_sign_in_at: Option<String>,
+    pub role: Option<String>,
+    pub created_at: Option<String>,
+    pub updated_at: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -27,21 +52,6 @@ pub struct UpdateUserRequest {
 #[derive(Debug, Deserialize)]
 pub struct RefreshRequest {
     pub refresh_token: String,
-}
-
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct AuthResponse {
-    pub access_token: Option<String>,
-    pub refresh_token: Option<String>,
-    pub user: Option<User>,
-}
-
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct User {
-    pub id: String,
-    pub email: Option<String>,
-    pub created_at: Option<String>,
-    pub updated_at: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

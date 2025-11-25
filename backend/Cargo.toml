@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
 members = [
-    "api_gateway_service",
+    "bank_service",
     "auth_service",
 ]

@@ -21,7 +21,7 @@ impl SupabaseClient {
         }
     }
 
-    pub async fn signup_user(&self, email: &str, password: &str) -> Result<AuthResponse, reqwest::Error> {
+    pub async fn signup_user(&self, email: &str, password: &str, phone: &Option<String>) -> Result<AuthResponse, reqwest::Error> {
         let url = format!("{}/auth/v1/signup", self.base_url);
 
         let response = self
@@ -29,7 +29,11 @@ impl SupabaseClient {
             .post(&url)
             .header("apikey", &self.api_key)
             .header("Content-Type", "application/json")
-            .json(&json!({ "email": email, "password": password }))
+            .json(&json!({
+            "email": email,
+            "password": password,
+            //"phone": phone
+        }))
             .send()
             .await?;
 

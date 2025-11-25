@@ -2,11 +2,14 @@ use reqwest::Client;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone)]
+#[derive(Debug)]
 pub struct SupabaseClient {
     pub http: Client,
     pub base_url: String,
     pub api_key: String,
 }
+
+/// NOT BEING USED
 
 #[derive(Deserialize, Debug)]
 pub struct SignupResponse {
