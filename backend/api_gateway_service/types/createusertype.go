@@ -7,20 +7,36 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// TODO: validate email
 type Create_user struct {
-	Fullname string `json:"fullname" validate:"required, min=3"`
-	Username string `json:"username" validate:"required, min=3, max=3,"`
-	Phone    string `json:"phonenumber" validate:"required, number, contains=254, len=12"`
-	Password string `json:"password" validate:"required, min=8, max=30, passwd"`
+	Fullname string `json:"fullname" validate:"required,min=3"`
+	Username string `json:"username" validate:"required,min=3,max=30"`
+	Email    string `json:"email" validate:"required,email"`
+	Phone    string `json:"phonenumber" validate:"required,numeric,contains=254,len=12"`
+	Password string `json:"password" validate:"required,min=8,max=30,passwd"`
 }
 
 func (user *Create_user) Validate_input() error {
 	validate := validator.New()
-	validate.RegisterValidation("paswd", func(fl validator.FieldLevel) bool {
+
+	// Register custom password validator
+	validate.RegisterValidation("passwd", func(fl validator.FieldLevel) bool {
 		password := fl.Field().String()
-		re := regexp.MustCompile(`^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$`)
-		return re.MatchString(password)
+
+		// Check length
+		if len(password) < 8 || len(password) > 30 {
+			return false
+		}
+
+		// Check character requirements
+		hasUpper := regexp.MustCompile(`[A-Z]`).MatchString(password)
+		hasLower := regexp.MustCompile(`[a-z]`).MatchString(password)
+		hasDigit := regexp.MustCompile(`\d`).MatchString(password)
+
+		return hasUpper && hasLower && hasDigit
 	})
+
+	// Validate the struct
 	return validate.Struct(user)
 }
 

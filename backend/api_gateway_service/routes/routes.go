@@ -5,10 +5,9 @@ import (
 	"fmt"
 	"gateway/handlers"
 	"gateway/types"
-	"net/http"
-
 	"github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
+	"net/http"
 )
 
 func Routes(router *mux.Router) {
@@ -21,11 +20,14 @@ func Routes(router *mux.Router) {
 		resp.Header().Set("Content-Type", "application/json")
 		// json.NewEncoder()
 		var newuser types.Create_user
-		jsonerr := json.NewDecoder(r.Body).Decode(&newuser)
-		types.Logger.Printf("There was an error decoding json in create user handle func %v", jsonerr)
+		if jsonerr := json.NewDecoder(r.Body).Decode(&newuser); jsonerr != nil {
+			types.Logger.Printf("There was an error decoding json in create user handle func %v", jsonerr)
+		}
 		err := handlers.Createuser(&newuser)
-		if err != nil {
-			if errs, ok := err.(validator.ValidationErrors); ok {
+		bool, _ := err.Check()
+
+		if bool == true {
+			if errs, ok := err.Aerr.(validator.ValidationErrors); ok {
 				for _, e := range errs {
 					types.Logger.Printf("field %s failed because it did not meet %s", e.Field(), e.Tag())
 					http.Error(

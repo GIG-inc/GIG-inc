@@ -25,6 +25,8 @@ const (
 	Gigservice_History_FullMethodName        = "/gigservice/history"
 	Gigservice_Opening_FullMethodName        = "/gigservice/opening"
 	Gigservice_Createaccount_FullMethodName  = "/gigservice/createaccount"
+	Gigservice_Signup_FullMethodName         = "/gigservice/Signup"
+	Gigservice_Login_FullMethodName          = "/gigservice/Login"
 )
 
 // GigserviceClient is the client API for Gigservice service.
@@ -32,11 +34,13 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GigserviceClient interface {
 	AccountDetails(ctx context.Context, in *UserAccountDataReq, opts ...grpc.CallOption) (*UserDataResp, error)
-	Transfer(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[TransferReq, TransferResp], error)
+	Transfer(ctx context.Context, in *TransferReq, opts ...grpc.CallOption) (*TransferResp, error)
 	Sale(ctx context.Context, in *SaleReq, opts ...grpc.CallOption) (*SaleResp, error)
 	History(ctx context.Context, in *HistoryReq, opts ...grpc.CallOption) (*HistoryResp, error)
-	Opening(ctx context.Context, in *HistoryReq, opts ...grpc.CallOption) (*HistoryResp, error)
-	Createaccount(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[CreateUserReq, CreateUserResp], error)
+	Opening(ctx context.Context, in *OpeningReq, opts ...grpc.CallOption) (*OpeningResp, error)
+	Createaccount(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error)
+	Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*AuthResponse, error)
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthResponse, error)
 }
 
 type gigserviceClient struct {
@@ -57,18 +61,15 @@ func (c *gigserviceClient) AccountDetails(ctx context.Context, in *UserAccountDa
 	return out, nil
 }
 
-func (c *gigserviceClient) Transfer(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[TransferReq, TransferResp], error) {
+func (c *gigserviceClient) Transfer(ctx context.Context, in *TransferReq, opts ...grpc.CallOption) (*TransferResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &Gigservice_ServiceDesc.Streams[0], Gigservice_Transfer_FullMethodName, cOpts...)
+	out := new(TransferResp)
+	err := c.cc.Invoke(ctx, Gigservice_Transfer_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[TransferReq, TransferResp]{ClientStream: stream}
-	return x, nil
+	return out, nil
 }
-
-// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type Gigservice_TransferClient = grpc.BidiStreamingClient[TransferReq, TransferResp]
 
 func (c *gigserviceClient) Sale(ctx context.Context, in *SaleReq, opts ...grpc.CallOption) (*SaleResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
@@ -90,9 +91,9 @@ func (c *gigserviceClient) History(ctx context.Context, in *HistoryReq, opts ...
 	return out, nil
 }
 
-func (c *gigserviceClient) Opening(ctx context.Context, in *HistoryReq, opts ...grpc.CallOption) (*HistoryResp, error) {
+func (c *gigserviceClient) Opening(ctx context.Context, in *OpeningReq, opts ...grpc.CallOption) (*OpeningResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(HistoryResp)
+	out := new(OpeningResp)
 	err := c.cc.Invoke(ctx, Gigservice_Opening_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -100,29 +101,48 @@ func (c *gigserviceClient) Opening(ctx context.Context, in *HistoryReq, opts ...
 	return out, nil
 }
 
-func (c *gigserviceClient) Createaccount(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[CreateUserReq, CreateUserResp], error) {
+func (c *gigserviceClient) Createaccount(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &Gigservice_ServiceDesc.Streams[1], Gigservice_Createaccount_FullMethodName, cOpts...)
+	out := new(CreateUserResp)
+	err := c.cc.Invoke(ctx, Gigservice_Createaccount_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[CreateUserReq, CreateUserResp]{ClientStream: stream}
-	return x, nil
+	return out, nil
 }
 
-// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type Gigservice_CreateaccountClient = grpc.BidiStreamingClient[CreateUserReq, CreateUserResp]
+func (c *gigserviceClient) Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*AuthResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AuthResponse)
+	err := c.cc.Invoke(ctx, Gigservice_Signup_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gigserviceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AuthResponse)
+	err := c.cc.Invoke(ctx, Gigservice_Login_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
 
 // GigserviceServer is the server API for Gigservice service.
 // All implementations must embed UnimplementedGigserviceServer
 // for forward compatibility.
 type GigserviceServer interface {
 	AccountDetails(context.Context, *UserAccountDataReq) (*UserDataResp, error)
-	Transfer(grpc.BidiStreamingServer[TransferReq, TransferResp]) error
+	Transfer(context.Context, *TransferReq) (*TransferResp, error)
 	Sale(context.Context, *SaleReq) (*SaleResp, error)
 	History(context.Context, *HistoryReq) (*HistoryResp, error)
-	Opening(context.Context, *HistoryReq) (*HistoryResp, error)
-	Createaccount(grpc.BidiStreamingServer[CreateUserReq, CreateUserResp]) error
+	Opening(context.Context, *OpeningReq) (*OpeningResp, error)
+	Createaccount(context.Context, *CreateUserReq) (*CreateUserResp, error)
+	Signup(context.Context, *SignupRequest) (*AuthResponse, error)
+	Login(context.Context, *LoginRequest) (*AuthResponse, error)
 	mustEmbedUnimplementedGigserviceServer()
 }
 
@@ -136,8 +156,8 @@ type UnimplementedGigserviceServer struct{}
 func (UnimplementedGigserviceServer) AccountDetails(context.Context, *UserAccountDataReq) (*UserDataResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AccountDetails not implemented")
 }
-func (UnimplementedGigserviceServer) Transfer(grpc.BidiStreamingServer[TransferReq, TransferResp]) error {
-	return status.Errorf(codes.Unimplemented, "method Transfer not implemented")
+func (UnimplementedGigserviceServer) Transfer(context.Context, *TransferReq) (*TransferResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Transfer not implemented")
 }
 func (UnimplementedGigserviceServer) Sale(context.Context, *SaleReq) (*SaleResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Sale not implemented")
@@ -145,11 +165,17 @@ func (UnimplementedGigserviceServer) Sale(context.Context, *SaleReq) (*SaleResp,
 func (UnimplementedGigserviceServer) History(context.Context, *HistoryReq) (*HistoryResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method History not implemented")
 }
-func (UnimplementedGigserviceServer) Opening(context.Context, *HistoryReq) (*HistoryResp, error) {
+func (UnimplementedGigserviceServer) Opening(context.Context, *OpeningReq) (*OpeningResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Opening not implemented")
 }
-func (UnimplementedGigserviceServer) Createaccount(grpc.BidiStreamingServer[CreateUserReq, CreateUserResp]) error {
-	return status.Errorf(codes.Unimplemented, "method Createaccount not implemented")
+func (UnimplementedGigserviceServer) Createaccount(context.Context, *CreateUserReq) (*CreateUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Createaccount not implemented")
+}
+func (UnimplementedGigserviceServer) Signup(context.Context, *SignupRequest) (*AuthResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Signup not implemented")
+}
+func (UnimplementedGigserviceServer) Login(context.Context, *LoginRequest) (*AuthResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 func (UnimplementedGigserviceServer) mustEmbedUnimplementedGigserviceServer() {}
 func (UnimplementedGigserviceServer) testEmbeddedByValue()                    {}
@@ -190,12 +216,23 @@ func _Gigservice_AccountDetails_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Gigservice_Transfer_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(GigserviceServer).Transfer(&grpc.GenericServerStream[TransferReq, TransferResp]{ServerStream: stream})
+func _Gigservice_Transfer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TransferReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigserviceServer).Transfer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gigservice_Transfer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigserviceServer).Transfer(ctx, req.(*TransferReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
-
-// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type Gigservice_TransferServer = grpc.BidiStreamingServer[TransferReq, TransferResp]
 
 func _Gigservice_Sale_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SaleReq)
@@ -234,7 +271,7 @@ func _Gigservice_History_Handler(srv interface{}, ctx context.Context, dec func(
 }
 
 func _Gigservice_Opening_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HistoryReq)
+	in := new(OpeningReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -246,17 +283,64 @@ func _Gigservice_Opening_Handler(srv interface{}, ctx context.Context, dec func(
 		FullMethod: Gigservice_Opening_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GigserviceServer).Opening(ctx, req.(*HistoryReq))
+		return srv.(GigserviceServer).Opening(ctx, req.(*OpeningReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Gigservice_Createaccount_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(GigserviceServer).Createaccount(&grpc.GenericServerStream[CreateUserReq, CreateUserResp]{ServerStream: stream})
+func _Gigservice_Createaccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigserviceServer).Createaccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gigservice_Createaccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigserviceServer).Createaccount(ctx, req.(*CreateUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type Gigservice_CreateaccountServer = grpc.BidiStreamingServer[CreateUserReq, CreateUserResp]
+func _Gigservice_Signup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SignupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigserviceServer).Signup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gigservice_Signup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigserviceServer).Signup(ctx, req.(*SignupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gigservice_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigserviceServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gigservice_Login_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigserviceServer).Login(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
 
 // Gigservice_ServiceDesc is the grpc.ServiceDesc for Gigservice service.
 // It's only intended for direct use with grpc.RegisterService,
@@ -270,6 +354,10 @@ var Gigservice_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Gigservice_AccountDetails_Handler,
 		},
 		{
+			MethodName: "transfer",
+			Handler:    _Gigservice_Transfer_Handler,
+		},
+		{
 			MethodName: "sale",
 			Handler:    _Gigservice_Sale_Handler,
 		},
@@ -281,20 +369,19 @@ var Gigservice_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "opening",
 			Handler:    _Gigservice_Opening_Handler,
 		},
-	},
-	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "transfer",
-			Handler:       _Gigservice_Transfer_Handler,
-			ServerStreams: true,
-			ClientStreams: true,
+			MethodName: "createaccount",
+			Handler:    _Gigservice_Createaccount_Handler,
 		},
 		{
-			StreamName:    "createaccount",
-			Handler:       _Gigservice_Createaccount_Handler,
-			ServerStreams: true,
-			ClientStreams: true,
+			MethodName: "Signup",
+			Handler:    _Gigservice_Signup_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _Gigservice_Login_Handler,
 		},
 	},
+	Streams:  []grpc.StreamDesc{},
 	Metadata: "proto/gateway.proto",
 }
