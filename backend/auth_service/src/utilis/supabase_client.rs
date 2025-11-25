@@ -46,7 +46,11 @@ impl SupabaseClient {
             .post(&url)
             .header("apikey", &self.api_key)
             .header("Content-Type", "application/json")
-            .json(&serde_json::json!({ "email": email, "password": password }))
+            .json(&json!({
+            "email": email,
+            "password": password,
+            //"phone": phone
+        }))
             .send()
             .await?;
 

@@ -12,7 +12,7 @@ use crate::grpc::auth::{
     ProfileRequest, User,
     UpdateUserRequest, UpdateResponse,
 };
-
+use crate::grpc::login_handler::LoginHandler;
 use crate::grpc::signup_handler::SignupHandler;
 use crate::state::AppState;
 
@@ -52,9 +52,17 @@ impl AuthService for GrpcAuthServer {
 
     async fn login(
         &self,
-        _request: Request<LoginRequest>,
+        request: Request<LoginRequest>,
     ) -> Result<Response<AuthResponse>, Status> {
-        Err(Status::unimplemented("login not implemented"))
+
+        let req = request.into_inner();
+
+        // Pass inner SupabaseClient to handler
+        let result = LoginHandler::handle(&*self.state.supabase, req)
+            .await
+            .map_err(|e| Status::internal(e.to_string()))?;
+
+        Ok(Response::new(result))
     }
 
     async fn logout(
