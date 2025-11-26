@@ -19,14 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Gigservice_AccountDetails_FullMethodName = "/gigservice/account_details"
-	Gigservice_Transfer_FullMethodName       = "/gigservice/transfer"
-	Gigservice_Sale_FullMethodName           = "/gigservice/sale"
-	Gigservice_History_FullMethodName        = "/gigservice/history"
-	Gigservice_Opening_FullMethodName        = "/gigservice/opening"
-	Gigservice_Createaccount_FullMethodName  = "/gigservice/createaccount"
-	Gigservice_Signup_FullMethodName         = "/gigservice/Signup"
-	Gigservice_Login_FullMethodName          = "/gigservice/Login"
+	Gigservice_AccountDetails_FullMethodName = "/auth.gigservice/account_details"
+	Gigservice_Transfer_FullMethodName       = "/auth.gigservice/transfer"
+	Gigservice_Sale_FullMethodName           = "/auth.gigservice/sale"
+	Gigservice_History_FullMethodName        = "/auth.gigservice/history"
+	Gigservice_Opening_FullMethodName        = "/auth.gigservice/opening"
+	Gigservice_Createaccount_FullMethodName  = "/auth.gigservice/createaccount"
 )
 
 // GigserviceClient is the client API for Gigservice service.
@@ -39,8 +37,6 @@ type GigserviceClient interface {
 	History(ctx context.Context, in *HistoryReq, opts ...grpc.CallOption) (*HistoryResp, error)
 	Opening(ctx context.Context, in *OpeningReq, opts ...grpc.CallOption) (*OpeningResp, error)
 	Createaccount(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error)
-	Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*AuthResponse, error)
-	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthResponse, error)
 }
 
 type gigserviceClient struct {
@@ -111,26 +107,6 @@ func (c *gigserviceClient) Createaccount(ctx context.Context, in *CreateUserReq,
 	return out, nil
 }
 
-func (c *gigserviceClient) Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*AuthResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthResponse)
-	err := c.cc.Invoke(ctx, Gigservice_Signup_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *gigserviceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AuthResponse)
-	err := c.cc.Invoke(ctx, Gigservice_Login_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // GigserviceServer is the server API for Gigservice service.
 // All implementations must embed UnimplementedGigserviceServer
 // for forward compatibility.
@@ -141,8 +117,6 @@ type GigserviceServer interface {
 	History(context.Context, *HistoryReq) (*HistoryResp, error)
 	Opening(context.Context, *OpeningReq) (*OpeningResp, error)
 	Createaccount(context.Context, *CreateUserReq) (*CreateUserResp, error)
-	Signup(context.Context, *SignupRequest) (*AuthResponse, error)
-	Login(context.Context, *LoginRequest) (*AuthResponse, error)
 	mustEmbedUnimplementedGigserviceServer()
 }
 
@@ -170,12 +144,6 @@ func (UnimplementedGigserviceServer) Opening(context.Context, *OpeningReq) (*Ope
 }
 func (UnimplementedGigserviceServer) Createaccount(context.Context, *CreateUserReq) (*CreateUserResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Createaccount not implemented")
-}
-func (UnimplementedGigserviceServer) Signup(context.Context, *SignupRequest) (*AuthResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Signup not implemented")
-}
-func (UnimplementedGigserviceServer) Login(context.Context, *LoginRequest) (*AuthResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 func (UnimplementedGigserviceServer) mustEmbedUnimplementedGigserviceServer() {}
 func (UnimplementedGigserviceServer) testEmbeddedByValue()                    {}
@@ -306,47 +274,11 @@ func _Gigservice_Createaccount_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Gigservice_Signup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SignupRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GigserviceServer).Signup(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Gigservice_Signup_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GigserviceServer).Signup(ctx, req.(*SignupRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Gigservice_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LoginRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GigserviceServer).Login(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Gigservice_Login_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GigserviceServer).Login(ctx, req.(*LoginRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Gigservice_ServiceDesc is the grpc.ServiceDesc for Gigservice service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Gigservice_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "gigservice",
+	ServiceName: "auth.gigservice",
 	HandlerType: (*GigserviceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -372,14 +304,6 @@ var Gigservice_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "createaccount",
 			Handler:    _Gigservice_Createaccount_Handler,
-		},
-		{
-			MethodName: "Signup",
-			Handler:    _Gigservice_Signup_Handler,
-		},
-		{
-			MethodName: "Login",
-			Handler:    _Gigservice_Login_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

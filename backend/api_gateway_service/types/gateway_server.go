@@ -21,6 +21,7 @@ func NewGatewayserver() (*Gatewayserver, error) {
 	if port == "" {
 		return nil, fmt.Errorf("grpc auth server variable not set")
 	}
+	// TODO:remember to set it a secure connection
 	conn, err := grpc.NewClient(
 		port,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),

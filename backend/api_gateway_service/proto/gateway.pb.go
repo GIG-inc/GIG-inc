@@ -1050,803 +1050,11 @@ func (x *Amounts) GetAmount() int64 {
 	return 0
 }
 
-type SignupRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
-	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
-	Phone         *string                `protobuf:"bytes,3,opt,name=phone,proto3,oneof" json:"phone,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *SignupRequest) Reset() {
-	*x = SignupRequest{}
-	mi := &file_proto_gateway_proto_msgTypes[17]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *SignupRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SignupRequest) ProtoMessage() {}
-
-func (x *SignupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[17]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SignupRequest.ProtoReflect.Descriptor instead.
-func (*SignupRequest) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{17}
-}
-
-func (x *SignupRequest) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
-
-func (x *SignupRequest) GetPassword() string {
-	if x != nil {
-		return x.Password
-	}
-	return ""
-}
-
-func (x *SignupRequest) GetPhone() string {
-	if x != nil && x.Phone != nil {
-		return *x.Phone
-	}
-	return ""
-}
-
-type LoginRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
-	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
-	Phone         string                 `protobuf:"bytes,3,opt,name=phone,proto3" json:"phone,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *LoginRequest) Reset() {
-	*x = LoginRequest{}
-	mi := &file_proto_gateway_proto_msgTypes[18]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *LoginRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*LoginRequest) ProtoMessage() {}
-
-func (x *LoginRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[18]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
-func (*LoginRequest) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{18}
-}
-
-func (x *LoginRequest) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
-
-func (x *LoginRequest) GetPassword() string {
-	if x != nil {
-		return x.Password
-	}
-	return ""
-}
-
-func (x *LoginRequest) GetPhone() string {
-	if x != nil {
-		return x.Phone
-	}
-	return ""
-}
-
-type AuthResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	TokenType     string                 `protobuf:"bytes,3,opt,name=token_type,json=tokenType,proto3" json:"token_type,omitempty"`
-	ExpiresIn     int64                  `protobuf:"varint,4,opt,name=expires_in,json=expiresIn,proto3" json:"expires_in,omitempty"`
-	User          *User                  `protobuf:"bytes,5,opt,name=user,proto3" json:"user,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *AuthResponse) Reset() {
-	*x = AuthResponse{}
-	mi := &file_proto_gateway_proto_msgTypes[19]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *AuthResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AuthResponse) ProtoMessage() {}
-
-func (x *AuthResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[19]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AuthResponse.ProtoReflect.Descriptor instead.
-func (*AuthResponse) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{19}
-}
-
-func (x *AuthResponse) GetAccessToken() string {
-	if x != nil {
-		return x.AccessToken
-	}
-	return ""
-}
-
-func (x *AuthResponse) GetRefreshToken() string {
-	if x != nil {
-		return x.RefreshToken
-	}
-	return ""
-}
-
-func (x *AuthResponse) GetTokenType() string {
-	if x != nil {
-		return x.TokenType
-	}
-	return ""
-}
-
-func (x *AuthResponse) GetExpiresIn() int64 {
-	if x != nil {
-		return x.ExpiresIn
-	}
-	return 0
-}
-
-func (x *AuthResponse) GetUser() *User {
-	if x != nil {
-		return x.User
-	}
-	return nil
-}
-
-type User struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            *string                `protobuf:"bytes,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
-	Email         *string                `protobuf:"bytes,2,opt,name=email,proto3,oneof" json:"email,omitempty"`
-	Phone         *string                `protobuf:"bytes,3,opt,name=phone,proto3,oneof" json:"phone,omitempty"`
-	ConfirmedAt   *string                `protobuf:"bytes,4,opt,name=confirmed_at,json=confirmedAt,proto3,oneof" json:"confirmed_at,omitempty"`
-	LastSignInAt  *string                `protobuf:"bytes,5,opt,name=last_sign_in_at,json=lastSignInAt,proto3,oneof" json:"last_sign_in_at,omitempty"`
-	Role          *string                `protobuf:"bytes,6,opt,name=role,proto3,oneof" json:"role,omitempty"`
-	CreatedAt     *string                `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
-	UpdatedAt     *string                `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *User) Reset() {
-	*x = User{}
-	mi := &file_proto_gateway_proto_msgTypes[20]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *User) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*User) ProtoMessage() {}
-
-func (x *User) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[20]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use User.ProtoReflect.Descriptor instead.
-func (*User) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{20}
-}
-
-func (x *User) GetId() string {
-	if x != nil && x.Id != nil {
-		return *x.Id
-	}
-	return ""
-}
-
-func (x *User) GetEmail() string {
-	if x != nil && x.Email != nil {
-		return *x.Email
-	}
-	return ""
-}
-
-func (x *User) GetPhone() string {
-	if x != nil && x.Phone != nil {
-		return *x.Phone
-	}
-	return ""
-}
-
-func (x *User) GetConfirmedAt() string {
-	if x != nil && x.ConfirmedAt != nil {
-		return *x.ConfirmedAt
-	}
-	return ""
-}
-
-func (x *User) GetLastSignInAt() string {
-	if x != nil && x.LastSignInAt != nil {
-		return *x.LastSignInAt
-	}
-	return ""
-}
-
-func (x *User) GetRole() string {
-	if x != nil && x.Role != nil {
-		return *x.Role
-	}
-	return ""
-}
-
-func (x *User) GetCreatedAt() string {
-	if x != nil && x.CreatedAt != nil {
-		return *x.CreatedAt
-	}
-	return ""
-}
-
-func (x *User) GetUpdatedAt() string {
-	if x != nil && x.UpdatedAt != nil {
-		return *x.UpdatedAt
-	}
-	return ""
-}
-
-type UpdateUserRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
-	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Phone         string                 `protobuf:"bytes,4,opt,name=phone,proto3" json:"phone,omitempty"`
-	Username      string                 `protobuf:"bytes,5,opt,name=username,proto3" json:"username,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UpdateUserRequest) Reset() {
-	*x = UpdateUserRequest{}
-	mi := &file_proto_gateway_proto_msgTypes[21]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UpdateUserRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdateUserRequest) ProtoMessage() {}
-
-func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[21]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
-func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{21}
-}
-
-func (x *UpdateUserRequest) GetAccessToken() string {
-	if x != nil {
-		return x.AccessToken
-	}
-	return ""
-}
-
-func (x *UpdateUserRequest) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
-
-func (x *UpdateUserRequest) GetPassword() string {
-	if x != nil {
-		return x.Password
-	}
-	return ""
-}
-
-func (x *UpdateUserRequest) GetPhone() string {
-	if x != nil {
-		return x.Phone
-	}
-	return ""
-}
-
-func (x *UpdateUserRequest) GetUsername() string {
-	if x != nil {
-		return x.Username
-	}
-	return ""
-}
-
-type LogoutRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *LogoutRequest) Reset() {
-	*x = LogoutRequest{}
-	mi := &file_proto_gateway_proto_msgTypes[22]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *LogoutRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*LogoutRequest) ProtoMessage() {}
-
-func (x *LogoutRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[22]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use LogoutRequest.ProtoReflect.Descriptor instead.
-func (*LogoutRequest) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{22}
-}
-
-func (x *LogoutRequest) GetAccessToken() string {
-	if x != nil {
-		return x.AccessToken
-	}
-	return ""
-}
-
-type PasswordResetRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *PasswordResetRequest) Reset() {
-	*x = PasswordResetRequest{}
-	mi := &file_proto_gateway_proto_msgTypes[23]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *PasswordResetRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*PasswordResetRequest) ProtoMessage() {}
-
-func (x *PasswordResetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[23]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use PasswordResetRequest.ProtoReflect.Descriptor instead.
-func (*PasswordResetRequest) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{23}
-}
-
-func (x *PasswordResetRequest) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
-
-type RefreshRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *RefreshRequest) Reset() {
-	*x = RefreshRequest{}
-	mi := &file_proto_gateway_proto_msgTypes[24]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *RefreshRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RefreshRequest) ProtoMessage() {}
-
-func (x *RefreshRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[24]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RefreshRequest.ProtoReflect.Descriptor instead.
-func (*RefreshRequest) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{24}
-}
-
-func (x *RefreshRequest) GetRefreshToken() string {
-	if x != nil {
-		return x.RefreshToken
-	}
-	return ""
-}
-
-type VerifyRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *VerifyRequest) Reset() {
-	*x = VerifyRequest{}
-	mi := &file_proto_gateway_proto_msgTypes[25]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *VerifyRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*VerifyRequest) ProtoMessage() {}
-
-func (x *VerifyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[25]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use VerifyRequest.ProtoReflect.Descriptor instead.
-func (*VerifyRequest) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{25}
-}
-
-func (x *VerifyRequest) GetAccessToken() string {
-	if x != nil {
-		return x.AccessToken
-	}
-	return ""
-}
-
-type VerifyResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Valid         bool                   `protobuf:"varint,1,opt,name=valid,proto3" json:"valid,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *VerifyResponse) Reset() {
-	*x = VerifyResponse{}
-	mi := &file_proto_gateway_proto_msgTypes[26]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *VerifyResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*VerifyResponse) ProtoMessage() {}
-
-func (x *VerifyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[26]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use VerifyResponse.ProtoReflect.Descriptor instead.
-func (*VerifyResponse) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{26}
-}
-
-func (x *VerifyResponse) GetValid() bool {
-	if x != nil {
-		return x.Valid
-	}
-	return false
-}
-
-type ProfileRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ProfileRequest) Reset() {
-	*x = ProfileRequest{}
-	mi := &file_proto_gateway_proto_msgTypes[27]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ProfileRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ProfileRequest) ProtoMessage() {}
-
-func (x *ProfileRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[27]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ProfileRequest.ProtoReflect.Descriptor instead.
-func (*ProfileRequest) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{27}
-}
-
-func (x *ProfileRequest) GetAccessToken() string {
-	if x != nil {
-		return x.AccessToken
-	}
-	return ""
-}
-
-type UpdateResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	User          *User                  `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UpdateResponse) Reset() {
-	*x = UpdateResponse{}
-	mi := &file_proto_gateway_proto_msgTypes[28]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UpdateResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdateResponse) ProtoMessage() {}
-
-func (x *UpdateResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[28]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdateResponse.ProtoReflect.Descriptor instead.
-func (*UpdateResponse) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{28}
-}
-
-func (x *UpdateResponse) GetUser() *User {
-	if x != nil {
-		return x.User
-	}
-	return nil
-}
-
-type RefreshResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	TokenType     string                 `protobuf:"bytes,3,opt,name=token_type,json=tokenType,proto3" json:"token_type,omitempty"`
-	ExpiresIn     int64                  `protobuf:"varint,4,opt,name=expires_in,json=expiresIn,proto3" json:"expires_in,omitempty"`
-	User          *User                  `protobuf:"bytes,5,opt,name=user,proto3" json:"user,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *RefreshResponse) Reset() {
-	*x = RefreshResponse{}
-	mi := &file_proto_gateway_proto_msgTypes[29]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *RefreshResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RefreshResponse) ProtoMessage() {}
-
-func (x *RefreshResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[29]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RefreshResponse.ProtoReflect.Descriptor instead.
-func (*RefreshResponse) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{29}
-}
-
-func (x *RefreshResponse) GetAccessToken() string {
-	if x != nil {
-		return x.AccessToken
-	}
-	return ""
-}
-
-func (x *RefreshResponse) GetRefreshToken() string {
-	if x != nil {
-		return x.RefreshToken
-	}
-	return ""
-}
-
-func (x *RefreshResponse) GetTokenType() string {
-	if x != nil {
-		return x.TokenType
-	}
-	return ""
-}
-
-func (x *RefreshResponse) GetExpiresIn() int64 {
-	if x != nil {
-		return x.ExpiresIn
-	}
-	return 0
-}
-
-func (x *RefreshResponse) GetUser() *User {
-	if x != nil {
-		return x.User
-	}
-	return nil
-}
-
-type EmptyResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *EmptyResponse) Reset() {
-	*x = EmptyResponse{}
-	mi := &file_proto_gateway_proto_msgTypes[30]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *EmptyResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*EmptyResponse) ProtoMessage() {}
-
-func (x *EmptyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gateway_proto_msgTypes[30]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use EmptyResponse.ProtoReflect.Descriptor instead.
-func (*EmptyResponse) Descriptor() ([]byte, []int) {
-	return file_proto_gateway_proto_rawDescGZIP(), []int{30}
-}
-
 var File_proto_gateway_proto protoreflect.FileDescriptor
 
 const file_proto_gateway_proto_rawDesc = "" +
 	"\n" +
-	"\x13proto/gateway.proto\"\xa3\x02\n" +
+	"\x13proto/gateway.proto\x12\x04auth\"\xa8\x02\n" +
 	"\x0fcreate_user_req\x12\"\n" +
 	"\fglobaluserid\x18\x01 \x01(\tR\fglobaluserid\x12 \n" +
 	"\vphonenumber\x18\x02 \x01(\tR\vphonenumber\x12\x1c\n" +
@@ -1854,160 +1062,92 @@ const file_proto_gateway_proto_rawDesc = "" +
 	"\bkyclevel\x18\x04 \x01(\tR\bkyclevel\x12 \n" +
 	"\vacceptterms\x18\x05 \x01(\tR\vacceptterms\x12*\n" +
 	"\x10transactionlimit\x18\x06 \x01(\x03R\x10transactionlimit\x12\x1a\n" +
-	"\busername\x18\a \x01(\tR\busername\x12&\n" +
-	"\x06wallet\x18\b \x01(\v2\x0e.create_walletR\x06wallet\"S\n" +
+	"\busername\x18\a \x01(\tR\busername\x12+\n" +
+	"\x06wallet\x18\b \x01(\v2\x13.auth.create_walletR\x06wallet\"S\n" +
 	"\rcreate_wallet\x12 \n" +
 	"\vcashbalance\x18\x01 \x01(\tR\vcashbalance\x12 \n" +
-	"\vgoldbalance\x18\x02 \x01(\tR\vgoldbalance\"\x8f\x01\n" +
+	"\vgoldbalance\x18\x02 \x01(\tR\vgoldbalance\"\x94\x01\n" +
 	"\x10create_user_resp\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status\x12\x1d\n" +
-	"\amessage\x18\x02 \x01(\tH\x00R\amessage\x88\x01\x01\x12-\n" +
-	"\x06errors\x18\x03 \x01(\v2\x10.changeseterrorsH\x01R\x06errors\x88\x01\x01B\n" +
+	"\amessage\x18\x02 \x01(\tH\x00R\amessage\x88\x01\x01\x122\n" +
+	"\x06errors\x18\x03 \x01(\v2\x15.auth.changeseterrorsH\x01R\x06errors\x88\x01\x01B\n" +
 	"\n" +
 	"\b_messageB\t\n" +
 	"\a_errors\"A\n" +
 	"\x0fvalidationerror\x12\x14\n" +
 	"\x05field\x18\x01 \x01(\tR\x05field\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage\";\n" +
-	"\x0fchangeseterrors\x12(\n" +
-	"\x06errors\x18\x01 \x03(\v2\x10.validationerrorR\x06errors\"'\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"@\n" +
+	"\x0fchangeseterrors\x12-\n" +
+	"\x06errors\x18\x01 \x03(\v2\x15.auth.validationerrorR\x06errors\"'\n" +
 	"\x15user_account_data_req\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\"\x92\x01\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"\x9c\x01\n" +
 	"\ftransfer_req\x12\x17\n" +
 	"\afrom_id\x18\x01 \x01(\tR\x06fromId\x12\x13\n" +
-	"\x05to_id\x18\x02 \x01(\tR\x04toId\x12)\n" +
-	"\vgold_amount\x18\x03 \x01(\v2\b.amountsR\n" +
-	"goldAmount\x12)\n" +
-	"\vcash_amount\x18\x04 \x01(\v2\b.amountsR\n" +
-	"cashAmount\"\x8e\x01\n" +
+	"\x05to_id\x18\x02 \x01(\tR\x04toId\x12.\n" +
+	"\vgold_amount\x18\x03 \x01(\v2\r.auth.amountsR\n" +
+	"goldAmount\x12.\n" +
+	"\vcash_amount\x18\x04 \x01(\v2\r.auth.amountsR\n" +
+	"cashAmount\"\x98\x01\n" +
 	"\bsale_req\x12\x17\n" +
 	"\afrom_id\x18\x01 \x01(\tR\x06fromId\x12\x13\n" +
-	"\x05to_id\x18\x02 \x01(\tR\x04toId\x12)\n" +
-	"\vgold_amount\x18\x03 \x01(\v2\b.amountsR\n" +
-	"goldAmount\x12)\n" +
-	"\vcash_amount\x18\x04 \x01(\v2\b.amountsR\n" +
+	"\x05to_id\x18\x02 \x01(\tR\x04toId\x12.\n" +
+	"\vgold_amount\x18\x03 \x01(\v2\r.auth.amountsR\n" +
+	"goldAmount\x12.\n" +
+	"\vcash_amount\x18\x04 \x01(\v2\r.auth.amountsR\n" +
 	"cashAmount\"\r\n" +
 	"\vopening_req\"\r\n" +
-	"\vhistory_req\"f\n" +
-	"\x0euser_data_resp\x12)\n" +
-	"\vgold_amount\x18\x01 \x01(\v2\b.amountsR\n" +
-	"goldAmount\x12)\n" +
-	"\vcash_amount\x18\x02 \x01(\v2\b.amountsR\n" +
-	"cashAmount\"\xd7\x01\n" +
+	"\vhistory_req\"p\n" +
+	"\x0euser_data_resp\x12.\n" +
+	"\vgold_amount\x18\x01 \x01(\v2\r.auth.amountsR\n" +
+	"goldAmount\x12.\n" +
+	"\vcash_amount\x18\x02 \x01(\v2\r.auth.amountsR\n" +
+	"cashAmount\"\xe1\x01\n" +
 	"\tsale_resp\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04from\x18\x02 \x01(\tR\x04from\x12\x0e\n" +
-	"\x02to\x18\x03 \x01(\tR\x02to\x12(\n" +
+	"\x02to\x18\x03 \x01(\tR\x02to\x12-\n" +
 	"\n" +
-	"goldamount\x18\x04 \x01(\v2\b.amountsR\n" +
-	"goldamount\x12*\n" +
-	"\vmoneyamount\x18\x05 \x01(\v2\b.amountsR\vmoneyamount\x12\x18\n" +
+	"goldamount\x18\x04 \x01(\v2\r.auth.amountsR\n" +
+	"goldamount\x12/\n" +
+	"\vmoneyamount\x18\x05 \x01(\v2\r.auth.amountsR\vmoneyamount\x12\x18\n" +
 	"\asuccess\x18\x06 \x01(\bR\asuccess\x12\x1b\n" +
 	"\x06reason\x18\a \x01(\tH\x00R\x06reason\x88\x01\x01B\t\n" +
-	"\a_reason\"\xec\x01\n" +
+	"\a_reason\"\xf6\x01\n" +
 	"\rtransfer_resp\x12\x1d\n" +
 	"\n" +
 	"transer_id\x18\x01 \x01(\tR\ttranserId\x12\x12\n" +
 	"\x04from\x18\x02 \x01(\tR\x04from\x12\x0e\n" +
-	"\x02to\x18\x03 \x01(\tR\x02to\x12)\n" +
-	"\vgold_amount\x18\x04 \x01(\v2\b.amountsR\n" +
-	"goldAmount\x12+\n" +
-	"\fmoney_amount\x18\x05 \x01(\v2\b.amountsR\vmoneyAmount\x12\x18\n" +
+	"\x02to\x18\x03 \x01(\tR\x02to\x12.\n" +
+	"\vgold_amount\x18\x04 \x01(\v2\r.auth.amountsR\n" +
+	"goldAmount\x120\n" +
+	"\fmoney_amount\x18\x05 \x01(\v2\r.auth.amountsR\vmoneyAmount\x12\x18\n" +
 	"\asuccess\x18\x06 \x01(\bR\asuccess\x12\x1b\n" +
 	"\x06reason\x18\a \x01(\tH\x00R\x06reason\x88\x01\x01B\t\n" +
-	"\a_reason\"S\n" +
-	"\fopening_resp\x12 \n" +
-	"\x06amount\x18\x01 \x01(\v2\b.amountsR\x06amount\x12!\n" +
-	"\fclosing_date\x18\x02 \x01(\tR\vclosingDate\"2\n" +
-	"\fhistory_resp\x12\"\n" +
-	"\arequest\x18\x01 \x03(\v2\b.historyR\arequest\"\xf7\x01\n" +
+	"\a_reason\"X\n" +
+	"\fopening_resp\x12%\n" +
+	"\x06amount\x18\x01 \x01(\v2\r.auth.amountsR\x06amount\x12!\n" +
+	"\fclosing_date\x18\x02 \x01(\tR\vclosingDate\"7\n" +
+	"\fhistory_resp\x12'\n" +
+	"\arequest\x18\x01 \x03(\v2\r.auth.historyR\arequest\"\x86\x02\n" +
 	"\ahistory\x12!\n" +
 	"\fopening_date\x18\x01 \x01(\tR\vopeningDate\x12!\n" +
-	"\fclosing_date\x18\x02 \x01(\tR\vclosingDate\x12)\n" +
-	"\vinitial_inv\x18\x03 \x01(\v2\b.amountsR\n" +
-	"initialInv\x12\"\n" +
-	"\arevenue\x18\x04 \x01(\v2\b.amountsR\arevenue\x12\x1d\n" +
+	"\fclosing_date\x18\x02 \x01(\tR\vclosingDate\x12.\n" +
+	"\vinitial_inv\x18\x03 \x01(\v2\r.auth.amountsR\n" +
+	"initialInv\x12'\n" +
+	"\arevenue\x18\x04 \x01(\v2\r.auth.amountsR\arevenue\x12\x1d\n" +
 	"\n" +
-	"people_inv\x18\x05 \x01(\x03R\tpeopleInv\x128\n" +
-	"\x13profit_per_shilling\x18\x06 \x01(\v2\b.amountsR\x11profitPerShilling\"!\n" +
+	"people_inv\x18\x05 \x01(\x03R\tpeopleInv\x12=\n" +
+	"\x13profit_per_shilling\x18\x06 \x01(\v2\r.auth.amountsR\x11profitPerShilling\"!\n" +
 	"\aamounts\x12\x16\n" +
-	"\x06amount\x18\x01 \x01(\x03R\x06amount\"f\n" +
-	"\rSignupRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x19\n" +
-	"\x05phone\x18\x03 \x01(\tH\x00R\x05phone\x88\x01\x01B\b\n" +
-	"\x06_phone\"V\n" +
-	"\fLoginRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x14\n" +
-	"\x05phone\x18\x03 \x01(\tR\x05phone\"\xaf\x01\n" +
-	"\fAuthResponse\x12!\n" +
-	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x1d\n" +
+	"\x06amount\x18\x01 \x01(\x03R\x06amount2\xd4\x02\n" +
 	"\n" +
-	"token_type\x18\x03 \x01(\tR\ttokenType\x12\x1d\n" +
-	"\n" +
-	"expires_in\x18\x04 \x01(\x03R\texpiresIn\x12\x19\n" +
-	"\x04user\x18\x05 \x01(\v2\x05.UserR\x04user\"\xed\x02\n" +
-	"\x04User\x12\x13\n" +
-	"\x02id\x18\x01 \x01(\tH\x00R\x02id\x88\x01\x01\x12\x19\n" +
-	"\x05email\x18\x02 \x01(\tH\x01R\x05email\x88\x01\x01\x12\x19\n" +
-	"\x05phone\x18\x03 \x01(\tH\x02R\x05phone\x88\x01\x01\x12&\n" +
-	"\fconfirmed_at\x18\x04 \x01(\tH\x03R\vconfirmedAt\x88\x01\x01\x12*\n" +
-	"\x0flast_sign_in_at\x18\x05 \x01(\tH\x04R\flastSignInAt\x88\x01\x01\x12\x17\n" +
-	"\x04role\x18\x06 \x01(\tH\x05R\x04role\x88\x01\x01\x12\"\n" +
-	"\n" +
-	"created_at\x18\a \x01(\tH\x06R\tcreatedAt\x88\x01\x01\x12\"\n" +
-	"\n" +
-	"updated_at\x18\b \x01(\tH\aR\tupdatedAt\x88\x01\x01B\x05\n" +
-	"\x03_idB\b\n" +
-	"\x06_emailB\b\n" +
-	"\x06_phoneB\x0f\n" +
-	"\r_confirmed_atB\x12\n" +
-	"\x10_last_sign_in_atB\a\n" +
-	"\x05_roleB\r\n" +
-	"\v_created_atB\r\n" +
-	"\v_updated_at\"\x9a\x01\n" +
-	"\x11UpdateUserRequest\x12!\n" +
-	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12\x14\n" +
-	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x03 \x01(\tR\bpassword\x12\x14\n" +
-	"\x05phone\x18\x04 \x01(\tR\x05phone\x12\x1a\n" +
-	"\busername\x18\x05 \x01(\tR\busername\"2\n" +
-	"\rLogoutRequest\x12!\n" +
-	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\",\n" +
-	"\x14PasswordResetRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\"5\n" +
-	"\x0eRefreshRequest\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"2\n" +
-	"\rVerifyRequest\x12!\n" +
-	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\"&\n" +
-	"\x0eVerifyResponse\x12\x14\n" +
-	"\x05valid\x18\x01 \x01(\bR\x05valid\"3\n" +
-	"\x0eProfileRequest\x12!\n" +
-	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\"+\n" +
-	"\x0eUpdateResponse\x12\x19\n" +
-	"\x04user\x18\x01 \x01(\v2\x05.UserR\x04user\"\xb2\x01\n" +
-	"\x0fRefreshResponse\x12!\n" +
-	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x1d\n" +
-	"\n" +
-	"token_type\x18\x03 \x01(\tR\ttokenType\x12\x1d\n" +
-	"\n" +
-	"expires_in\x18\x04 \x01(\x03R\texpiresIn\x12\x19\n" +
-	"\x04user\x18\x05 \x01(\v2\x05.UserR\x04user\"\x0f\n" +
-	"\rEmptyResponse2\xe8\x02\n" +
-	"\n" +
-	"gigservice\x12:\n" +
-	"\x0faccount_details\x12\x16.user_account_data_req\x1a\x0f.user_data_resp\x12)\n" +
-	"\btransfer\x12\r.transfer_req\x1a\x0e.transfer_resp\x12\x1d\n" +
-	"\x04sale\x12\t.sale_req\x1a\n" +
-	".sale_resp\x12&\n" +
-	"\ahistory\x12\f.history_req\x1a\r.history_resp\x12&\n" +
-	"\aopening\x12\f.opening_req\x1a\r.opening_resp\x124\n" +
-	"\rcreateaccount\x12\x10.create_user_req\x1a\x11.create_user_resp\x12'\n" +
-	"\x06Signup\x12\x0e.SignupRequest\x1a\r.AuthResponse\x12%\n" +
-	"\x05Login\x12\r.LoginRequest\x1a\r.AuthResponseB\tZ\a./protob\x06proto3"
+	"gigservice\x12D\n" +
+	"\x0faccount_details\x12\x1b.auth.user_account_data_req\x1a\x14.auth.user_data_resp\x123\n" +
+	"\btransfer\x12\x12.auth.transfer_req\x1a\x13.auth.transfer_resp\x12'\n" +
+	"\x04sale\x12\x0e.auth.sale_req\x1a\x0f.auth.sale_resp\x120\n" +
+	"\ahistory\x12\x11.auth.history_req\x1a\x12.auth.history_resp\x120\n" +
+	"\aopening\x12\x11.auth.opening_req\x1a\x12.auth.opening_resp\x12>\n" +
+	"\rcreateaccount\x12\x15.auth.create_user_req\x1a\x16.auth.create_user_respB\tZ\a./protob\x06proto3"
 
 var (
 	file_proto_gateway_proto_rawDescOnce sync.Once
@@ -2021,83 +1161,62 @@ func file_proto_gateway_proto_rawDescGZIP() []byte {
 	return file_proto_gateway_proto_rawDescData
 }
 
-var file_proto_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 31)
+var file_proto_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_proto_gateway_proto_goTypes = []any{
-	(*CreateUserReq)(nil),        // 0: create_user_req
-	(*CreateWallet)(nil),         // 1: create_wallet
-	(*CreateUserResp)(nil),       // 2: create_user_resp
-	(*Validationerror)(nil),      // 3: validationerror
-	(*Changeseterrors)(nil),      // 4: changeseterrors
-	(*UserAccountDataReq)(nil),   // 5: user_account_data_req
-	(*TransferReq)(nil),          // 6: transfer_req
-	(*SaleReq)(nil),              // 7: sale_req
-	(*OpeningReq)(nil),           // 8: opening_req
-	(*HistoryReq)(nil),           // 9: history_req
-	(*UserDataResp)(nil),         // 10: user_data_resp
-	(*SaleResp)(nil),             // 11: sale_resp
-	(*TransferResp)(nil),         // 12: transfer_resp
-	(*OpeningResp)(nil),          // 13: opening_resp
-	(*HistoryResp)(nil),          // 14: history_resp
-	(*History)(nil),              // 15: history
-	(*Amounts)(nil),              // 16: amounts
-	(*SignupRequest)(nil),        // 17: SignupRequest
-	(*LoginRequest)(nil),         // 18: LoginRequest
-	(*AuthResponse)(nil),         // 19: AuthResponse
-	(*User)(nil),                 // 20: User
-	(*UpdateUserRequest)(nil),    // 21: UpdateUserRequest
-	(*LogoutRequest)(nil),        // 22: LogoutRequest
-	(*PasswordResetRequest)(nil), // 23: PasswordResetRequest
-	(*RefreshRequest)(nil),       // 24: RefreshRequest
-	(*VerifyRequest)(nil),        // 25: VerifyRequest
-	(*VerifyResponse)(nil),       // 26: VerifyResponse
-	(*ProfileRequest)(nil),       // 27: ProfileRequest
-	(*UpdateResponse)(nil),       // 28: UpdateResponse
-	(*RefreshResponse)(nil),      // 29: RefreshResponse
-	(*EmptyResponse)(nil),        // 30: EmptyResponse
+	(*CreateUserReq)(nil),      // 0: auth.create_user_req
+	(*CreateWallet)(nil),       // 1: auth.create_wallet
+	(*CreateUserResp)(nil),     // 2: auth.create_user_resp
+	(*Validationerror)(nil),    // 3: auth.validationerror
+	(*Changeseterrors)(nil),    // 4: auth.changeseterrors
+	(*UserAccountDataReq)(nil), // 5: auth.user_account_data_req
+	(*TransferReq)(nil),        // 6: auth.transfer_req
+	(*SaleReq)(nil),            // 7: auth.sale_req
+	(*OpeningReq)(nil),         // 8: auth.opening_req
+	(*HistoryReq)(nil),         // 9: auth.history_req
+	(*UserDataResp)(nil),       // 10: auth.user_data_resp
+	(*SaleResp)(nil),           // 11: auth.sale_resp
+	(*TransferResp)(nil),       // 12: auth.transfer_resp
+	(*OpeningResp)(nil),        // 13: auth.opening_resp
+	(*HistoryResp)(nil),        // 14: auth.history_resp
+	(*History)(nil),            // 15: auth.history
+	(*Amounts)(nil),            // 16: auth.amounts
 }
 var file_proto_gateway_proto_depIdxs = []int32{
-	1,  // 0: create_user_req.wallet:type_name -> create_wallet
-	4,  // 1: create_user_resp.errors:type_name -> changeseterrors
-	3,  // 2: changeseterrors.errors:type_name -> validationerror
-	16, // 3: transfer_req.gold_amount:type_name -> amounts
-	16, // 4: transfer_req.cash_amount:type_name -> amounts
-	16, // 5: sale_req.gold_amount:type_name -> amounts
-	16, // 6: sale_req.cash_amount:type_name -> amounts
-	16, // 7: user_data_resp.gold_amount:type_name -> amounts
-	16, // 8: user_data_resp.cash_amount:type_name -> amounts
-	16, // 9: sale_resp.goldamount:type_name -> amounts
-	16, // 10: sale_resp.moneyamount:type_name -> amounts
-	16, // 11: transfer_resp.gold_amount:type_name -> amounts
-	16, // 12: transfer_resp.money_amount:type_name -> amounts
-	16, // 13: opening_resp.amount:type_name -> amounts
-	15, // 14: history_resp.request:type_name -> history
-	16, // 15: history.initial_inv:type_name -> amounts
-	16, // 16: history.revenue:type_name -> amounts
-	16, // 17: history.profit_per_shilling:type_name -> amounts
-	20, // 18: AuthResponse.user:type_name -> User
-	20, // 19: UpdateResponse.user:type_name -> User
-	20, // 20: RefreshResponse.user:type_name -> User
-	5,  // 21: gigservice.account_details:input_type -> user_account_data_req
-	6,  // 22: gigservice.transfer:input_type -> transfer_req
-	7,  // 23: gigservice.sale:input_type -> sale_req
-	9,  // 24: gigservice.history:input_type -> history_req
-	8,  // 25: gigservice.opening:input_type -> opening_req
-	0,  // 26: gigservice.createaccount:input_type -> create_user_req
-	17, // 27: gigservice.Signup:input_type -> SignupRequest
-	18, // 28: gigservice.Login:input_type -> LoginRequest
-	10, // 29: gigservice.account_details:output_type -> user_data_resp
-	12, // 30: gigservice.transfer:output_type -> transfer_resp
-	11, // 31: gigservice.sale:output_type -> sale_resp
-	14, // 32: gigservice.history:output_type -> history_resp
-	13, // 33: gigservice.opening:output_type -> opening_resp
-	2,  // 34: gigservice.createaccount:output_type -> create_user_resp
-	19, // 35: gigservice.Signup:output_type -> AuthResponse
-	19, // 36: gigservice.Login:output_type -> AuthResponse
-	29, // [29:37] is the sub-list for method output_type
-	21, // [21:29] is the sub-list for method input_type
-	21, // [21:21] is the sub-list for extension type_name
-	21, // [21:21] is the sub-list for extension extendee
-	0,  // [0:21] is the sub-list for field type_name
+	1,  // 0: auth.create_user_req.wallet:type_name -> auth.create_wallet
+	4,  // 1: auth.create_user_resp.errors:type_name -> auth.changeseterrors
+	3,  // 2: auth.changeseterrors.errors:type_name -> auth.validationerror
+	16, // 3: auth.transfer_req.gold_amount:type_name -> auth.amounts
+	16, // 4: auth.transfer_req.cash_amount:type_name -> auth.amounts
+	16, // 5: auth.sale_req.gold_amount:type_name -> auth.amounts
+	16, // 6: auth.sale_req.cash_amount:type_name -> auth.amounts
+	16, // 7: auth.user_data_resp.gold_amount:type_name -> auth.amounts
+	16, // 8: auth.user_data_resp.cash_amount:type_name -> auth.amounts
+	16, // 9: auth.sale_resp.goldamount:type_name -> auth.amounts
+	16, // 10: auth.sale_resp.moneyamount:type_name -> auth.amounts
+	16, // 11: auth.transfer_resp.gold_amount:type_name -> auth.amounts
+	16, // 12: auth.transfer_resp.money_amount:type_name -> auth.amounts
+	16, // 13: auth.opening_resp.amount:type_name -> auth.amounts
+	15, // 14: auth.history_resp.request:type_name -> auth.history
+	16, // 15: auth.history.initial_inv:type_name -> auth.amounts
+	16, // 16: auth.history.revenue:type_name -> auth.amounts
+	16, // 17: auth.history.profit_per_shilling:type_name -> auth.amounts
+	5,  // 18: auth.gigservice.account_details:input_type -> auth.user_account_data_req
+	6,  // 19: auth.gigservice.transfer:input_type -> auth.transfer_req
+	7,  // 20: auth.gigservice.sale:input_type -> auth.sale_req
+	9,  // 21: auth.gigservice.history:input_type -> auth.history_req
+	8,  // 22: auth.gigservice.opening:input_type -> auth.opening_req
+	0,  // 23: auth.gigservice.createaccount:input_type -> auth.create_user_req
+	10, // 24: auth.gigservice.account_details:output_type -> auth.user_data_resp
+	12, // 25: auth.gigservice.transfer:output_type -> auth.transfer_resp
+	11, // 26: auth.gigservice.sale:output_type -> auth.sale_resp
+	14, // 27: auth.gigservice.history:output_type -> auth.history_resp
+	13, // 28: auth.gigservice.opening:output_type -> auth.opening_resp
+	2,  // 29: auth.gigservice.createaccount:output_type -> auth.create_user_resp
+	24, // [24:30] is the sub-list for method output_type
+	18, // [18:24] is the sub-list for method input_type
+	18, // [18:18] is the sub-list for extension type_name
+	18, // [18:18] is the sub-list for extension extendee
+	0,  // [0:18] is the sub-list for field type_name
 }
 
 func init() { file_proto_gateway_proto_init() }
@@ -2108,15 +1227,13 @@ func file_proto_gateway_proto_init() {
 	file_proto_gateway_proto_msgTypes[2].OneofWrappers = []any{}
 	file_proto_gateway_proto_msgTypes[11].OneofWrappers = []any{}
 	file_proto_gateway_proto_msgTypes[12].OneofWrappers = []any{}
-	file_proto_gateway_proto_msgTypes[17].OneofWrappers = []any{}
-	file_proto_gateway_proto_msgTypes[20].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_gateway_proto_rawDesc), len(file_proto_gateway_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   31,
+			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

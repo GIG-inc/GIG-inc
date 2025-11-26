@@ -107,88 +107,6 @@ message amounts{
     int64 amount =1;
 }
 
-// start
-
-message SignupRequest {
-  string email = 1;
-  string password = 2;
-  optional string phone = 3;
-}
-
-message LoginRequest {
-  string email = 1;
-  string password = 2;
-  string phone = 3;
-}
-
-message AuthResponse {
-  string access_token = 1;
-  string refresh_token = 2;
-  string token_type = 3;
-  int64 expires_in = 4;
-  User user = 5;
-}
-
-message User {
-  optional string id = 1;
-  optional string email = 2;
-  optional string phone = 3;
-  optional string confirmed_at = 4;
-  optional string last_sign_in_at = 5;
-  optional string role = 6;
-  optional string created_at = 7;
-  optional string updated_at = 8;
-}
-
-message UpdateUserRequest {
-  string access_token = 1;
-  string email = 2;        
-  string password = 3;
-  string phone = 4;
-  string username = 5;
-}
-
-message LogoutRequest {
-  string access_token = 1;
-}
-
-message PasswordResetRequest {
-  string email = 1;
-}
-
-message RefreshRequest {
-  string refresh_token = 1;
-}
-
-message VerifyRequest {
-  string access_token = 1;
-}
-
-message VerifyResponse {
-  bool valid = 1;
-}
-
-message ProfileRequest {
-  string access_token = 1;
-}
-
-
-message UpdateResponse {
-  User user = 1;
-}
-
-message RefreshResponse {
-  string access_token = 1;
-  string refresh_token = 2;
-  string token_type = 3;
-  int64 expires_in = 4;
-  User user = 5;
-}
-
-message EmptyResponse {}
-// end
-
-
 service gigservice{
     rpc account_details(user_account_data_req) returns (user_data_resp);
     rpc transfer( transfer_req)returns ( transfer_resp);
@@ -196,6 +114,4 @@ service gigservice{
     rpc history(history_req) returns (history_resp);
     rpc opening(opening_req) returns (opening_resp);
     rpc createaccount( create_user_req) returns ( create_user_resp);
-    rpc Signup ( SignupRequest) returns ( AuthResponse);
-    rpc Login (LoginRequest) returns (AuthResponse);
 }
