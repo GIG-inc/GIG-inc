@@ -45,7 +45,10 @@ func Routes(router *mux.Router) {
 	})
 	router.HandleFunc("/api/login", func(w http.ResponseWriter, r *http.Request) {
 		var login *types.Login
-		json.NewDecoder(r.Body).Decode(&login)
+		if err := json.NewDecoder(r.Body).Decode(&login); err != nil {
+			types.Logger.Printf("There was an error decoding login :%v", err)
+			http.Error(w, "There was a server error", http.StatusInternalServerError)
+		}
 
 		// first receive
 	})

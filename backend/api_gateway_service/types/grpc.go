@@ -7,41 +7,6 @@ import (
 	"time"
 )
 
-// TODO: uncomment this
-// func grpcclientconn() (Errortype, pb.GigserviceClient, *grpc.ClientConn) {
-// 	// TODO: remember to set up the secure part of grpc
-// 	port := os.Getenv("GRPC_SERVER")
-// 	conn, err := grpc.NewClient(port)
-// 	if err != nil {
-// 		Logger.Fatalf("error in setting up a new client for grpc %v", err)
-// 		return Errortype{
-// 			Errtype: "grpc err",
-// 			Aerr:    err,
-// 		}, nil, nil
-// 	}
-
-// 	client := pb.NewGigserviceClient(conn)
-// 	return Errortype{}, client, conn
-// }
-
-// func unarygrpcclientconn() (Errortype, pb.GigserviceClient, *grpc.ClientConn) {
-// 	port := os.Getenv("GRPC_AUTH_SERVER")
-
-// 	conn, err := grpc.NewClient(
-// 		port,
-// 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-// 	)
-// 	if err != nil {
-// 		Logger.Printf("there was an error in creating a unary connection %v", err)
-// 		return Errortype{
-// 			Errtype: "grpc err",
-// 			Aerr:    err,
-// 		}, nil, nil
-// 	}
-// 	client := pb.NewGigserviceClient(conn)
-// 	return Errortype{}, client, conn
-// }
-
 func Createuserauthservice(user *pb.SignupRequest) (Errortype, *pb.AuthResponse) {
 	conn, err := NewGatewayserver()
 	fmt.Println("wanting to auth server")
@@ -66,6 +31,27 @@ func Createuserauthservice(user *pb.SignupRequest) (Errortype, *pb.AuthResponse)
 		return Errortype{
 			Errtype: "stream err",
 			Aerr:    errormsg,
+		}, nil
+	}
+	return Errortype{}, resp
+}
+func Loginauthservice(user *pb.LoginRequest) (Errortype, *pb.AuthResponse) {
+	conn, err := NewGatewayserver()
+	if err != nil {
+		return Errortype{
+			Errtype: "grpc err",
+			Aerr:    err,
+		}, nil
+	}
+	defer conn.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	resp, errmsg := conn.Login(ctx, user)
+	if errmsg != nil {
+		Logger.Fatalf("There was an issue contacting Auth server: %v", errmsg)
+		return Errortype{
+			Errtype: "authserviceerr",
+			Aerr:    errmsg,
 		}, nil
 	}
 	return Errortype{}, resp
