@@ -107,29 +107,29 @@ defmodule Comms.Receiver do
     |> GRPC.Stream.run_with(stream)
   end
 
-  # def capitalraise(request, stream) do
-  #   request
-  #   |>GRPC.Stream.unary(stream: stream)
-  #   |>GRPC.Stream.map(fn req ->
-  #       case Registry.lookup(Project.Registry, "capitalraise") do
-  #         [{pid, _}] ->
-  #           GenServer.call(pid, {:raise, req})
-  #         [] ->
-  #           case DynamicSupervisor.start_child(Project.Dynamicsupervisor,{Actions.Capitalraise,"capitalraise"}) do
-  #           {:ok, pid} ->
-  #             GenServer.call(pid, req)
-  #           {:error, message} ->
-  #             Logger.error(("there was an issue starting a capital raise process:#{message}"))
-  #             %Protoservice.Capital_raise_resp{
-  #               success: false,
-  #               reason: "there was a server error"
-  #             }
-  #           end
-  #       end
-  #     end
-  #    )
-  #   |>GRPC.Stream.run()
-  # end
+  def capitalraise(request, stream) do
+    request
+    |>GRPC.Stream.unary(stream: stream)
+    |>GRPC.Stream.map(fn req ->
+        case Registry.lookup(Project.Registry, "capitalraise") do
+          [{pid, _}] ->
+            GenServer.call(pid, {:raise, req})
+          [] ->
+            case DynamicSupervisor.start_child(Project.Dynamicsupervisor,{Actions.Capitalraise,"capitalraise"}) do
+            {:ok, pid} ->
+              GenServer.call(pid, req)
+            {:error, message} ->
+              Logger.error(("there was an issue starting a capital raise process:#{message}"))
+              %Protoservice.Capital_raise_resp{
+                success: false,
+                reason: "there was a server error"
+              }
+            end
+        end
+      end
+     )
+    |>GRPC.Stream.run()
+  end
 # TODO: work on market opening well
   # def opening(request, stream) do
   #   GRPC.Stream.from(request)
