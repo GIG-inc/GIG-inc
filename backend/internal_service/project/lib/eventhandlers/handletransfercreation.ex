@@ -10,6 +10,8 @@ defmodule Eventhandlers.Handletransfercreation do
   end
 # TODO: check on this handle/transfer_gold fn
   @limit Application.compile_env(Project,:globalsettings)[:defaulttransactionlimit]
+
+  @impl Commanded.Event.Handler
   def handle(%Transferevent{} = event, _metadata) do
         # pass the gold amount to be sent here
         # USE project.Repo.transaction

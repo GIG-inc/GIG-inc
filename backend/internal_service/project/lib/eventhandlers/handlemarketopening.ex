@@ -1,4 +1,4 @@
-defmodule Eventhandlers.Handlecapitalraise do
+defmodule Eventhandlers.Handlemarketopening do
   use Commanded.Event.Handler,
   application: Project,
   name: __MODULE__
@@ -8,7 +8,7 @@ defmodule Eventhandlers.Handlecapitalraise do
         :ok
       end
     end
-
+    @impl Commanded.Event.Handler
     def handle(%Events.Marketopeningevent{} = event, metadata) do
       Project.Repo.insert(%Project.Opening{
         openingid: event.openingid,

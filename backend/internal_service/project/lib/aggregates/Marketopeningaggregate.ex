@@ -3,11 +3,11 @@ defmodule Aggregates.Marketopeingaggregate do
   defstruct [
     :openingid,
     :raiseid,
-    :amount,
+    :requiredcap,
     :collectedcap,
-    :initiator
+    :startingdate,
+    :closingdate,
   ]
-  alias Events.Capitalraiseevent
   alias Commanded.Aggregates.Aggregate
   @behaviour Aggregate
 # TODO: use this as the meta it is verified in code but not in practice yet
@@ -18,7 +18,8 @@ defmodule Aggregates.Marketopeingaggregate do
       raiseid: command.openingid,
       requiredcap: command.requiredcap,
       collectedcap: command.collectedcap,
-      peopleinv: command.peopleinv
+      startingdate: command.startingdate,
+      closingdate: command.closingdate
     }
   end
   @impl Aggregate
@@ -26,9 +27,10 @@ defmodule Aggregates.Marketopeingaggregate do
     %Aggregates.Marketopeingaggregate{aggregate |
       openingid: event.opening,
       raiseid: event.raiseid,
-      amount: event.amount,
-      collectedcap: event.collectedcap,
-      initiator: event.initiator
+      requiredcap: event.amount,
+      startingdate: event.startingdate,
+      closingdate: event.closingdate,
+      collectedcap: event.collectedcap
     }
   end
 end

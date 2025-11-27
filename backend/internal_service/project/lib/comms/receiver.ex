@@ -2,6 +2,7 @@ defmodule Comms.Receiver do
   use GRPC.Server, service: Protoservice.Gigservice.Service
 
   require Logger
+  alias Protoservice.CapitalRaiseResp
   alias Protoservice.SaleResp
   alias GrpcReflection.DynamicSupervisor
   alias Actions.{Createuser, Transfer}
@@ -104,6 +105,9 @@ defmodule Comms.Receiver do
           end
       end
     end)
+    |>GRPC.Stream.map_error(fn {:error, {:exception, _reason}} ->
+      {:error, GRPC.RPCError.exception(message: "error in the history grpc receiving fn")}
+    end)
     |> GRPC.Stream.run_with(stream)
   end
 # TODO: assumption there can be no more than one capital raise at a time
@@ -120,7 +124,7 @@ defmodule Comms.Receiver do
               GenServer.call(pid, req)
             {:error, message} ->
               Logger.error(("there was an issue starting a capital raise process:#{message}"))
-              %Protoservice.Capital_raise_resp{
+              %CapitalRaiseResp{
                 success: false,
                 reason: "there was a server error"
               }

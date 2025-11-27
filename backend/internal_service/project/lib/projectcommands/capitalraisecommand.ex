@@ -2,7 +2,9 @@ defmodule Projectcommands.Capitalraisecommand do
 
   defstruct [
     :raiseid,
+    :startingdate,
+    :closingdate,
     :amount,
-    :initiator,
+    :creator,
   ]
 end

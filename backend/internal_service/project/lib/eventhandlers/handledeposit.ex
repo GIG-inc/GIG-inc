@@ -8,8 +8,8 @@ defmodule Eventhandlers.Handledeposit do
         :ok
       end
     end
-
-    def handle(%Events.Depositevent{} = event, metadata) do
+    @impl Commanded.Event.Handler
+    def handle(%Events.Depositevent{} = event, _metadata) do
       Project.Repo.insert(%Project.Deposit{
         depositid: event.depositid,
         transactionid: event.transactionid,

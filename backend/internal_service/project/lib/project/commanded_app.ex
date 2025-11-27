@@ -7,6 +7,7 @@ defmodule Project.CommandedApp do
      Routers.Transferrouter,
      Routers.Salerouter,
      Routers.Capitalraise,
-     Routers.Depositrouter
+     Routers.Depositrouter,
+     Routers.Marketopeningrouter
     ]
 end

@@ -31,6 +31,9 @@ defmodule Protoservice.CapitalRaiseReq do
 
   field :capitalrequired, 1, type: :string
   field :peopleinvested, 2, type: :string
+  field :creator, 3, type: :string
+  field :startingdate, 4, type: :string
+  field :closingdate, 5, type: :string
 end
 
 defmodule Protoservice.WithdrawReq do

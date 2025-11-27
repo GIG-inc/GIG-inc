@@ -10,7 +10,7 @@ defmodule Project.Application do
     children = [
       {Registry, keys: :unique, name: Project.Registry},
       Project.Repo,
-      Grpc.Reflection,{
+      GrpcReflection,{
         GRPC.Server.Supervisor, [
         endpoint: Comms.Endpoint,
         port: 50053,

@@ -7,7 +7,6 @@ defmodule Aggregates.Saleaggregate do
     :goldamount
   ]
   # TODO: check what the Accountaggregate is doing her
-  alias Aggregates.Accountaggregate
   alias Events.Saleevent
   alias Commanded.Aggregates.Aggregate
   @behaviour Aggregate

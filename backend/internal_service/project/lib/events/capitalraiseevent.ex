@@ -1,7 +1,9 @@
 defmodule Events.Capitalraiseevent do
   defstruct [
     :raiseid,
+    :startingdate,
+    :closingdate,
     :amount,
-    :initiator
+    :creator
   ]
 end

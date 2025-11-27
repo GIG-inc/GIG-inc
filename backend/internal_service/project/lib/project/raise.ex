@@ -1,4 +1,4 @@
-defmodule Project.Raise do
+defmodule Project.Marketopening do
   alias Ecto.Changeset
   use Ecto.Schema
   import Changeset

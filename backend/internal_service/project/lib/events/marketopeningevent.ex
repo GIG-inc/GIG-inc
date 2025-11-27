@@ -4,6 +4,7 @@ defmodule Events.Marketopeningevent do
     :raiseid,
     :requiredcap,
     :collectedcap,
-    :peopleinv
+    :startingdate,
+    :closingdate
   ]
 end

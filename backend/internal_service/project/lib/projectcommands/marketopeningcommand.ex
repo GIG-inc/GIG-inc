@@ -1,10 +1,12 @@
 defmodule Projectcommands.Marketopeningcommand do
-  @enforce_keys[:openingid,]
+  @enforce_keys [:openingid]
+
   defstruct [
     :openingid,
     :raiseid,
     :requiredcap,
     :collectedcap,
-    :peopleinv
+    :startingdate,
+    :closingdate
   ]
 end

@@ -22,7 +22,9 @@ message deposit_req{
 }
 message capital_raise_req{
     string capitalrequired=1;
-    string peopleinvested=2;
+    string creator=2;
+    string startingdate=3;
+    string closingdate=4;
 }
 message withdraw_req{
     string phonenumber=1;
