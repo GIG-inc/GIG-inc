@@ -26,7 +26,7 @@ defmodule Actions.Retrievehistory do
     }
   end)
   %Protoservice.HistoryResp{
-    history: response
+    request: response
   }
   end
   def handle_info(msg, state) do

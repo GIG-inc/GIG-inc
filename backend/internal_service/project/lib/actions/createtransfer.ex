@@ -18,7 +18,7 @@ This is the file that is responsible for handling transfers of amounts
   end
 
   @impl true
-  defp handle_call({:transfer, request}, _from, _state) do
+  def handle_call(request, _from, _state) do
     Process.send_after(self(), :timeout,600_000)
     IO.puts("it has reached the handle call logic #{request}")
     {response, state} = case transfer_logic(request) do
@@ -70,7 +70,7 @@ This is the file that is responsible for handling transfers of amounts
     # here we put the code for saving the users state and saving sort of adding it to events
   end
 
-  @spec transfer_logic(%Events.Tranferevent{}) :: {:errorsenderdoesnotexist,String.t()} |{:receivernotfounderror, String.t()}|{:inadequateamounterror, String.t()} | {:ok, any()} | {:error, any()}
+  @spec transfer_logic(%Events.Transferevent{}) :: {:errorsenderdoesnotexist,String.t()} |{:receivernotfounderror, String.t()}|{:inadequateamounterror, String.t()} | {:ok, any()} | {:error, any()}
   defp transfer_logic(transfer) do
     # first check if the user exists
     # second then check the transfers balance
@@ -96,8 +96,6 @@ This is the file that is responsible for handling transfers of amounts
                 toid: transfer.to_id,
                 goldamount: transfer.gold_amount,
                 cashamount: transfer.cash_amount,
-                sender: sender,
-                receiver: receiver
               }
               # TODO: work on response here
               CommandedApp.dispatch(command)
@@ -106,8 +104,5 @@ This is the file that is responsible for handling transfers of amounts
           {:inadequateamounterror, "The transfer is not possible please select a lower amount or top up you working balance is #{user.wallet.goldbalance}" }
         end
     end
-  end
-  def handle_transfer() do
-    transfer_gold()
   end
 end

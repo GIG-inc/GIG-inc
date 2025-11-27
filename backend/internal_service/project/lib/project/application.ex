@@ -10,7 +10,13 @@ defmodule Project.Application do
     children = [
       {Registry, keys: :unique, name: Project.Registry},
       Project.Repo,
-      {Comms.Endpoint, [port: 50052]},
+      Grpc.Reflection,{
+        GRPC.Server.Supervisor, [
+        endpoint: Comms.Endpoint,
+        port: 50053,
+        start_server: true
+        ]
+      },
       {DynamicSupervisor, name: Project.Dynamicsupervisor, strategy: :one_for_one},
       Project.CommandedApp
     ]

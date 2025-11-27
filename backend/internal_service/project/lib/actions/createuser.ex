@@ -1,6 +1,7 @@
 defmodule Actions.Createuser do
   require Commanded.Commands.Router
   require Logger
+  alias Project.CommandedApp
   alias Commanded.Commands.Router
   alias EventStore.Storage.Database
   alias Commanded.Commands
@@ -70,7 +71,7 @@ def sendtoeventstore(newuser, _request) do
         {:accepttermsfalse, "To register as a user you have to accept the terms and conditions"}
       else
         # Dispatch the command to the router TODO: check if this is the correct place to put this
-        :ok = Router.dispatch(newuser, consistency: :strong)
+      response=CommandedApp.dispatch(newuser, consistency: :strong)
 		case response do
           :ok ->
             {:ok, "successfully created the user"}
@@ -86,7 +87,7 @@ def sendtoeventstore(newuser, _request) do
   end
 end
 
-  @spec createnewuser(%Project.User{}, %Protoservice.CreateUserReq{}) :: {:ok, String.t(),%Project.User{}} | {:inputerror, Changeset.t()} | {:userexistserror, String.t(), %Project.User{}}
+  # @spec createnewuser(%Project.User{}, %Protoservice.CreateUserReq{}) :: {:ok, String.t(),%Project.User{}} | {:inputerror, Changeset.t()} | {:userexistserror, String.t(), %Project.User{}}
 #   defp createnewuser(newuser,request) do
 #     case DatabaseConn.Getuser.checkuser(newuser.globaluserid) do
 #       {:ok, nil} ->

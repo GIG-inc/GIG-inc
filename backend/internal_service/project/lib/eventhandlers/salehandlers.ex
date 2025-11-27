@@ -12,7 +12,7 @@ defmodule Eventhandlers.Salehandlers do
 
   @limit Application.compile_env(Project,:globalsettings)[:defaulttransactionlimit]
   def handle(%Saleevent{} = event, _metadata) do
-    newuser = %Project.User{
+    newuser = %Project.Sale{
       saleid: event.saleid,
       fromid: event.fromid,
       toid: event.toid,

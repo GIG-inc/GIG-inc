@@ -6,7 +6,7 @@ defmodule Processmanagers.Capitalraisepm do
   defstruct []
 #this receives the command
   def interested?(%Events.Capitalraiseevent{} = event) do
-    opening = %Projectcommands.Marketopeningcommand{
+    %Projectcommands.Marketopeningcommand{
       openingid: Ecto.UUID.generate(),
       requiredcap: event.amount,
       raiseid: event.raiseid,
@@ -20,7 +20,7 @@ defmodule Processmanagers.Capitalraisepm do
     Project.Repo.insert(%Project.Raise{
       raiseid: event.raiseid,
       amount: event.amount,
-      intiator: event.initiator
+      initiator: event.initiator
     })
 
     command = %Projectcommands.Marketopeningcommand{

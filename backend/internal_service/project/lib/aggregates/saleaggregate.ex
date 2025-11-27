@@ -25,7 +25,7 @@ defmodule Aggregates.Saleaggregate do
 
   @impl Aggregate
   def apply(%Aggregates.Saleaggregate{} = aggregate, %Events.Saleevent{} = event) do
-    %Accountopenedevent{
+    %Events.Saleevent{
       saleid: saleid,
       fromid: fromid,
       toid: toid,
@@ -33,7 +33,7 @@ defmodule Aggregates.Saleaggregate do
       goldamount: goldamount
     } = event
 
-    %Accountaggregate{account |
+    %Aggregates.Saleaggregate{aggregate |
       saleid: saleid,
       fromid: fromid,
       toid: toid,

@@ -9,13 +9,13 @@ defmodule Eventhandlers.Handledeposit do
       end
     end
 
-    def handle(%Events.Depositcommand{} = event, metadata) do
+    def handle(%Events.Depositevent{} = event, metadata) do
       Project.Repo.insert(%Project.Deposit{
-        depositid: command.depositid,
-        transactionid: command.transactionid,
-        amount: command.amount,
-        phonenumber: command.phonenumber,
-        userid: command.userid
+        depositid: event.depositid,
+        transactionid: event.transactionid,
+        amount: event.amount,
+        phonenumber: event.phonenumber,
+        userid: event.globaluserid
       })
     end
 end

@@ -1,7 +1,7 @@
 defmodule Project.Sale do
   use Ecto.Schema
-  import Changeset
-
+  alias Ecto.Changeset
+  alias Changeset
   schema "saletable" do
     field :saleid, :binary_id
     field :fromid, :binary_id

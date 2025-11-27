@@ -5,6 +5,6 @@ defmodule Events.Depositevent do
     :globaluserid,
     :phonenumber,
     :transactionid,
-    :amount
+    :amount,
   ]
 end

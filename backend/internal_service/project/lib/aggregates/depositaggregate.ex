@@ -4,7 +4,7 @@ defmodule Aggregates.Depositaggregate do
     :transactionid,
     :globaluserid,
     :phonenumber,
-    :amount
+    :amount,
   ]
   alias Events.Depositcommand
   alias Commanded.Aggregates.Aggregate
@@ -22,11 +22,11 @@ defmodule Aggregates.Depositaggregate do
   @impl Aggregate
   def apply(%Aggregates.Depositaggregate{} = aggregate, %Events.Depositevent{} = event) do
     %Aggregates.Depositaggregate{
-      depositid: command.depositid,
-      transactionid: command.transactionid,
-      amount: command.amount,
-      phonenumber: command.phonenumber,
-      userid: command.userid
+      depositid: event.depositid,
+      transactionid: event.transactionid,
+      amount: event.amount,
+      phonenumber: event.phonenumber,
+      globaluserid: event.globaluserid
     }
   end
 end

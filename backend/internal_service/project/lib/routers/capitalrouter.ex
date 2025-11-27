@@ -1,11 +1,10 @@
 defmodule Routers.Capitalraise do
   use Commanded.Commands.Router
 
-  identify Projectcommands.Capitalraiseaggregate,
+  identify Aggregates.Capitalraiseaggregate,
     by: :openingid,
     prefix: "cr-"
 
   dispatch Projectcommands.Marketopeningcommand,
-  to: Aggregates.Capitalraiseaggregate,
-  identity: :openingid
+  to: Aggregates.Capitalraiseaggregate
 end

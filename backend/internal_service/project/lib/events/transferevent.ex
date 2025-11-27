@@ -7,7 +7,5 @@ defstruct [
   :toid,
   :goldamount,
   :cashamount,
-  :sender,
-  :receiver
 ]
 end

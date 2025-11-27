@@ -10,7 +10,7 @@ defmodule Actions.Createsale do
   end
 
   def handle_call({:create_sale,request}, _from, state) do
-    salereq = %ProjectCommands.Salecommands{
+    salereq = %Projectcommands.Salecommands{
       saleid: Ecto.UUID.generate(),
       fromid: request.from_id,
       toid: request.to_id,

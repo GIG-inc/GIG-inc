@@ -4,6 +4,7 @@ defmodule Aggregates.Transferaggregate do
   alias Commanded.Aggregate
   alias Events.Transferevent
   defstruct [
+    :transferid,
     :fromid,
     :toid,
     :cashamount,
@@ -11,8 +12,9 @@ defmodule Aggregates.Transferaggregate do
   ]
 
   @impl Aggregate
-  def execute(_, %Projectcommands.Transfercommands{from_id: fromid, to_id: toid, cash_amount: cashamount, gold_amount: goldamount}) do
+  def execute(_, %Projectcommands.Transfercommands{transferid: transferid,fromid: fromid, toid: toid, cashamount: cashamount, goldamount: goldamount}) do
     %Transferevent{
+      transferid: transferid,
       fromid: fromid,
       toid: toid,
       cashamount: cashamount,
@@ -21,10 +23,11 @@ defmodule Aggregates.Transferaggregate do
   end
 
   @impl Aggregate
-  def apply(%Transferaggregate{} = transfer, %Accountopenedevent{} = event) do
-    %Transferevent{fromid: fromid, toid: toid, cashamount: cashamount, goldamount: goldamount} = event
+  def apply(%Transferaggregate{} = aggregate, %Accountopenedevent{} = event) do
+    %Transferevent{transferid: transferid,fromid: fromid, toid: toid, cashamount: cashamount, goldamount: goldamount} = event
 
     %Transferaggregate{
+      transferid: transferid,
       fromid: fromid,
       toid: toid,
       cashamount: cashamount,

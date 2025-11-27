@@ -11,24 +11,22 @@ defmodule Eventhandlers.Handletransfercreation do
 # TODO: check on this handle/transfer_gold fn
   @limit Application.compile_env(Project,:globalsettings)[:defaulttransactionlimit]
   def handle(%Transferevent{} = event, _metadata) do
-    defp transfer_gold(event.sender,event.receiver, event.goldamount) do
         # pass the gold amount to be sent here
         # USE project.Repo.transaction
         # subtract said amount from the sender
         # add said amount to the receiver
         Project.Repo.transact( fn ->
           # sender's part of the execution
-          senderwallet = sender.wallet
-          newsenderbalance = senderwallet.goldbalance - amount
+          senderwallet = event.sender.wallet
+          newsenderbalance = senderwallet.goldbalance - event.goldamount
           senderchangeset = Project.Wallet.updatewalletchangeset(senderwallet, %{goldbalance: newsenderbalance})
           Project.Repo.update(senderchangeset)
 
-          receiverwallet = reciever.wallet
-          newreceiverbalance = receiverwallet.goldbalance + amount
+          receiverwallet = event.reciever.wallet
+          newreceiverbalance = receiverwallet.goldbalance + event.goldamount
           receiverchangeset = Project.Wallet.updatewalletchangeset(receiverwallet, %{goldbalance: newreceiverbalance})
           Project.Repo.update(receiverchangeset)
         end
        )
       end
-    end
 end

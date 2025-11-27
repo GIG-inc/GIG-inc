@@ -7,9 +7,11 @@ defmodule Aggregates.Accountaggregate do
     :globaluserid,
     :phonenumber,
     :kycstatus,
+    :kyclevel,
     :transactionlimit,
     :username,
-    :fullname
+    :fullname,
+    :hasacceptedterms
 
   ]
   alias Aggregates.Accountaggregate
@@ -53,7 +55,7 @@ alias Aggregates.Accountaggregate
       fullname: fullname
     } = event
 
-    %Accountaggregate{account |
+    %Aggregates.Accountaggregate{account |
       accountid: accountid,
       globaluserid: globaluserid,
       phonenumber: phonenumber,

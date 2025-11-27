@@ -5,7 +5,5 @@ defmodule Projectcommands.Transfercommands do
     :toid,
     :goldamount,
     :cashamount,
-    :sender,
-    :receiver
   ]
 end

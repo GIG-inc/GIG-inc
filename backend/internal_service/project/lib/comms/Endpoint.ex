@@ -3,7 +3,6 @@ defmodule Comms.Endpoint do
 
   intercept GRPC.Server.Interceptors.Logger, level: :info
 
-
   run Comms.Receiver
   def start_link(opts) do
     GRPC.Server.start(__MODULE__, opts)

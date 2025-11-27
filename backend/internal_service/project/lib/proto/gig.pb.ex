@@ -13,6 +13,36 @@ defmodule Protoservice.CreateUserReq do
   field :wallet, 8, type: Protoservice.CreateWallet
 end
 
+defmodule Protoservice.DepositReq do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :transactionid, 1, type: :string
+  field :phonenumber, 2, type: :string
+  field :amount, 3, type: :string
+  field :globaluserid, 4, type: :string
+end
+
+defmodule Protoservice.CapitalRaiseReq do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :capitalrequired, 1, type: :string
+  field :peopleinvested, 2, type: :string
+end
+
+defmodule Protoservice.WithdrawReq do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :phonenumber, 1, type: :string
+  field :amount, 2, type: :string
+  field :globaluserid, 3, type: :string
+end
+
 defmodule Protoservice.CreateWallet do
   @moduledoc false
 
@@ -64,8 +94,8 @@ defmodule Protoservice.TransferReq do
 
   field :from_id, 1, type: :string, json_name: "fromId"
   field :to_id, 2, type: :string, json_name: "toId"
-  field :gold_amount, 3, type: Protoservice.Amounts, json_name: "goldAmount"
-  field :cash_amount, 4, type: Protoservice.Amounts, json_name: "cashAmount"
+  field :gold_amount, 3, type: :int64, json_name: "goldAmount"
+  field :cash_amount, 4, type: :int64, json_name: "cashAmount"
 end
 
 defmodule Protoservice.SaleReq do
@@ -75,8 +105,8 @@ defmodule Protoservice.SaleReq do
 
   field :from_id, 1, type: :string, json_name: "fromId"
   field :to_id, 2, type: :string, json_name: "toId"
-  field :gold_amount, 3, type: Protoservice.Amounts, json_name: "goldAmount"
-  field :cash_amount, 4, type: Protoservice.Amounts, json_name: "cashAmount"
+  field :gold_amount, 3, type: :int64, json_name: "goldAmount"
+  field :cash_amount, 4, type: :int64, json_name: "cashAmount"
 end
 
 defmodule Protoservice.OpeningReq do
@@ -89,6 +119,8 @@ defmodule Protoservice.HistoryReq do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :globaluserid, 1, type: :string
 end
 
 defmodule Protoservice.UserDataResp do
@@ -96,8 +128,8 @@ defmodule Protoservice.UserDataResp do
 
   use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
 
-  field :gold_amount, 1, type: Protoservice.Amounts, json_name: "goldAmount"
-  field :cash_amount, 2, type: Protoservice.Amounts, json_name: "cashAmount"
+  field :gold_amount, 1, type: :int64, json_name: "goldAmount"
+  field :cash_amount, 2, type: :int64, json_name: "cashAmount"
 end
 
 defmodule Protoservice.SaleResp do
@@ -118,8 +150,8 @@ defmodule Protoservice.SuccessSale do
   field :id, 1, type: :string
   field :from, 2, type: :string
   field :to, 3, type: :string
-  field :goldamount, 4, type: Protoservice.Amounts
-  field :moneyamount, 5, type: Protoservice.Amounts
+  field :goldamount, 4, type: :int64
+  field :moneyamount, 5, type: :int64
 end
 
 defmodule Protoservice.TransferResp do
@@ -130,8 +162,8 @@ defmodule Protoservice.TransferResp do
   field :transer_id, 1, type: :string, json_name: "transerId"
   field :from, 2, type: :string
   field :to, 3, type: :string
-  field :gold_amount, 4, type: Protoservice.Amounts, json_name: "goldAmount"
-  field :money_amount, 5, type: Protoservice.Amounts, json_name: "moneyAmount"
+  field :gold_amount, 4, type: :int64, json_name: "goldAmount"
+  field :money_amount, 5, type: :int64, json_name: "moneyAmount"
   field :success, 6, type: :bool
   field :reason, 7, proto3_optional: true, type: :string
 end
@@ -141,7 +173,7 @@ defmodule Protoservice.OpeningResp do
 
   use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
 
-  field :amount, 1, type: Protoservice.Amounts
+  field :amount, 1, type: :int64
   field :closing_date, 2, type: :string, json_name: "closingDate"
 end
 
@@ -160,18 +192,37 @@ defmodule Protoservice.History do
 
   field :opening_date, 1, type: :string, json_name: "openingDate"
   field :closing_date, 2, type: :string, json_name: "closingDate"
-  field :initial_inv, 3, type: Protoservice.Amounts, json_name: "initialInv"
-  field :revenue, 4, type: Protoservice.Amounts
+  field :initial_inv, 3, type: :int64, json_name: "initialInv"
+  field :revenue, 4, type: :int64
   field :people_inv, 5, type: :int64, json_name: "peopleInv"
-  field :profit_per_shilling, 6, type: Protoservice.Amounts, json_name: "profitPerShilling"
+  field :profit_per_shilling, 6, type: :int64, json_name: "profitPerShilling"
 end
 
-defmodule Protoservice.Amounts do
+defmodule Protoservice.DepositResp do
   @moduledoc false
 
   use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
 
-  field :amount, 1, type: :int64
+  field :success, 1, type: :bool
+  field :reason, 2, proto3_optional: true, type: :string
+end
+
+defmodule Protoservice.WithdrawResp do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :success, 1, type: :bool
+  field :reason, 2, proto3_optional: true, type: :string
+end
+
+defmodule Protoservice.CapitalRaiseResp do
+  @moduledoc false
+
+  use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
+
+  field :success, 1, type: :bool
+  field :reason, 2, proto3_optional: true, type: :string
 end
 
 defmodule Protoservice.Gigservice.Service do
@@ -180,6 +231,12 @@ defmodule Protoservice.Gigservice.Service do
   use GRPC.Service, name: "protoservice.gigservice", protoc_gen_elixir_version: "0.15.0"
 
   rpc :account_details, Protoservice.UserAccountDataReq, Protoservice.UserDataResp
+
+  rpc :deposit, Protoservice.DepositReq, Protoservice.DepositResp
+
+  rpc :withdraw, Protoservice.WithdrawReq, Protoservice.WithdrawResp
+
+  rpc :capitalraise, Protoservice.CapitalRaiseReq, Protoservice.CapitalRaiseResp
 
   rpc :transfer, stream(Protoservice.TransferReq), stream(Protoservice.TransferResp)
 
