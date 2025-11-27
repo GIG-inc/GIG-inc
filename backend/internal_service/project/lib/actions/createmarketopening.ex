@@ -1,4 +1,4 @@
-defmodule Actions.Capitalraise do
+defmodule Actions.Marketopening do
   use GenServer
 # this is to create a capital raising round
 
@@ -12,7 +12,7 @@ defmodule Actions.Capitalraise do
 
   end
   def init(_init_arg) do
-    IO.puts("market opening server is starting")
+    IO.puts(" capital raise server is starting")
     Process.send_after(self(), :timeout, 600_000)
     {:ok, %{
       openingid: nil,

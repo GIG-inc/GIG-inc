@@ -106,7 +106,7 @@ defmodule Comms.Receiver do
     end)
     |> GRPC.Stream.run_with(stream)
   end
-
+# TODO: assumption there can be no more than one capital raise at a time
   def capitalraise(request, stream) do
     request
     |>GRPC.Stream.unary(stream: stream)
@@ -115,7 +115,7 @@ defmodule Comms.Receiver do
           [{pid, _}] ->
             GenServer.call(pid, {:raise, req})
           [] ->
-            case DynamicSupervisor.start_child(Project.Dynamicsupervisor,{Actions.Capitalraise,"capitalraise"}) do
+            case DynamicSupervisor.start_child(Project.Dynamicsupervisor,{Actions.Createmarketopening,"capitalraise"}) do
             {:ok, pid} ->
               GenServer.call(pid, req)
             {:error, message} ->

@@ -4,7 +4,7 @@ defmodule Processmanagers.Capitalraisepm do
   name: "capitalraiseprocessmanager"
 
   defstruct []
-#this receives the command
+
   def interested?(%Events.Capitalraiseevent{} = event) do
     %Projectcommands.Marketopeningcommand{
       openingid: Ecto.UUID.generate(),
