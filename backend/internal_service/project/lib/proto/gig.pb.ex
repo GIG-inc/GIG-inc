@@ -7,10 +7,11 @@ defmodule Protoservice.CreateUserReq do
   field :phonenumber, 2, type: :string
   field :kycstatus, 3, type: :string
   field :kyclevel, 4, type: :string
-  field :acceptterms, 5, type: :string
+  field :acceptterms, 5, type: :bool
   field :transactionlimit, 6, type: :int64
   field :username, 7, type: :string
   field :wallet, 8, type: Protoservice.CreateWallet
+  field :fullname, 9, type: :string
 end
 
 defmodule Protoservice.DepositReq do
@@ -30,10 +31,9 @@ defmodule Protoservice.CapitalRaiseReq do
   use Protobuf, protoc_gen_elixir_version: "0.15.0", syntax: :proto3
 
   field :capitalrequired, 1, type: :string
-  field :peopleinvested, 2, type: :string
-  field :creator, 3, type: :string
-  field :startingdate, 4, type: :string
-  field :closingdate, 5, type: :string
+  field :creator, 2, type: :string
+  field :startingdate, 3, type: :string
+  field :closingdate, 4, type: :string
 end
 
 defmodule Protoservice.WithdrawReq do
@@ -241,15 +241,15 @@ defmodule Protoservice.Gigservice.Service do
 
   rpc :capitalraise, Protoservice.CapitalRaiseReq, Protoservice.CapitalRaiseResp
 
-  rpc :transfer, stream(Protoservice.TransferReq), stream(Protoservice.TransferResp)
+  rpc :transfer, Protoservice.TransferReq, Protoservice.TransferResp
 
   rpc :sale, Protoservice.SaleReq, Protoservice.SaleResp
 
   rpc :history, Protoservice.HistoryReq, Protoservice.HistoryResp
 
-  rpc :opening, Protoservice.HistoryReq, Protoservice.HistoryResp
+  rpc :opening, Protoservice.OpeningReq, Protoservice.OpeningResp
 
-  rpc :createaccount, stream(Protoservice.CreateUserReq), stream(Protoservice.CreateUserResp)
+  rpc :createaccount, Protoservice.CreateUserReq, Protoservice.CreateUserResp
 end
 
 defmodule Protoservice.Gigservice.Stub do

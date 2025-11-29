@@ -22,7 +22,7 @@ defmodule Processmanagers.Capitalraisepm do
     Project.Repo.insert(%Project.Capitalraise{
       raiseid: event.raiseid,
       amount: event.amount,
-      globaluserid: event.initiator,
+      globaluserid: event.creator,
       startingdate: event.startingdate,
       closingdate: event.closingdate
     })

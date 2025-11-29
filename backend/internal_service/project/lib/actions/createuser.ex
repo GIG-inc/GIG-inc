@@ -2,12 +2,7 @@ defmodule Actions.Createuser do
   require Commanded.Commands.Router
   require Logger
   alias Project.CommandedApp
-  alias Commanded.Commands.Router
-  alias EventStore.Storage.Database
-  alias Commanded.Commands
-  alias EventStore.UUID
-  alias Ecto.Changeset
-  alias Project.{User, Repo}
+
 
   use GenServer
 
@@ -71,11 +66,8 @@ def sendtoeventstore(newuser, _request) do
         {:accepttermsfalse, "To register as a user you have to accept the terms and conditions"}
       else
         # Dispatch the command to the router TODO: check if this is the correct place to put this
-      response=CommandedApp.dispatch(newuser, consistency: :strong)
-		case response do
-          :ok ->
-            {:ok, "successfully created the user"}
-        end
+      CommandedApp.dispatch(newuser, consistency: :strong)
+      Logger.info("successfully created user")
       end
 
     {:ok, %Project.User{} = user} ->

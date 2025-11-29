@@ -1,12 +1,15 @@
 defmodule Project.Wallet do
   use Ecto.Schema
+  @limit Application.compile_env(Project, :globalsettings)[:defaulttransactionlimit]
 
-  @primary_key {:walletid, :binary_id, autogenerate: true}
+  @primary_key {:walletid, :binary_id,[]}
   schema "wallets" do
-    field :cashbalance, :integer, default: 0
-    field :goldbalance, :integer, default: 0
+    field :cashbalance, :decimal, default: 0
+    field :goldbalance, :decimal, default: 0
     field :status,Ecto.Enum, values: [:active, :inactive, :banned], default: :active
     field :globaluserid, :binary_id
+    field :remtransactionlimit, :decimal, default: @limit
+    field :lasttransacted, :utc_datetime_usec
     field :lockversion, :integer, default: 1
     belongs_to :user, Project.User, foreign_key: :localuserid,references: :localuserid, type: :binary_id
   end
@@ -16,7 +19,7 @@ defmodule Project.Wallet do
     |> Ecto.Changeset.cast(params, [:cashbalance, :goldbalance])
     |>Ecto.Changeset.optimistic_lock(:lockversion)
   end
-  # TODO: test this vigourously
+  # TODO:(test) test this vigourously
   def createwalletchangeset(%Project.Wallet{} = wallet) do
     wallet
     |>Ecto.Changeset.change()

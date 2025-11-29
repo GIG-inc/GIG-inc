@@ -36,7 +36,7 @@ defmodule Comms.Receiver do
       case Registry.lookup(Project.Registry, req.globaluserid) do
         [{pid, _}] ->
           GenServer.call(pid, {:createuser, req})
-
+# this is for when the pid does not exist
         [] ->
           case DynamicSupervisor.start_child(
                  Project.Dynamicsupervisor,

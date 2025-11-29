@@ -25,7 +25,7 @@ defmodule Aggregates.Marketopeingaggregate do
   @impl Aggregate
   def apply(%Aggregates.Marketopeingaggregate{} = aggregate, %Events.Marketopeningevent{} = event) do
     %Aggregates.Marketopeingaggregate{aggregate |
-      openingid: event.opening,
+      openingid: event.openingid,
       raiseid: event.raiseid,
       requiredcap: event.amount,
       startingdate: event.startingdate,

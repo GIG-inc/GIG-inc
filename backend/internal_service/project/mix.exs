@@ -31,6 +31,7 @@ defmodule Project.MixProject do
     {:postgrex, ">= 0.0.0"},
     {:commanded, "~> 1.4"},
     {:jason, "~> 1.3"},
+    {:commanded_ecto_projections, "~> 1.2"},
     {:commanded_eventstore_adapter, "~> 1.4"},
     {:eventstore, "~> 1.4"}
     ]

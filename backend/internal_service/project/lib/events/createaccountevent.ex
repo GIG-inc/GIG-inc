@@ -1,4 +1,4 @@
-defmodule Events.Accountopenedevent do
+defmodule Events.Createaccount do
   @moduledoc """
    we are defining the creating account event
   """

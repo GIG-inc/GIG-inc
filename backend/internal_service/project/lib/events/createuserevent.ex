@@ -1,15 +1,13 @@
-defmodule Projectcommands.Accountcreationcommand do
-
+defmodule Events.Createuserevent do
   defstruct [
-    :accountid,
+    :localuserid,
     :globaluserid,
-    :fullname,
     :phonenumber,
     :kycstatus,
     :kyclevel,
     :acceptterms,
     :transactionlimit,
     :username,
+    :fullname,
   ]
-
-end
+  end

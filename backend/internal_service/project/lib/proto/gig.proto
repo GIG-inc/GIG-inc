@@ -9,10 +9,11 @@ message create_user_req{
     string phonenumber= 2;
     string kycstatus=3;
     string kyclevel=4;
-    string acceptterms=5;
+    bool acceptterms=5;
     int64 transactionlimit=6;
     string username=7;
     create_wallet wallet=8;
+    string fullname=9;
 }
 message deposit_req{
     string transactionid =1;
