@@ -105,9 +105,6 @@ defmodule Comms.Receiver do
           end
       end
     end)
-    |>GRPC.Stream.map_error(fn {:error, {:exception, _reason}} ->
-      {:error, GRPC.RPCError.exception(message: "error in the history grpc receiving fn")}
-    end)
     |> GRPC.Stream.run_with(stream)
   end
 # TODO: assumption there can be no more than one capital raise at a time

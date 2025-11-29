@@ -3,7 +3,7 @@ defmodule Project.MixProject do
 
   def project do
     [
-      app: :project,
+      app: :Project,
       version: "0.1.0",
       elixir: "~> 1.19",
       start_permanent: Mix.env() == :dev,
@@ -31,6 +31,7 @@ defmodule Project.MixProject do
     {:postgrex, ">= 0.0.0"},
     {:commanded, "~> 1.4"},
     {:jason, "~> 1.3"},
+    {:commanded_eventstore_adapter, "~> 1.4"},
     {:eventstore, "~> 1.4"}
     ]
   end

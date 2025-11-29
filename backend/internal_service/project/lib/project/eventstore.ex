@@ -1,4 +1,3 @@
-# defmodule Project.Eventstore do
-#   alias Commanded.EventStore
-#   use EventStore, otp_app: :Project
-# end
+defmodule Project.Eventstore do
+  use EventStore, otp_app: :eventstore
+end

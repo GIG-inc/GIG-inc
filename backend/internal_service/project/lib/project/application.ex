@@ -9,7 +9,7 @@ defmodule Project.Application do
   def start(_type, _args) do
     children = [
       {Registry, keys: :unique, name: Project.Registry},
-      Project.Repo,
+      {Project.Repo,[]},
       GrpcReflection,{
         GRPC.Server.Supervisor, [
         endpoint: Comms.Endpoint,
