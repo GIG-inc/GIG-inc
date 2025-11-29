@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"gateway/auth"
 	"gateway/types"
-
 	"github.com/microcosm-cc/bluemonday"
 )
 

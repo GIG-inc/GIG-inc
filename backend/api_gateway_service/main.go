@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	pb "gateway/auth"
+	pb2 "gateway/proto"
 	"gateway/routes"
 	"gateway/types"
 	"github.com/gorilla/mux"
@@ -21,11 +22,18 @@ func main() {
 		types.Logger.Printf("error loading the environment variables %v", err)
 	}
 
-	gatewayserver, err := types.NewGatewayserver()
+	internalgatewayserver, ierr := types.Newintgatewayserver()
+	if ierr != nil {
+		types.Logger.Fatalf("failed to initialize gateway server: %v", ierr)
+	}
+	defer internalgatewayserver.Close()
+	// this is for auth service
+	authgatewayserver, err := types.NewGatewayserver()
 	if err != nil {
 		types.Logger.Fatalf("Failed to initialize gateway server: %v", err)
 	}
-	defer gatewayserver.Close()
+	defer authgatewayserver.Close()
+
 	port := os.Getenv("PORT")
 	r := mux.NewRouter()
 	routes.Routes(r)
@@ -43,9 +51,12 @@ func main() {
 		fmt.Printf("grpc server error: %v", err)
 		types.Logger.Fatalf("Issue starting the grpc server %v", err)
 	}
+	// this is for auth service
 	grpcserver := grpc.NewServer()
 	types.Logger.Printf("gRPC server listening on %s", grpcport)
-	pb.RegisterAuthServiceServer(grpcserver, gatewayserver)
+	pb.RegisterAuthServiceServer(grpcserver, authgatewayserver)
+	types.Logger.Println("started the internalgateway server")
+	pb2.RegisterGigserviceServer(grpcserver, internalgatewayserver)
 
 	if err := grpcserver.Serve(lis); err != nil {
 		types.Logger.Fatalf("grpc serverfailed %v", err)

@@ -2,7 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v3.21.12
-// source: proto/gateway.proto
+// source: proto/internalservice.proto
+
+// i must add this so that the generated file will have a prefix  this to allow for calling
 
 package proto
 
@@ -19,12 +21,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Gigservice_AccountDetails_FullMethodName = "/auth.gigservice/account_details"
-	Gigservice_Transfer_FullMethodName       = "/auth.gigservice/transfer"
-	Gigservice_Sale_FullMethodName           = "/auth.gigservice/sale"
-	Gigservice_History_FullMethodName        = "/auth.gigservice/history"
-	Gigservice_Opening_FullMethodName        = "/auth.gigservice/opening"
-	Gigservice_Createaccount_FullMethodName  = "/auth.gigservice/createaccount"
+	Gigservice_AccountDetails_FullMethodName = "/protoservice.gigservice/account_details"
+	Gigservice_Deposit_FullMethodName        = "/protoservice.gigservice/deposit"
+	Gigservice_Withdraw_FullMethodName       = "/protoservice.gigservice/withdraw"
+	Gigservice_Capitalraise_FullMethodName   = "/protoservice.gigservice/capitalraise"
+	Gigservice_Transfer_FullMethodName       = "/protoservice.gigservice/transfer"
+	Gigservice_Sale_FullMethodName           = "/protoservice.gigservice/sale"
+	Gigservice_History_FullMethodName        = "/protoservice.gigservice/history"
+	Gigservice_Opening_FullMethodName        = "/protoservice.gigservice/opening"
+	Gigservice_Createaccount_FullMethodName  = "/protoservice.gigservice/createaccount"
 )
 
 // GigserviceClient is the client API for Gigservice service.
@@ -32,6 +37,9 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GigserviceClient interface {
 	AccountDetails(ctx context.Context, in *UserAccountDataReq, opts ...grpc.CallOption) (*UserDataResp, error)
+	Deposit(ctx context.Context, in *DepositReq, opts ...grpc.CallOption) (*DepositResp, error)
+	Withdraw(ctx context.Context, in *WithdrawReq, opts ...grpc.CallOption) (*WithdrawResp, error)
+	Capitalraise(ctx context.Context, in *CapitalRaiseReq, opts ...grpc.CallOption) (*CapitalRaiseResp, error)
 	Transfer(ctx context.Context, in *TransferReq, opts ...grpc.CallOption) (*TransferResp, error)
 	Sale(ctx context.Context, in *SaleReq, opts ...grpc.CallOption) (*SaleResp, error)
 	History(ctx context.Context, in *HistoryReq, opts ...grpc.CallOption) (*HistoryResp, error)
@@ -51,6 +59,36 @@ func (c *gigserviceClient) AccountDetails(ctx context.Context, in *UserAccountDa
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserDataResp)
 	err := c.cc.Invoke(ctx, Gigservice_AccountDetails_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gigserviceClient) Deposit(ctx context.Context, in *DepositReq, opts ...grpc.CallOption) (*DepositResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DepositResp)
+	err := c.cc.Invoke(ctx, Gigservice_Deposit_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gigserviceClient) Withdraw(ctx context.Context, in *WithdrawReq, opts ...grpc.CallOption) (*WithdrawResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WithdrawResp)
+	err := c.cc.Invoke(ctx, Gigservice_Withdraw_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gigserviceClient) Capitalraise(ctx context.Context, in *CapitalRaiseReq, opts ...grpc.CallOption) (*CapitalRaiseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CapitalRaiseResp)
+	err := c.cc.Invoke(ctx, Gigservice_Capitalraise_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -112,6 +150,9 @@ func (c *gigserviceClient) Createaccount(ctx context.Context, in *CreateUserReq,
 // for forward compatibility.
 type GigserviceServer interface {
 	AccountDetails(context.Context, *UserAccountDataReq) (*UserDataResp, error)
+	Deposit(context.Context, *DepositReq) (*DepositResp, error)
+	Withdraw(context.Context, *WithdrawReq) (*WithdrawResp, error)
+	Capitalraise(context.Context, *CapitalRaiseReq) (*CapitalRaiseResp, error)
 	Transfer(context.Context, *TransferReq) (*TransferResp, error)
 	Sale(context.Context, *SaleReq) (*SaleResp, error)
 	History(context.Context, *HistoryReq) (*HistoryResp, error)
@@ -129,6 +170,15 @@ type UnimplementedGigserviceServer struct{}
 
 func (UnimplementedGigserviceServer) AccountDetails(context.Context, *UserAccountDataReq) (*UserDataResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AccountDetails not implemented")
+}
+func (UnimplementedGigserviceServer) Deposit(context.Context, *DepositReq) (*DepositResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Deposit not implemented")
+}
+func (UnimplementedGigserviceServer) Withdraw(context.Context, *WithdrawReq) (*WithdrawResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Withdraw not implemented")
+}
+func (UnimplementedGigserviceServer) Capitalraise(context.Context, *CapitalRaiseReq) (*CapitalRaiseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Capitalraise not implemented")
 }
 func (UnimplementedGigserviceServer) Transfer(context.Context, *TransferReq) (*TransferResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Transfer not implemented")
@@ -180,6 +230,60 @@ func _Gigservice_AccountDetails_Handler(srv interface{}, ctx context.Context, de
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GigserviceServer).AccountDetails(ctx, req.(*UserAccountDataReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gigservice_Deposit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DepositReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigserviceServer).Deposit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gigservice_Deposit_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigserviceServer).Deposit(ctx, req.(*DepositReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gigservice_Withdraw_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WithdrawReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigserviceServer).Withdraw(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gigservice_Withdraw_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigserviceServer).Withdraw(ctx, req.(*WithdrawReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gigservice_Capitalraise_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CapitalRaiseReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigserviceServer).Capitalraise(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gigservice_Capitalraise_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigserviceServer).Capitalraise(ctx, req.(*CapitalRaiseReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -278,12 +382,24 @@ func _Gigservice_Createaccount_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Gigservice_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "auth.gigservice",
+	ServiceName: "protoservice.gigservice",
 	HandlerType: (*GigserviceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "account_details",
 			Handler:    _Gigservice_AccountDetails_Handler,
+		},
+		{
+			MethodName: "deposit",
+			Handler:    _Gigservice_Deposit_Handler,
+		},
+		{
+			MethodName: "withdraw",
+			Handler:    _Gigservice_Withdraw_Handler,
+		},
+		{
+			MethodName: "capitalraise",
+			Handler:    _Gigservice_Capitalraise_Handler,
 		},
 		{
 			MethodName: "transfer",
@@ -307,5 +423,5 @@ var Gigservice_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/gateway.proto",
+	Metadata: "proto/internalservice.proto",
 }

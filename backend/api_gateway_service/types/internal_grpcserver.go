@@ -43,6 +43,7 @@ func (server *Internalgatewayserver) Close() error {
 	}
 	return nil
 }
+
 func (s *Internalgatewayserver) AccountDetails(ctx context.Context, req *pb.UserAccountDataReq) (*pb.UserDataResp, error) {
 	// Call auth service directly
 	resp, err := s.AccountDetails(ctx, req)
@@ -62,6 +63,7 @@ func (s *Internalgatewayserver) Transfer(ctx context.Context, req *pb.TransferRe
 	}
 	return resp, nil
 }
+
 func (s *Internalgatewayserver) Sale(ctx context.Context, req *pb.SaleReq) (*pb.SaleResp, error) {
 	// Call auth service directly
 	resp, err := s.Sale(ctx, req)
@@ -71,6 +73,7 @@ func (s *Internalgatewayserver) Sale(ctx context.Context, req *pb.SaleReq) (*pb.
 	}
 	return resp, nil
 }
+
 func (s *Internalgatewayserver) History(ctx context.Context, req *pb.HistoryReq) (*pb.HistoryResp, error) {
 	// Call auth service directly
 	resp, err := s.History(ctx, req)
@@ -90,9 +93,40 @@ func (s *Internalgatewayserver) Opening(ctx context.Context, req *pb.OpeningReq)
 	}
 	return resp, nil
 }
+
 func (s *Internalgatewayserver) Createaccount(ctx context.Context, req *pb.CreateUserReq) (*pb.CreateUserResp, error) {
 	// Call auth service directly
 	resp, err := s.Createaccount(ctx, req)
+	if err != nil {
+		Logger.Printf("error calling auth service Signup: %v", err)
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (s *Internalgatewayserver) Deposit(ctx context.Context, req *pb.DepositReq) (*pb.DepositResp, error) {
+	// Call auth service directly
+	resp, err := s.Deposit(ctx, req)
+	if err != nil {
+		Logger.Printf("error calling auth service Signup: %v", err)
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (s *Internalgatewayserver) Withdraw(ctx context.Context, req *pb.WithdrawReq) (*pb.WithdrawResp, error) {
+	// Call auth service directly
+	resp, err := s.Withdraw(ctx, req)
+	if err != nil {
+		Logger.Printf("error calling auth service Signup: %v", err)
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (s *Internalgatewayserver) Capitalraise(ctx context.Context, req *pb.CapitalRaiseReq) (*pb.CapitalRaiseResp, error) {
+	// Call auth service directly
+	resp, err := s.Capitalraise(ctx, req)
 	if err != nil {
 		Logger.Printf("error calling auth service Signup: %v", err)
 		return nil, err
