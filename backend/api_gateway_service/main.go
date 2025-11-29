@@ -36,7 +36,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	r := mux.NewRouter()
-	routes.Routes(r)
+	routes.Routes(r, internalgatewayserver)
 	// amw :=
 	go func() {
 		types.Logger.Printf("starting server on port: %s", port)

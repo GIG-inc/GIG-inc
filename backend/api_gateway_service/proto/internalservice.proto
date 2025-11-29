@@ -1,7 +1,7 @@
 syntax="proto3";
 
 // i must add this so that the generated file will have a prefix  this to allow for calling
- package protoservice;
+ package proto;
 
  option go_package="./proto";
 
@@ -11,7 +11,7 @@ message create_user_req{
     string phonenumber= 2;
     string kycstatus=3;
     string kyclevel=4;
-    string acceptterms=5;
+    bool acceptterms=5;
     int64 transactionlimit=6;
     string username=7;
     create_wallet wallet=8;

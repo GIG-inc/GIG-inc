@@ -30,7 +30,7 @@ type CreateUserReq struct {
 	Phonenumber      string                 `protobuf:"bytes,2,opt,name=phonenumber,proto3" json:"phonenumber,omitempty"`
 	Kycstatus        string                 `protobuf:"bytes,3,opt,name=kycstatus,proto3" json:"kycstatus,omitempty"`
 	Kyclevel         string                 `protobuf:"bytes,4,opt,name=kyclevel,proto3" json:"kyclevel,omitempty"`
-	Acceptterms      string                 `protobuf:"bytes,5,opt,name=acceptterms,proto3" json:"acceptterms,omitempty"`
+	Acceptterms      bool                   `protobuf:"varint,5,opt,name=acceptterms,proto3" json:"acceptterms,omitempty"`
 	Transactionlimit int64                  `protobuf:"varint,6,opt,name=transactionlimit,proto3" json:"transactionlimit,omitempty"`
 	Username         string                 `protobuf:"bytes,7,opt,name=username,proto3" json:"username,omitempty"`
 	Wallet           *CreateWallet          `protobuf:"bytes,8,opt,name=wallet,proto3" json:"wallet,omitempty"`
@@ -96,11 +96,11 @@ func (x *CreateUserReq) GetKyclevel() string {
 	return ""
 }
 
-func (x *CreateUserReq) GetAcceptterms() string {
+func (x *CreateUserReq) GetAcceptterms() bool {
 	if x != nil {
 		return x.Acceptterms
 	}
-	return ""
+	return false
 }
 
 func (x *CreateUserReq) GetTransactionlimit() int64 {
@@ -1416,16 +1416,16 @@ var File_proto_internalservice_proto protoreflect.FileDescriptor
 
 const file_proto_internalservice_proto_rawDesc = "" +
 	"\n" +
-	"\x1bproto/internalservice.proto\x12\fprotoservice\"\xb0\x02\n" +
+	"\x1bproto/internalservice.proto\x12\x05proto\"\xa9\x02\n" +
 	"\x0fcreate_user_req\x12\"\n" +
 	"\fglobaluserid\x18\x01 \x01(\tR\fglobaluserid\x12 \n" +
 	"\vphonenumber\x18\x02 \x01(\tR\vphonenumber\x12\x1c\n" +
 	"\tkycstatus\x18\x03 \x01(\tR\tkycstatus\x12\x1a\n" +
 	"\bkyclevel\x18\x04 \x01(\tR\bkyclevel\x12 \n" +
-	"\vacceptterms\x18\x05 \x01(\tR\vacceptterms\x12*\n" +
+	"\vacceptterms\x18\x05 \x01(\bR\vacceptterms\x12*\n" +
 	"\x10transactionlimit\x18\x06 \x01(\x03R\x10transactionlimit\x12\x1a\n" +
-	"\busername\x18\a \x01(\tR\busername\x123\n" +
-	"\x06wallet\x18\b \x01(\v2\x1b.protoservice.create_walletR\x06wallet\"\x91\x01\n" +
+	"\busername\x18\a \x01(\tR\busername\x12,\n" +
+	"\x06wallet\x18\b \x01(\v2\x14.proto.create_walletR\x06wallet\"\x91\x01\n" +
 	"\vdeposit_req\x12$\n" +
 	"\rtransactionid\x18\x01 \x01(\tR\rtransactionid\x12 \n" +
 	"\vphonenumber\x18\x02 \x01(\tR\vphonenumber\x12\x16\n" +
@@ -1442,19 +1442,19 @@ const file_proto_internalservice_proto_rawDesc = "" +
 	"\fglobaluserid\x18\x03 \x01(\tR\fglobaluserid\"S\n" +
 	"\rcreate_wallet\x12 \n" +
 	"\vcashbalance\x18\x01 \x01(\tR\vcashbalance\x12 \n" +
-	"\vgoldbalance\x18\x02 \x01(\tR\vgoldbalance\"\x9c\x01\n" +
+	"\vgoldbalance\x18\x02 \x01(\tR\vgoldbalance\"\x95\x01\n" +
 	"\x10create_user_resp\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status\x12\x1d\n" +
-	"\amessage\x18\x02 \x01(\tH\x00R\amessage\x88\x01\x01\x12:\n" +
-	"\x06errors\x18\x03 \x01(\v2\x1d.protoservice.changeseterrorsH\x01R\x06errors\x88\x01\x01B\n" +
+	"\amessage\x18\x02 \x01(\tH\x00R\amessage\x88\x01\x01\x123\n" +
+	"\x06errors\x18\x03 \x01(\v2\x16.proto.changeseterrorsH\x01R\x06errors\x88\x01\x01B\n" +
 	"\n" +
 	"\b_messageB\t\n" +
 	"\a_errors\"A\n" +
 	"\x0fvalidationerror\x12\x14\n" +
 	"\x05field\x18\x01 \x01(\tR\x05field\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage\"H\n" +
-	"\x0fchangeseterrors\x125\n" +
-	"\x06errors\x18\x01 \x03(\v2\x1d.protoservice.validationerrorR\x06errors\"'\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"A\n" +
+	"\x0fchangeseterrors\x12.\n" +
+	"\x06errors\x18\x01 \x03(\v2\x16.proto.validationerrorR\x06errors\"'\n" +
 	"\x15user_account_data_req\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"~\n" +
 	"\ftransfer_req\x12\x17\n" +
@@ -1478,9 +1478,9 @@ const file_proto_internalservice_proto_rawDesc = "" +
 	"\vgold_amount\x18\x01 \x01(\x03R\n" +
 	"goldAmount\x12\x1f\n" +
 	"\vcash_amount\x18\x02 \x01(\x03R\n" +
-	"cashAmount\"\xa0\x01\n" +
-	"\tsale_resp\x12A\n" +
-	"\vsuccessdata\x18\x01 \x01(\v2\x1a.protoservice.success_saleH\x00R\vsuccessdata\x88\x01\x01\x12\x18\n" +
+	"cashAmount\"\x99\x01\n" +
+	"\tsale_resp\x12:\n" +
+	"\vsuccessdata\x18\x01 \x01(\v2\x13.proto.success_saleH\x00R\vsuccessdata\x88\x01\x01\x12\x18\n" +
 	"\asuccess\x18\x02 \x01(\bR\asuccess\x12\x1b\n" +
 	"\x06reason\x18\x03 \x01(\tH\x01R\x06reason\x88\x01\x01B\x0e\n" +
 	"\f_successdataB\t\n" +
@@ -1506,9 +1506,9 @@ const file_proto_internalservice_proto_rawDesc = "" +
 	"\a_reason\"I\n" +
 	"\fopening_resp\x12\x16\n" +
 	"\x06amount\x18\x01 \x01(\x03R\x06amount\x12!\n" +
-	"\fclosing_date\x18\x02 \x01(\tR\vclosingDate\"?\n" +
-	"\fhistory_resp\x12/\n" +
-	"\arequest\x18\x01 \x03(\v2\x15.protoservice.historyR\arequest\"\xd9\x01\n" +
+	"\fclosing_date\x18\x02 \x01(\tR\vclosingDate\"8\n" +
+	"\fhistory_resp\x12(\n" +
+	"\arequest\x18\x01 \x03(\v2\x0e.proto.historyR\arequest\"\xd9\x01\n" +
 	"\ahistory\x12!\n" +
 	"\fopening_date\x18\x01 \x01(\tR\vopeningDate\x12!\n" +
 	"\fclosing_date\x18\x02 \x01(\tR\vclosingDate\x12\x1f\n" +
@@ -1529,18 +1529,18 @@ const file_proto_internalservice_proto_rawDesc = "" +
 	"\x12capital_raise_resp\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1b\n" +
 	"\x06reason\x18\x02 \x01(\tH\x00R\x06reason\x88\x01\x01B\t\n" +
-	"\a_reason2\x8e\x05\n" +
+	"\a_reason2\x90\x04\n" +
 	"\n" +
-	"gigservice\x12T\n" +
-	"\x0faccount_details\x12#.protoservice.user_account_data_req\x1a\x1c.protoservice.user_data_resp\x12@\n" +
-	"\adeposit\x12\x19.protoservice.deposit_req\x1a\x1a.protoservice.deposit_resp\x12C\n" +
-	"\bwithdraw\x12\x1a.protoservice.withdraw_req\x1a\x1b.protoservice.withdraw_resp\x12Q\n" +
-	"\fcapitalraise\x12\x1f.protoservice.capital_raise_req\x1a .protoservice.capital_raise_resp\x12C\n" +
-	"\btransfer\x12\x1a.protoservice.transfer_req\x1a\x1b.protoservice.transfer_resp\x127\n" +
-	"\x04sale\x12\x16.protoservice.sale_req\x1a\x17.protoservice.sale_resp\x12@\n" +
-	"\ahistory\x12\x19.protoservice.history_req\x1a\x1a.protoservice.history_resp\x12@\n" +
-	"\aopening\x12\x19.protoservice.opening_req\x1a\x1a.protoservice.opening_resp\x12N\n" +
-	"\rcreateaccount\x12\x1d.protoservice.create_user_req\x1a\x1e.protoservice.create_user_respB\tZ\a./protob\x06proto3"
+	"gigservice\x12F\n" +
+	"\x0faccount_details\x12\x1c.proto.user_account_data_req\x1a\x15.proto.user_data_resp\x122\n" +
+	"\adeposit\x12\x12.proto.deposit_req\x1a\x13.proto.deposit_resp\x125\n" +
+	"\bwithdraw\x12\x13.proto.withdraw_req\x1a\x14.proto.withdraw_resp\x12C\n" +
+	"\fcapitalraise\x12\x18.proto.capital_raise_req\x1a\x19.proto.capital_raise_resp\x125\n" +
+	"\btransfer\x12\x13.proto.transfer_req\x1a\x14.proto.transfer_resp\x12)\n" +
+	"\x04sale\x12\x0f.proto.sale_req\x1a\x10.proto.sale_resp\x122\n" +
+	"\ahistory\x12\x12.proto.history_req\x1a\x13.proto.history_resp\x122\n" +
+	"\aopening\x12\x12.proto.opening_req\x1a\x13.proto.opening_resp\x12@\n" +
+	"\rcreateaccount\x12\x16.proto.create_user_req\x1a\x17.proto.create_user_respB\tZ\a./protob\x06proto3"
 
 var (
 	file_proto_internalservice_proto_rawDescOnce sync.Once
@@ -1556,54 +1556,54 @@ func file_proto_internalservice_proto_rawDescGZIP() []byte {
 
 var file_proto_internalservice_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
 var file_proto_internalservice_proto_goTypes = []any{
-	(*CreateUserReq)(nil),      // 0: protoservice.create_user_req
-	(*DepositReq)(nil),         // 1: protoservice.deposit_req
-	(*CapitalRaiseReq)(nil),    // 2: protoservice.capital_raise_req
-	(*WithdrawReq)(nil),        // 3: protoservice.withdraw_req
-	(*CreateWallet)(nil),       // 4: protoservice.create_wallet
-	(*CreateUserResp)(nil),     // 5: protoservice.create_user_resp
-	(*Validationerror)(nil),    // 6: protoservice.validationerror
-	(*Changeseterrors)(nil),    // 7: protoservice.changeseterrors
-	(*UserAccountDataReq)(nil), // 8: protoservice.user_account_data_req
-	(*TransferReq)(nil),        // 9: protoservice.transfer_req
-	(*SaleReq)(nil),            // 10: protoservice.sale_req
-	(*OpeningReq)(nil),         // 11: protoservice.opening_req
-	(*HistoryReq)(nil),         // 12: protoservice.history_req
-	(*UserDataResp)(nil),       // 13: protoservice.user_data_resp
-	(*SaleResp)(nil),           // 14: protoservice.sale_resp
-	(*SuccessSale)(nil),        // 15: protoservice.success_sale
-	(*TransferResp)(nil),       // 16: protoservice.transfer_resp
-	(*OpeningResp)(nil),        // 17: protoservice.opening_resp
-	(*HistoryResp)(nil),        // 18: protoservice.history_resp
-	(*History)(nil),            // 19: protoservice.history
-	(*DepositResp)(nil),        // 20: protoservice.deposit_resp
-	(*WithdrawResp)(nil),       // 21: protoservice.withdraw_resp
-	(*CapitalRaiseResp)(nil),   // 22: protoservice.capital_raise_resp
+	(*CreateUserReq)(nil),      // 0: proto.create_user_req
+	(*DepositReq)(nil),         // 1: proto.deposit_req
+	(*CapitalRaiseReq)(nil),    // 2: proto.capital_raise_req
+	(*WithdrawReq)(nil),        // 3: proto.withdraw_req
+	(*CreateWallet)(nil),       // 4: proto.create_wallet
+	(*CreateUserResp)(nil),     // 5: proto.create_user_resp
+	(*Validationerror)(nil),    // 6: proto.validationerror
+	(*Changeseterrors)(nil),    // 7: proto.changeseterrors
+	(*UserAccountDataReq)(nil), // 8: proto.user_account_data_req
+	(*TransferReq)(nil),        // 9: proto.transfer_req
+	(*SaleReq)(nil),            // 10: proto.sale_req
+	(*OpeningReq)(nil),         // 11: proto.opening_req
+	(*HistoryReq)(nil),         // 12: proto.history_req
+	(*UserDataResp)(nil),       // 13: proto.user_data_resp
+	(*SaleResp)(nil),           // 14: proto.sale_resp
+	(*SuccessSale)(nil),        // 15: proto.success_sale
+	(*TransferResp)(nil),       // 16: proto.transfer_resp
+	(*OpeningResp)(nil),        // 17: proto.opening_resp
+	(*HistoryResp)(nil),        // 18: proto.history_resp
+	(*History)(nil),            // 19: proto.history
+	(*DepositResp)(nil),        // 20: proto.deposit_resp
+	(*WithdrawResp)(nil),       // 21: proto.withdraw_resp
+	(*CapitalRaiseResp)(nil),   // 22: proto.capital_raise_resp
 }
 var file_proto_internalservice_proto_depIdxs = []int32{
-	4,  // 0: protoservice.create_user_req.wallet:type_name -> protoservice.create_wallet
-	7,  // 1: protoservice.create_user_resp.errors:type_name -> protoservice.changeseterrors
-	6,  // 2: protoservice.changeseterrors.errors:type_name -> protoservice.validationerror
-	15, // 3: protoservice.sale_resp.successdata:type_name -> protoservice.success_sale
-	19, // 4: protoservice.history_resp.request:type_name -> protoservice.history
-	8,  // 5: protoservice.gigservice.account_details:input_type -> protoservice.user_account_data_req
-	1,  // 6: protoservice.gigservice.deposit:input_type -> protoservice.deposit_req
-	3,  // 7: protoservice.gigservice.withdraw:input_type -> protoservice.withdraw_req
-	2,  // 8: protoservice.gigservice.capitalraise:input_type -> protoservice.capital_raise_req
-	9,  // 9: protoservice.gigservice.transfer:input_type -> protoservice.transfer_req
-	10, // 10: protoservice.gigservice.sale:input_type -> protoservice.sale_req
-	12, // 11: protoservice.gigservice.history:input_type -> protoservice.history_req
-	11, // 12: protoservice.gigservice.opening:input_type -> protoservice.opening_req
-	0,  // 13: protoservice.gigservice.createaccount:input_type -> protoservice.create_user_req
-	13, // 14: protoservice.gigservice.account_details:output_type -> protoservice.user_data_resp
-	20, // 15: protoservice.gigservice.deposit:output_type -> protoservice.deposit_resp
-	21, // 16: protoservice.gigservice.withdraw:output_type -> protoservice.withdraw_resp
-	22, // 17: protoservice.gigservice.capitalraise:output_type -> protoservice.capital_raise_resp
-	16, // 18: protoservice.gigservice.transfer:output_type -> protoservice.transfer_resp
-	14, // 19: protoservice.gigservice.sale:output_type -> protoservice.sale_resp
-	18, // 20: protoservice.gigservice.history:output_type -> protoservice.history_resp
-	17, // 21: protoservice.gigservice.opening:output_type -> protoservice.opening_resp
-	5,  // 22: protoservice.gigservice.createaccount:output_type -> protoservice.create_user_resp
+	4,  // 0: proto.create_user_req.wallet:type_name -> proto.create_wallet
+	7,  // 1: proto.create_user_resp.errors:type_name -> proto.changeseterrors
+	6,  // 2: proto.changeseterrors.errors:type_name -> proto.validationerror
+	15, // 3: proto.sale_resp.successdata:type_name -> proto.success_sale
+	19, // 4: proto.history_resp.request:type_name -> proto.history
+	8,  // 5: proto.gigservice.account_details:input_type -> proto.user_account_data_req
+	1,  // 6: proto.gigservice.deposit:input_type -> proto.deposit_req
+	3,  // 7: proto.gigservice.withdraw:input_type -> proto.withdraw_req
+	2,  // 8: proto.gigservice.capitalraise:input_type -> proto.capital_raise_req
+	9,  // 9: proto.gigservice.transfer:input_type -> proto.transfer_req
+	10, // 10: proto.gigservice.sale:input_type -> proto.sale_req
+	12, // 11: proto.gigservice.history:input_type -> proto.history_req
+	11, // 12: proto.gigservice.opening:input_type -> proto.opening_req
+	0,  // 13: proto.gigservice.createaccount:input_type -> proto.create_user_req
+	13, // 14: proto.gigservice.account_details:output_type -> proto.user_data_resp
+	20, // 15: proto.gigservice.deposit:output_type -> proto.deposit_resp
+	21, // 16: proto.gigservice.withdraw:output_type -> proto.withdraw_resp
+	22, // 17: proto.gigservice.capitalraise:output_type -> proto.capital_raise_resp
+	16, // 18: proto.gigservice.transfer:output_type -> proto.transfer_resp
+	14, // 19: proto.gigservice.sale:output_type -> proto.sale_resp
+	18, // 20: proto.gigservice.history:output_type -> proto.history_resp
+	17, // 21: proto.gigservice.opening:output_type -> proto.opening_resp
+	5,  // 22: proto.gigservice.createaccount:output_type -> proto.create_user_resp
 	14, // [14:23] is the sub-list for method output_type
 	5,  // [5:14] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name

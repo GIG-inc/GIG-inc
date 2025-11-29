@@ -21,15 +21,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Gigservice_AccountDetails_FullMethodName = "/protoservice.gigservice/account_details"
-	Gigservice_Deposit_FullMethodName        = "/protoservice.gigservice/deposit"
-	Gigservice_Withdraw_FullMethodName       = "/protoservice.gigservice/withdraw"
-	Gigservice_Capitalraise_FullMethodName   = "/protoservice.gigservice/capitalraise"
-	Gigservice_Transfer_FullMethodName       = "/protoservice.gigservice/transfer"
-	Gigservice_Sale_FullMethodName           = "/protoservice.gigservice/sale"
-	Gigservice_History_FullMethodName        = "/protoservice.gigservice/history"
-	Gigservice_Opening_FullMethodName        = "/protoservice.gigservice/opening"
-	Gigservice_Createaccount_FullMethodName  = "/protoservice.gigservice/createaccount"
+	Gigservice_AccountDetails_FullMethodName = "/proto.gigservice/account_details"
+	Gigservice_Deposit_FullMethodName        = "/proto.gigservice/deposit"
+	Gigservice_Withdraw_FullMethodName       = "/proto.gigservice/withdraw"
+	Gigservice_Capitalraise_FullMethodName   = "/proto.gigservice/capitalraise"
+	Gigservice_Transfer_FullMethodName       = "/proto.gigservice/transfer"
+	Gigservice_Sale_FullMethodName           = "/proto.gigservice/sale"
+	Gigservice_History_FullMethodName        = "/proto.gigservice/history"
+	Gigservice_Opening_FullMethodName        = "/proto.gigservice/opening"
+	Gigservice_Createaccount_FullMethodName  = "/proto.gigservice/createaccount"
 )
 
 // GigserviceClient is the client API for Gigservice service.
@@ -382,7 +382,7 @@ func _Gigservice_Createaccount_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Gigservice_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "protoservice.gigservice",
+	ServiceName: "proto.gigservice",
 	HandlerType: (*GigserviceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

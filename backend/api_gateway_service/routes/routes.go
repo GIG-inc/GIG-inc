@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-func Routes(router *mux.Router) {
+func Routes(router *mux.Router, internalserver *types.Internalgatewayserver) {
 	router.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Touched the server")
 	})
@@ -24,8 +24,9 @@ func Routes(router *mux.Router) {
 			fmt.Printf("this is the fullname %s", newuser.Fullname)
 			types.Logger.Printf("There was an error decoding json in create user handle func %v", jsonerr)
 			http.Error(resp, "Invalid JSON", http.StatusBadRequest)
+			return
 		}
-		err := handlers.Createuser(&newuser)
+		err, hold := handlers.Createuser(&newuser, internalserver)
 		bool, _ := err.Check()
 
 		if bool == true {
@@ -41,7 +42,9 @@ func Routes(router *mux.Router) {
 				}
 			}
 		}
+
 		types.Logger.Printf("reached create user api")
+		json.NewEncoder(resp).Encode(hold)
 	})
 	router.HandleFunc("/api/login", func(w http.ResponseWriter, r *http.Request) {
 		var login *types.Login
