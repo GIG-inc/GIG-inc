@@ -1,7 +1,10 @@
 defmodule Projections.Depositprojection do
   use Commanded.Projections.Ecto,
+  application: Project.CommandedApp,
   name: __MODULE__,
   repo: Project.Repo
+
+
 
   project %Events.Depositevent{} = event, fn multi ->
     Ecto.Multi.insert(multi, :deposit, %Project.Deposit{

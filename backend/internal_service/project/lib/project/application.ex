@@ -10,7 +10,8 @@ defmodule Project.Application do
     children = [
       {Registry, keys: :unique, name: Project.Registry},
       {Project.Repo,[]},
-      {Projections.Projectionapplication},
+      Project.CommandedApp,
+      Projections.Projectionapplication,
       GrpcReflection,{
         GRPC.Server.Supervisor, [
         endpoint: Comms.Endpoint,
@@ -18,8 +19,7 @@ defmodule Project.Application do
         start_server: true
         ]
       },
-      {DynamicSupervisor, name: Project.Dynamicsupervisor, strategy: :one_for_one},
-      Project.CommandedApp
+      {DynamicSupervisor, name: Project.Dynamicsupervisor, strategy: :one_for_one}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

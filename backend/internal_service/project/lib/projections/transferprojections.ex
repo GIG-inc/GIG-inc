@@ -1,5 +1,6 @@
 defmodule Projections.Transferprojections do
   use Commanded.Projections.Ecto,
+  application: Project.CommandedApp,
   name: __MODULE__,
   repo: Project.Repo
 
