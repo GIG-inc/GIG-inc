@@ -3,10 +3,10 @@ defmodule Routers.Accountopenrouter.Accountrouter do
   use Commanded.Commands.Router
   # disptch command, to: event, :identity: : sortoflikethe one you want to be private key
 
-  identify Aggregates.Accountaggregate,
+  identify Aggregates.Useraggregate,
     by: :accountid,
     prefix: "acc-"
 
-  dispatch Projectcommands.Accountcreationcommand,
-  to: Aggregate.Accountaggregate
+  dispatch Projectcommands.Createusercommand,
+  to: Aggregate.Useraggregate
 end

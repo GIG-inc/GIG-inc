@@ -1,5 +1,4 @@
 defmodule Aggregates.Transferaggregate do
-  alias Events.Accountopenedevent
   alias Aggregates.Transferaggregate
   alias Commanded.Aggregate
   alias Events.Transferevent
@@ -23,10 +22,10 @@ defmodule Aggregates.Transferaggregate do
   end
 
   @impl Aggregate
-  def apply(%Transferaggregate{} = aggregate, %Accountopenedevent{} = event) do
+  def apply(%Transferaggregate{} = aggregate, %Transferevent{} = event) do
     %Transferevent{transferid: transferid,fromid: fromid, toid: toid, cashamount: cashamount, goldamount: goldamount} = event
 
-    %Transferaggregate{
+    %Transferaggregate{aggregate |
       transferid: transferid,
       fromid: fromid,
       toid: toid,

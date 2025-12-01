@@ -17,18 +17,19 @@ defmodule Actions.Createuser do
     Process.send_after(self(), :timeout, 600_000)
     {:ok, %Project.User{}}
   end
+  @limit Application.compile_env(Project, :globalsettings)[:defaulttransactionlimit]
 
   def handle_call({:createuser, request }, _from, _state) do
-    newuser = %Projectcommands.Accountcreationcommand{
-      accountid: Ecto.UUID.generate(),
-      globaluserid: request.globaluser,
-      phonenumber: request.phone,
+    newuser = %Projectcommands.Createusercommand{
+      localuserid: Ecto.UUID.generate(),
+      globaluserid: request.globaluserid,
+      phonenumber: request.phonenumber,
       kycstatus: request.kycstatus,
-      fullname: request.fullname,
       kyclevel: request.kyclevel,
-      transactionlimit: request.transactionlimit,
       acceptterms: request.acceptterms,
-      username: request.username
+      transactionlimit: @limit,
+      username: request.username,
+      fullname: request.fullname
     }
     {response, state} = case sendtoeventstore(newuser,request) do
 

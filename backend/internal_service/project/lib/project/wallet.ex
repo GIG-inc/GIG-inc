@@ -4,8 +4,8 @@ defmodule Project.Wallet do
 
   @primary_key {:walletid, :binary_id,[]}
   schema "wallets" do
-    field :cashbalance, :decimal, default: 0
-    field :goldbalance, :decimal, default: 0
+    field :cashbalance, :decimal
+    field :goldbalance, :decimal
     field :status,Ecto.Enum, values: [:active, :inactive, :banned], default: :active
     field :globaluserid, :binary_id
     field :remtransactionlimit, :decimal, default: @limit

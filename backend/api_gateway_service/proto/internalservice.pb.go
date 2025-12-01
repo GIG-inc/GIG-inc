@@ -33,7 +33,7 @@ type CreateUserReq struct {
 	Acceptterms      bool                   `protobuf:"varint,5,opt,name=acceptterms,proto3" json:"acceptterms,omitempty"`
 	Transactionlimit int64                  `protobuf:"varint,6,opt,name=transactionlimit,proto3" json:"transactionlimit,omitempty"`
 	Username         string                 `protobuf:"bytes,7,opt,name=username,proto3" json:"username,omitempty"`
-	Wallet           *CreateWallet          `protobuf:"bytes,8,opt,name=wallet,proto3" json:"wallet,omitempty"`
+	Fullname         string                 `protobuf:"bytes,9,opt,name=fullname,proto3" json:"fullname,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -117,11 +117,11 @@ func (x *CreateUserReq) GetUsername() string {
 	return ""
 }
 
-func (x *CreateUserReq) GetWallet() *CreateWallet {
+func (x *CreateUserReq) GetFullname() string {
 	if x != nil {
-		return x.Wallet
+		return x.Fullname
 	}
-	return nil
+	return ""
 }
 
 type DepositReq struct {
@@ -1416,7 +1416,7 @@ var File_proto_internalservice_proto protoreflect.FileDescriptor
 
 const file_proto_internalservice_proto_rawDesc = "" +
 	"\n" +
-	"\x1bproto/internalservice.proto\x12\x05proto\"\xa9\x02\n" +
+	"\x1bproto/internalservice.proto\x12\x05proto\"\x97\x02\n" +
 	"\x0fcreate_user_req\x12\"\n" +
 	"\fglobaluserid\x18\x01 \x01(\tR\fglobaluserid\x12 \n" +
 	"\vphonenumber\x18\x02 \x01(\tR\vphonenumber\x12\x1c\n" +
@@ -1424,8 +1424,8 @@ const file_proto_internalservice_proto_rawDesc = "" +
 	"\bkyclevel\x18\x04 \x01(\tR\bkyclevel\x12 \n" +
 	"\vacceptterms\x18\x05 \x01(\bR\vacceptterms\x12*\n" +
 	"\x10transactionlimit\x18\x06 \x01(\x03R\x10transactionlimit\x12\x1a\n" +
-	"\busername\x18\a \x01(\tR\busername\x12,\n" +
-	"\x06wallet\x18\b \x01(\v2\x14.proto.create_walletR\x06wallet\"\x91\x01\n" +
+	"\busername\x18\a \x01(\tR\busername\x12\x1a\n" +
+	"\bfullname\x18\t \x01(\tR\bfullname\"\x91\x01\n" +
 	"\vdeposit_req\x12$\n" +
 	"\rtransactionid\x18\x01 \x01(\tR\rtransactionid\x12 \n" +
 	"\vphonenumber\x18\x02 \x01(\tR\vphonenumber\x12\x16\n" +
@@ -1581,34 +1581,33 @@ var file_proto_internalservice_proto_goTypes = []any{
 	(*CapitalRaiseResp)(nil),   // 22: proto.capital_raise_resp
 }
 var file_proto_internalservice_proto_depIdxs = []int32{
-	4,  // 0: proto.create_user_req.wallet:type_name -> proto.create_wallet
-	7,  // 1: proto.create_user_resp.errors:type_name -> proto.changeseterrors
-	6,  // 2: proto.changeseterrors.errors:type_name -> proto.validationerror
-	15, // 3: proto.sale_resp.successdata:type_name -> proto.success_sale
-	19, // 4: proto.history_resp.request:type_name -> proto.history
-	8,  // 5: proto.gigservice.account_details:input_type -> proto.user_account_data_req
-	1,  // 6: proto.gigservice.deposit:input_type -> proto.deposit_req
-	3,  // 7: proto.gigservice.withdraw:input_type -> proto.withdraw_req
-	2,  // 8: proto.gigservice.capitalraise:input_type -> proto.capital_raise_req
-	9,  // 9: proto.gigservice.transfer:input_type -> proto.transfer_req
-	10, // 10: proto.gigservice.sale:input_type -> proto.sale_req
-	12, // 11: proto.gigservice.history:input_type -> proto.history_req
-	11, // 12: proto.gigservice.opening:input_type -> proto.opening_req
-	0,  // 13: proto.gigservice.createaccount:input_type -> proto.create_user_req
-	13, // 14: proto.gigservice.account_details:output_type -> proto.user_data_resp
-	20, // 15: proto.gigservice.deposit:output_type -> proto.deposit_resp
-	21, // 16: proto.gigservice.withdraw:output_type -> proto.withdraw_resp
-	22, // 17: proto.gigservice.capitalraise:output_type -> proto.capital_raise_resp
-	16, // 18: proto.gigservice.transfer:output_type -> proto.transfer_resp
-	14, // 19: proto.gigservice.sale:output_type -> proto.sale_resp
-	18, // 20: proto.gigservice.history:output_type -> proto.history_resp
-	17, // 21: proto.gigservice.opening:output_type -> proto.opening_resp
-	5,  // 22: proto.gigservice.createaccount:output_type -> proto.create_user_resp
-	14, // [14:23] is the sub-list for method output_type
-	5,  // [5:14] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	7,  // 0: proto.create_user_resp.errors:type_name -> proto.changeseterrors
+	6,  // 1: proto.changeseterrors.errors:type_name -> proto.validationerror
+	15, // 2: proto.sale_resp.successdata:type_name -> proto.success_sale
+	19, // 3: proto.history_resp.request:type_name -> proto.history
+	8,  // 4: proto.gigservice.account_details:input_type -> proto.user_account_data_req
+	1,  // 5: proto.gigservice.deposit:input_type -> proto.deposit_req
+	3,  // 6: proto.gigservice.withdraw:input_type -> proto.withdraw_req
+	2,  // 7: proto.gigservice.capitalraise:input_type -> proto.capital_raise_req
+	9,  // 8: proto.gigservice.transfer:input_type -> proto.transfer_req
+	10, // 9: proto.gigservice.sale:input_type -> proto.sale_req
+	12, // 10: proto.gigservice.history:input_type -> proto.history_req
+	11, // 11: proto.gigservice.opening:input_type -> proto.opening_req
+	0,  // 12: proto.gigservice.createaccount:input_type -> proto.create_user_req
+	13, // 13: proto.gigservice.account_details:output_type -> proto.user_data_resp
+	20, // 14: proto.gigservice.deposit:output_type -> proto.deposit_resp
+	21, // 15: proto.gigservice.withdraw:output_type -> proto.withdraw_resp
+	22, // 16: proto.gigservice.capitalraise:output_type -> proto.capital_raise_resp
+	16, // 17: proto.gigservice.transfer:output_type -> proto.transfer_resp
+	14, // 18: proto.gigservice.sale:output_type -> proto.sale_resp
+	18, // 19: proto.gigservice.history:output_type -> proto.history_resp
+	17, // 20: proto.gigservice.opening:output_type -> proto.opening_resp
+	5,  // 21: proto.gigservice.createaccount:output_type -> proto.create_user_resp
+	13, // [13:22] is the sub-list for method output_type
+	4,  // [4:13] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_proto_internalservice_proto_init() }

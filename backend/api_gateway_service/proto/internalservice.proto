@@ -14,7 +14,7 @@ message create_user_req{
     bool acceptterms=5;
     int64 transactionlimit=6;
     string username=7;
-    create_wallet wallet=8;
+    string fullname=9;
 }
 message deposit_req{
     string transactionid =1;

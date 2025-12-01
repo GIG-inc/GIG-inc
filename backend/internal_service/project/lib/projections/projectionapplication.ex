@@ -10,6 +10,8 @@ defmodule Projections.Projectionapplication do
       children = [
         Projections.Createuserprojection,
         Projections.Depositprojection,
+        Projections.Createwalletprojection,
+        Projections.Transferprojections,
       ]
       # TODO: check if there are option i can add here
       Supervisor.init(children,strategy: :one_for_one)

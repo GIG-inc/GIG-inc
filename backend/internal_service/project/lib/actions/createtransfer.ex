@@ -92,8 +92,8 @@ This is the file that is responsible for handling transfers of amounts
               # here we send the sender and receiver to the transfer function
               command = %Projectcommands.Transfercommands{
                 transferid: Ecto.UUID.generate(),
-                fromid: transfer.from_id,
-                toid: transfer.to_id,
+                fromid: sender,
+                toid: receiver,
                 goldamount: transfer.gold_amount,
                 cashamount: transfer.cash_amount,
               }

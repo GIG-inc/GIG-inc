@@ -4,8 +4,8 @@ defmodule Project.User do
   use Ecto.Schema
   import Changeset
   # change set is some type of recorder for actions happening in the process of processing User
+  @primary_key{:localuserid, :binary_id,[]}
   schema "userstable" do
-    field :localuserid, :binary_id
     field :globaluserid, :binary_id
     field :fullname, :string
     field :phonenumber, :string

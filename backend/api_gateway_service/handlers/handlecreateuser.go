@@ -49,10 +49,7 @@ func Createuser(newuser *types.Create_user, server *types.Internalgatewayserver)
 	// TODO: after that we need to check the kyc
 	tempuuid := uuid.New()
 	// TODO: after which then we pass to grpc
-	wallet := proto.CreateWallet{
-		Cashbalance: "0",
-		Goldbalance: "0",
-	}
+
 	tempuser := proto.CreateUserReq{
 		Globaluserid: tempuuid.String(),
 		// TODO: sanitize phone number
@@ -62,7 +59,8 @@ func Createuser(newuser *types.Create_user, server *types.Internalgatewayserver)
 		Acceptterms:      true,
 		Transactionlimit: 10000,
 		Username:         holder["username"],
-		Wallet:           &wallet,
+		// TODO: remember to add username field to createuser
+		Fullname: holder["fullname"],
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

@@ -10,6 +10,7 @@ defmodule Project.Application do
     children = [
       {Registry, keys: :unique, name: Project.Registry},
       {Project.Repo,[]},
+      {Projections.Projectionapplication},
       GrpcReflection,{
         GRPC.Server.Supervisor, [
         endpoint: Comms.Endpoint,

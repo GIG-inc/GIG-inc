@@ -1,5 +1,4 @@
 defmodule Routers.Transferrouter do
-  alias Commanded.Aggregate
   use Commanded.Commands.Router
   identify Aggregates.Transferaggregate,
     by: :transferid,
