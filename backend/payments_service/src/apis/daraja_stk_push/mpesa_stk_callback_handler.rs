@@ -1,6 +1,6 @@
 use axum::{Json, response::IntoResponse, http::StatusCode};
 
-use crate::apis::mpesa_stk_callback::StkCallbackPayload;
+use crate::apis::daraja_stk_push::mpesa_stk_callback::StkCallbackPayload;
 
 pub async fn mpesa_callback(
     Json(payload): Json<StkCallbackPayload>,

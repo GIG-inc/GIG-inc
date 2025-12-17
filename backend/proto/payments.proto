@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package payments;
+
+service MpesaPayments {
+  rpc InitiateStkPush (StkPushRequest) returns (StkPushResponse);
+}
+
+message StkPushRequest {
+  string phone_number = 1;
+  uint32 amount = 2;
+  string account_reference = 3;
+  string transaction_desc = 4;
+}
+
+message StkPushResponse {
+  bool success = 1;
+  string message = 2;
+  string merchant_request_id = 3;
+  string checkout_request_id = 4;
+}

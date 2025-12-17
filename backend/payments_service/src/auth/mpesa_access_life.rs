@@ -2,7 +2,7 @@ use std::time::{Duration, Instant};
 use tokio::sync::RwLock;
 
 use reqwest::Client;
-use crate::apis::mpesa_auth::get_access_token;
+use crate::auth::mpesa_auth::get_access_token;
 use crate::config::config::MpesaAuthorizationConfig;
 
 #[derive(Clone)]

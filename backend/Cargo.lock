@@ -1416,10 +1416,14 @@ dependencies = [
  "base64",
  "chrono",
  "dotenvy",
+ "prost",
+ "prost-types",
  "reqwest",
  "serde",
  "serde_json",
  "tokio",
+ "tonic",
+ "tonic-build",
  "tower-http 0.5.2",
 ]
 

@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use chrono::Utc;
 use base64::{engine::general_purpose, Engine as _};
 use reqwest::Client;
-use crate::apis::mpesa_access_life::AuthAccessTokenLife;
+use crate::auth::mpesa_access_life::AuthAccessTokenLife;
 use crate::config::config::MpesaAuthorizationConfig;
 
 #[derive(Serialize)]

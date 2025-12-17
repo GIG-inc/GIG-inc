@@ -1,18 +1,24 @@
 use dotenvy::dotenv;
 use reqwest::Client;
-
-use apis::mpesa_access_life::AuthAccessTokenLife;
-use crate::apis::mpesa_stk_push::initiate_stk_push;
-use crate::config::config::MpesaAuthorizationConfig;
+use tonic::transport::Server;
 
 mod apis;
 mod config;
+mod grpc;
+mod auth;
+mod router;
+
+use config::config::MpesaAuthorizationConfig;
+use auth::mpesa_access_life::AuthAccessTokenLife;
+use grpc::mpesa_service::MpesaPaymentsService;
+use grpc::payments::mpesa_payments_server::MpesaPaymentsServer;
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
 
     let config = MpesaAuthorizationConfig::mpesa_auth_env();
+
     let client = Client::new();
 
     let auth_service = AuthAccessTokenLife::new(
@@ -20,24 +26,18 @@ async fn main() {
         config.clone(),
     );
 
+    let service = MpesaPaymentsService {
+        client,
+        auth: auth_service,
+        config,
+    };
 
-    let token1 = auth_service.get_token().await.unwrap();
-    let token2 = auth_service.get_token().await.unwrap();
+    println!("Starting gRPC server on 0.0.0.0:9000...");
 
-    println!("Token 1 {}", token1);
-    println!("Token 2 {}", token2);
+    Server::builder()
+        .add_service(MpesaPaymentsServer::new(service))
+        .serve("0.0.0.0:9000".parse()?)
+        .await?;
 
-    let res = initiate_stk_push(
-        &client,
-        &auth_service,
-        &config,
-        "254113402140".to_string(),
-        10,
-        "0113402140".to_string(),
-    )
-        .await
-        .unwrap();
-
-    println!("{:#?}", res);
-
+    Ok(())
 }
