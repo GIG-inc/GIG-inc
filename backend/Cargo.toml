@@ -2,5 +2,5 @@
 resolver = "3"
 members = [
     "bank_service",
-    "auth_service",
+    "auth_service", "payments_service",
 ]

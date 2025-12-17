@@ -1,6 +1,7 @@
 use crate::grpc::auth::{SignupRequest, AuthResponse};
 use crate::models::supabase_client::SupabaseClient;
 use crate::services::signup_service::signup_user_service;
+use anyhow::Result;
 
 pub struct SignupHandler;
 
