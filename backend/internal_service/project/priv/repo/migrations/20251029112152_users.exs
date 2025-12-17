@@ -22,4 +22,3 @@ defmodule Project.Repo.Migrations.Users do
       create unique_index(:userstable, [:globaluserid])
   end
 end
-kl

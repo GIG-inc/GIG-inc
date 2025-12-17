@@ -19,3 +19,13 @@ addedamount (mark)
 
   <!-- to view docker logs -->
   sudo docker logs eventstore -f
+
+
+  <!-- this are the commands to create the database -->
+mix ecto create -to create the database config (already done this)
+mix ecto.migrate - to build the schemas
+mix ecto.rollback -n 1 -this is to rollback one step
+
+<!-- for the events store -->
+create a schema for event_store 
+then run - mix event_store.init

@@ -1,5 +1,7 @@
 import Config
 config :project, ecto_repos: [Project.Repo]
+config :project,
+  event_stores: [Project.EventStore]
 config :project,  Comms.Endpoint,
   port: 50053,
   adapter: GRPC.Adapter.Cowboy,
@@ -7,14 +9,17 @@ config :project,  Comms.Endpoint,
   cowboy_opts: []
 config :project, Project.Application,
   event_store_adapter: Commanded.EventStore.Adapters.EventStoreDB
-config :eventstore, Project.Eventstore,
+config :project, Project.EventStore,
   serializer: EventStore.JsonSerializer,
-  database: "eventstore",
+  database: "giginc",
   username: "deeznutz",
   password: "0000",
   hostname: "localhost",
   pool_size: 10,
-  port: 5433
+  port: 5433,
+  pool: DBConnection.ConnectionPool,
+  schema: "public",
+  timeout: 15_000
 config :project, Project.Repo,
   database: "giginc",
   username: "deeznutz",
@@ -25,7 +30,7 @@ config :project, Project.Repo,
 config :project, Project.CommandedApp,
   event_store: [
     adapter: Commanded.EventStore.Adapters.EventStore,
-    event_store: Project.Eventstore
+    event_store: Project.EventStore
   ],
   pubsub: :local,
   registry: :local
