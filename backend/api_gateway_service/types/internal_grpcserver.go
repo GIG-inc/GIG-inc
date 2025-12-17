@@ -46,7 +46,7 @@ func (server *Internalgatewayserver) Close() error {
 
 func (s *Internalgatewayserver) AccountDetails(ctx context.Context, req *pb.UserAccountDataReq) (*pb.UserDataResp, error) {
 	// Call auth service directly
-	resp, err := s.AccountDetails(ctx, req)
+	resp, err := s.authclient.AccountDetails(ctx, req)
 	if err != nil {
 		Logger.Printf("error calling auth service Signup: %v", err)
 		return nil, err
@@ -56,7 +56,7 @@ func (s *Internalgatewayserver) AccountDetails(ctx context.Context, req *pb.User
 
 func (s *Internalgatewayserver) Transfer(ctx context.Context, req *pb.TransferReq) (*pb.TransferResp, error) {
 	// Call auth service directly
-	resp, err := s.Transfer(ctx, req)
+	resp, err := s.authclient.Transfer(ctx, req)
 	if err != nil {
 		Logger.Printf("error calling auth service Signup: %v", err)
 		return nil, err
@@ -66,7 +66,7 @@ func (s *Internalgatewayserver) Transfer(ctx context.Context, req *pb.TransferRe
 
 func (s *Internalgatewayserver) Sale(ctx context.Context, req *pb.SaleReq) (*pb.SaleResp, error) {
 	// Call auth service directly
-	resp, err := s.Sale(ctx, req)
+	resp, err := s.authclient.Sale(ctx, req)
 	if err != nil {
 		Logger.Printf("error calling auth service Signup: %v", err)
 		return nil, err
@@ -76,7 +76,7 @@ func (s *Internalgatewayserver) Sale(ctx context.Context, req *pb.SaleReq) (*pb.
 
 func (s *Internalgatewayserver) History(ctx context.Context, req *pb.HistoryReq) (*pb.HistoryResp, error) {
 	// Call auth service directly
-	resp, err := s.History(ctx, req)
+	resp, err := s.authclient.History(ctx, req)
 	if err != nil {
 		Logger.Printf("error calling auth service Signup: %v", err)
 		return nil, err
@@ -86,7 +86,7 @@ func (s *Internalgatewayserver) History(ctx context.Context, req *pb.HistoryReq)
 
 func (s *Internalgatewayserver) Opening(ctx context.Context, req *pb.OpeningReq) (*pb.OpeningResp, error) {
 	// Call auth service directly
-	resp, err := s.Opening(ctx, req)
+	resp, err := s.authclient.Opening(ctx, req)
 	if err != nil {
 		Logger.Printf("error calling auth service Signup: %v", err)
 		return nil, err
@@ -96,9 +96,9 @@ func (s *Internalgatewayserver) Opening(ctx context.Context, req *pb.OpeningReq)
 
 func (s *Internalgatewayserver) Createaccount(ctx context.Context, req *pb.CreateUserReq) (*pb.CreateUserResp, error) {
 	// Call auth service directly
-	resp, err := s.Createaccount(ctx, req)
+	resp, err := s.authclient.Createaccount(ctx, req)
 	if err != nil {
-		Logger.Printf("error calling auth service Signup: %v", err)
+		Logger.Printf("error calling internal service createaccount: %v", err)
 		return nil, err
 	}
 	return resp, nil
@@ -106,7 +106,7 @@ func (s *Internalgatewayserver) Createaccount(ctx context.Context, req *pb.Creat
 
 func (s *Internalgatewayserver) Deposit(ctx context.Context, req *pb.DepositReq) (*pb.DepositResp, error) {
 	// Call auth service directly
-	resp, err := s.Deposit(ctx, req)
+	resp, err := s.authclient.Deposit(ctx, req)
 	if err != nil {
 		Logger.Printf("error calling auth service Signup: %v", err)
 		return nil, err
@@ -116,7 +116,7 @@ func (s *Internalgatewayserver) Deposit(ctx context.Context, req *pb.DepositReq)
 
 func (s *Internalgatewayserver) Withdraw(ctx context.Context, req *pb.WithdrawReq) (*pb.WithdrawResp, error) {
 	// Call auth service directly
-	resp, err := s.Withdraw(ctx, req)
+	resp, err := s.authclient.Withdraw(ctx, req)
 	if err != nil {
 		Logger.Printf("error calling auth service Signup: %v", err)
 		return nil, err
@@ -126,7 +126,7 @@ func (s *Internalgatewayserver) Withdraw(ctx context.Context, req *pb.WithdrawRe
 
 func (s *Internalgatewayserver) Capitalraise(ctx context.Context, req *pb.CapitalRaiseReq) (*pb.CapitalRaiseResp, error) {
 	// Call auth service directly
-	resp, err := s.Capitalraise(ctx, req)
+	resp, err := s.authclient.Capitalraise(ctx, req)
 	if err != nil {
 		Logger.Printf("error calling auth service Signup: %v", err)
 		return nil, err

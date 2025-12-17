@@ -7,25 +7,17 @@ import (
 	"time"
 )
 
-func Createuserauthservice(user *pb.SignupRequest) (Errortype, *pb.AuthResponse) {
-	conn, err := NewGatewayserver()
+func Createuserauthservice(user *pb.SignupRequest, server *Gatewayserver) (Errortype, *pb.AuthResponse) {
 	fmt.Println("wanting to auth server")
 	Logger.Printf("wanting to contact server with information :%s", user)
-	if conn != nil {
-		defer conn.Close()
+	if server != nil {
+		defer server.Close()
 	}
 
-	if err != nil {
-		Logger.Fatalf("There was an issue in establishing the connection for grpc in Createuserauthservice: %v", err)
-		return Errortype{
-			Errtype: "grpc errr",
-			Aerr:    err,
-		}, nil
-	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	// TODO: optimize this check if stream or unary
-	resp, errormsg := conn.Signup(ctx, user)
+	resp, errormsg := server.Signup(ctx, user)
 	if errormsg != nil {
 		Logger.Fatalf("there was an issue in establishing the stream in Createuser for grpc %v", errormsg)
 		return Errortype{

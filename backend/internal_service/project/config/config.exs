@@ -1,10 +1,10 @@
 import Config
 config :project, ecto_repos: [Project.Repo]
-# config :grpc, start_server: true
-# config :project,  Comms.Endpoint,
-#   port: 50052,
-#   adapter: GRPC.Adapter.Cowboy,
-#   cowboy_opts: []
+config :project,  Comms.Endpoint,
+  port: 50053,
+  adapter: GRPC.Adapter.Cowboy,
+  ip: {0, 0, 0, 0},
+  cowboy_opts: []
 config :project, Project.Application,
   event_store_adapter: Commanded.EventStore.Adapters.EventStoreDB
 config :eventstore, Project.Eventstore,
@@ -31,3 +31,4 @@ config :project, Project.CommandedApp,
   registry: :local
 config :project, :globalsettings,
     defaulttransactionlimit: 10000
+config :logger, level: :debug

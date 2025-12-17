@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v3.21.12
-// source: proto/internalservice.proto
+// source: internalservice/internalservice.proto
 
 // i must add this so that the generated file will have a prefix  this to allow for calling
 
@@ -21,15 +21,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Gigservice_AccountDetails_FullMethodName = "/proto.gigservice/account_details"
-	Gigservice_Deposit_FullMethodName        = "/proto.gigservice/deposit"
-	Gigservice_Withdraw_FullMethodName       = "/proto.gigservice/withdraw"
-	Gigservice_Capitalraise_FullMethodName   = "/proto.gigservice/capitalraise"
-	Gigservice_Transfer_FullMethodName       = "/proto.gigservice/transfer"
-	Gigservice_Sale_FullMethodName           = "/proto.gigservice/sale"
-	Gigservice_History_FullMethodName        = "/proto.gigservice/history"
-	Gigservice_Opening_FullMethodName        = "/proto.gigservice/opening"
-	Gigservice_Createaccount_FullMethodName  = "/proto.gigservice/createaccount"
+	Gigservice_AccountDetails_FullMethodName = "/internalservice.gigservice/account_details"
+	Gigservice_Deposit_FullMethodName        = "/internalservice.gigservice/deposit"
+	Gigservice_Withdraw_FullMethodName       = "/internalservice.gigservice/withdraw"
+	Gigservice_Capitalraise_FullMethodName   = "/internalservice.gigservice/capitalraise"
+	Gigservice_Transfer_FullMethodName       = "/internalservice.gigservice/transfer"
+	Gigservice_Sale_FullMethodName           = "/internalservice.gigservice/sale"
+	Gigservice_History_FullMethodName        = "/internalservice.gigservice/history"
+	Gigservice_Opening_FullMethodName        = "/internalservice.gigservice/opening"
+	Gigservice_Createaccount_FullMethodName  = "/internalservice.gigservice/createaccount"
 )
 
 // GigserviceClient is the client API for Gigservice service.
@@ -382,7 +382,7 @@ func _Gigservice_Createaccount_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Gigservice_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.gigservice",
+	ServiceName: "internalservice.gigservice",
 	HandlerType: (*GigserviceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -423,5 +423,5 @@ var Gigservice_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/internalservice.proto",
+	Metadata: "internalservice/internalservice.proto",
 }

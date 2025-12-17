@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v3.21.12
-// source: proto/internalservice.proto
+// source: internalservice/internalservice.proto
 
 // i must add this so that the generated file will have a prefix  this to allow for calling
 
@@ -40,7 +40,7 @@ type CreateUserReq struct {
 
 func (x *CreateUserReq) Reset() {
 	*x = CreateUserReq{}
-	mi := &file_proto_internalservice_proto_msgTypes[0]
+	mi := &file_internalservice_internalservice_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -52,7 +52,7 @@ func (x *CreateUserReq) String() string {
 func (*CreateUserReq) ProtoMessage() {}
 
 func (x *CreateUserReq) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[0]
+	mi := &file_internalservice_internalservice_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -65,7 +65,7 @@ func (x *CreateUserReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserReq.ProtoReflect.Descriptor instead.
 func (*CreateUserReq) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{0}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *CreateUserReq) GetGlobaluserid() string {
@@ -136,7 +136,7 @@ type DepositReq struct {
 
 func (x *DepositReq) Reset() {
 	*x = DepositReq{}
-	mi := &file_proto_internalservice_proto_msgTypes[1]
+	mi := &file_internalservice_internalservice_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -148,7 +148,7 @@ func (x *DepositReq) String() string {
 func (*DepositReq) ProtoMessage() {}
 
 func (x *DepositReq) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[1]
+	mi := &file_internalservice_internalservice_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -161,7 +161,7 @@ func (x *DepositReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DepositReq.ProtoReflect.Descriptor instead.
 func (*DepositReq) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{1}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *DepositReq) GetTransactionid() string {
@@ -204,7 +204,7 @@ type CapitalRaiseReq struct {
 
 func (x *CapitalRaiseReq) Reset() {
 	*x = CapitalRaiseReq{}
-	mi := &file_proto_internalservice_proto_msgTypes[2]
+	mi := &file_internalservice_internalservice_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -216,7 +216,7 @@ func (x *CapitalRaiseReq) String() string {
 func (*CapitalRaiseReq) ProtoMessage() {}
 
 func (x *CapitalRaiseReq) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[2]
+	mi := &file_internalservice_internalservice_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -229,7 +229,7 @@ func (x *CapitalRaiseReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CapitalRaiseReq.ProtoReflect.Descriptor instead.
 func (*CapitalRaiseReq) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{2}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *CapitalRaiseReq) GetCapitalrequired() string {
@@ -271,7 +271,7 @@ type WithdrawReq struct {
 
 func (x *WithdrawReq) Reset() {
 	*x = WithdrawReq{}
-	mi := &file_proto_internalservice_proto_msgTypes[3]
+	mi := &file_internalservice_internalservice_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -283,7 +283,7 @@ func (x *WithdrawReq) String() string {
 func (*WithdrawReq) ProtoMessage() {}
 
 func (x *WithdrawReq) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[3]
+	mi := &file_internalservice_internalservice_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -296,7 +296,7 @@ func (x *WithdrawReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WithdrawReq.ProtoReflect.Descriptor instead.
 func (*WithdrawReq) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{3}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *WithdrawReq) GetPhonenumber() string {
@@ -330,7 +330,7 @@ type CreateWallet struct {
 
 func (x *CreateWallet) Reset() {
 	*x = CreateWallet{}
-	mi := &file_proto_internalservice_proto_msgTypes[4]
+	mi := &file_internalservice_internalservice_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -342,7 +342,7 @@ func (x *CreateWallet) String() string {
 func (*CreateWallet) ProtoMessage() {}
 
 func (x *CreateWallet) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[4]
+	mi := &file_internalservice_internalservice_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -355,7 +355,7 @@ func (x *CreateWallet) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateWallet.ProtoReflect.Descriptor instead.
 func (*CreateWallet) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{4}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *CreateWallet) GetCashbalance() string {
@@ -383,7 +383,7 @@ type CreateUserResp struct {
 
 func (x *CreateUserResp) Reset() {
 	*x = CreateUserResp{}
-	mi := &file_proto_internalservice_proto_msgTypes[5]
+	mi := &file_internalservice_internalservice_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -395,7 +395,7 @@ func (x *CreateUserResp) String() string {
 func (*CreateUserResp) ProtoMessage() {}
 
 func (x *CreateUserResp) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[5]
+	mi := &file_internalservice_internalservice_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -408,7 +408,7 @@ func (x *CreateUserResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserResp.ProtoReflect.Descriptor instead.
 func (*CreateUserResp) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{5}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *CreateUserResp) GetStatus() string {
@@ -442,7 +442,7 @@ type Validationerror struct {
 
 func (x *Validationerror) Reset() {
 	*x = Validationerror{}
-	mi := &file_proto_internalservice_proto_msgTypes[6]
+	mi := &file_internalservice_internalservice_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -454,7 +454,7 @@ func (x *Validationerror) String() string {
 func (*Validationerror) ProtoMessage() {}
 
 func (x *Validationerror) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[6]
+	mi := &file_internalservice_internalservice_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -467,7 +467,7 @@ func (x *Validationerror) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Validationerror.ProtoReflect.Descriptor instead.
 func (*Validationerror) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{6}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Validationerror) GetField() string {
@@ -493,7 +493,7 @@ type Changeseterrors struct {
 
 func (x *Changeseterrors) Reset() {
 	*x = Changeseterrors{}
-	mi := &file_proto_internalservice_proto_msgTypes[7]
+	mi := &file_internalservice_internalservice_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -505,7 +505,7 @@ func (x *Changeseterrors) String() string {
 func (*Changeseterrors) ProtoMessage() {}
 
 func (x *Changeseterrors) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[7]
+	mi := &file_internalservice_internalservice_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -518,7 +518,7 @@ func (x *Changeseterrors) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Changeseterrors.ProtoReflect.Descriptor instead.
 func (*Changeseterrors) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{7}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *Changeseterrors) GetErrors() []*Validationerror {
@@ -537,7 +537,7 @@ type UserAccountDataReq struct {
 
 func (x *UserAccountDataReq) Reset() {
 	*x = UserAccountDataReq{}
-	mi := &file_proto_internalservice_proto_msgTypes[8]
+	mi := &file_internalservice_internalservice_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -549,7 +549,7 @@ func (x *UserAccountDataReq) String() string {
 func (*UserAccountDataReq) ProtoMessage() {}
 
 func (x *UserAccountDataReq) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[8]
+	mi := &file_internalservice_internalservice_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -562,7 +562,7 @@ func (x *UserAccountDataReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserAccountDataReq.ProtoReflect.Descriptor instead.
 func (*UserAccountDataReq) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{8}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *UserAccountDataReq) GetId() string {
@@ -584,7 +584,7 @@ type TransferReq struct {
 
 func (x *TransferReq) Reset() {
 	*x = TransferReq{}
-	mi := &file_proto_internalservice_proto_msgTypes[9]
+	mi := &file_internalservice_internalservice_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -596,7 +596,7 @@ func (x *TransferReq) String() string {
 func (*TransferReq) ProtoMessage() {}
 
 func (x *TransferReq) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[9]
+	mi := &file_internalservice_internalservice_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -609,7 +609,7 @@ func (x *TransferReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TransferReq.ProtoReflect.Descriptor instead.
 func (*TransferReq) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{9}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *TransferReq) GetFromId() string {
@@ -652,7 +652,7 @@ type SaleReq struct {
 
 func (x *SaleReq) Reset() {
 	*x = SaleReq{}
-	mi := &file_proto_internalservice_proto_msgTypes[10]
+	mi := &file_internalservice_internalservice_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -664,7 +664,7 @@ func (x *SaleReq) String() string {
 func (*SaleReq) ProtoMessage() {}
 
 func (x *SaleReq) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[10]
+	mi := &file_internalservice_internalservice_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -677,7 +677,7 @@ func (x *SaleReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SaleReq.ProtoReflect.Descriptor instead.
 func (*SaleReq) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{10}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *SaleReq) GetFromId() string {
@@ -716,7 +716,7 @@ type OpeningReq struct {
 
 func (x *OpeningReq) Reset() {
 	*x = OpeningReq{}
-	mi := &file_proto_internalservice_proto_msgTypes[11]
+	mi := &file_internalservice_internalservice_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -728,7 +728,7 @@ func (x *OpeningReq) String() string {
 func (*OpeningReq) ProtoMessage() {}
 
 func (x *OpeningReq) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[11]
+	mi := &file_internalservice_internalservice_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -741,7 +741,7 @@ func (x *OpeningReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpeningReq.ProtoReflect.Descriptor instead.
 func (*OpeningReq) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{11}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{11}
 }
 
 type HistoryReq struct {
@@ -753,7 +753,7 @@ type HistoryReq struct {
 
 func (x *HistoryReq) Reset() {
 	*x = HistoryReq{}
-	mi := &file_proto_internalservice_proto_msgTypes[12]
+	mi := &file_internalservice_internalservice_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -765,7 +765,7 @@ func (x *HistoryReq) String() string {
 func (*HistoryReq) ProtoMessage() {}
 
 func (x *HistoryReq) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[12]
+	mi := &file_internalservice_internalservice_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -778,7 +778,7 @@ func (x *HistoryReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HistoryReq.ProtoReflect.Descriptor instead.
 func (*HistoryReq) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{12}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *HistoryReq) GetGlobaluserid() string {
@@ -804,7 +804,7 @@ type UserDataResp struct {
 
 func (x *UserDataResp) Reset() {
 	*x = UserDataResp{}
-	mi := &file_proto_internalservice_proto_msgTypes[13]
+	mi := &file_internalservice_internalservice_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -816,7 +816,7 @@ func (x *UserDataResp) String() string {
 func (*UserDataResp) ProtoMessage() {}
 
 func (x *UserDataResp) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[13]
+	mi := &file_internalservice_internalservice_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -829,7 +829,7 @@ func (x *UserDataResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserDataResp.ProtoReflect.Descriptor instead.
 func (*UserDataResp) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{13}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *UserDataResp) GetGoldAmount() int64 {
@@ -857,7 +857,7 @@ type SaleResp struct {
 
 func (x *SaleResp) Reset() {
 	*x = SaleResp{}
-	mi := &file_proto_internalservice_proto_msgTypes[14]
+	mi := &file_internalservice_internalservice_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -869,7 +869,7 @@ func (x *SaleResp) String() string {
 func (*SaleResp) ProtoMessage() {}
 
 func (x *SaleResp) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[14]
+	mi := &file_internalservice_internalservice_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -882,7 +882,7 @@ func (x *SaleResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SaleResp.ProtoReflect.Descriptor instead.
 func (*SaleResp) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{14}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *SaleResp) GetSuccessdata() *SuccessSale {
@@ -919,7 +919,7 @@ type SuccessSale struct {
 
 func (x *SuccessSale) Reset() {
 	*x = SuccessSale{}
-	mi := &file_proto_internalservice_proto_msgTypes[15]
+	mi := &file_internalservice_internalservice_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -931,7 +931,7 @@ func (x *SuccessSale) String() string {
 func (*SuccessSale) ProtoMessage() {}
 
 func (x *SuccessSale) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[15]
+	mi := &file_internalservice_internalservice_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -944,7 +944,7 @@ func (x *SuccessSale) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SuccessSale.ProtoReflect.Descriptor instead.
 func (*SuccessSale) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{15}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *SuccessSale) GetId() string {
@@ -998,7 +998,7 @@ type TransferResp struct {
 
 func (x *TransferResp) Reset() {
 	*x = TransferResp{}
-	mi := &file_proto_internalservice_proto_msgTypes[16]
+	mi := &file_internalservice_internalservice_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1010,7 +1010,7 @@ func (x *TransferResp) String() string {
 func (*TransferResp) ProtoMessage() {}
 
 func (x *TransferResp) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[16]
+	mi := &file_internalservice_internalservice_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1023,7 +1023,7 @@ func (x *TransferResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TransferResp.ProtoReflect.Descriptor instead.
 func (*TransferResp) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{16}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *TransferResp) GetTranserId() string {
@@ -1086,7 +1086,7 @@ type OpeningResp struct {
 
 func (x *OpeningResp) Reset() {
 	*x = OpeningResp{}
-	mi := &file_proto_internalservice_proto_msgTypes[17]
+	mi := &file_internalservice_internalservice_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1098,7 +1098,7 @@ func (x *OpeningResp) String() string {
 func (*OpeningResp) ProtoMessage() {}
 
 func (x *OpeningResp) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[17]
+	mi := &file_internalservice_internalservice_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1111,7 +1111,7 @@ func (x *OpeningResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpeningResp.ProtoReflect.Descriptor instead.
 func (*OpeningResp) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{17}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *OpeningResp) GetAmount() int64 {
@@ -1137,7 +1137,7 @@ type HistoryResp struct {
 
 func (x *HistoryResp) Reset() {
 	*x = HistoryResp{}
-	mi := &file_proto_internalservice_proto_msgTypes[18]
+	mi := &file_internalservice_internalservice_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1149,7 +1149,7 @@ func (x *HistoryResp) String() string {
 func (*HistoryResp) ProtoMessage() {}
 
 func (x *HistoryResp) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[18]
+	mi := &file_internalservice_internalservice_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1162,7 +1162,7 @@ func (x *HistoryResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HistoryResp.ProtoReflect.Descriptor instead.
 func (*HistoryResp) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{18}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *HistoryResp) GetRequest() []*History {
@@ -1186,7 +1186,7 @@ type History struct {
 
 func (x *History) Reset() {
 	*x = History{}
-	mi := &file_proto_internalservice_proto_msgTypes[19]
+	mi := &file_internalservice_internalservice_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1198,7 +1198,7 @@ func (x *History) String() string {
 func (*History) ProtoMessage() {}
 
 func (x *History) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[19]
+	mi := &file_internalservice_internalservice_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1211,7 +1211,7 @@ func (x *History) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use History.ProtoReflect.Descriptor instead.
 func (*History) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{19}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *History) GetOpeningDate() string {
@@ -1266,7 +1266,7 @@ type DepositResp struct {
 
 func (x *DepositResp) Reset() {
 	*x = DepositResp{}
-	mi := &file_proto_internalservice_proto_msgTypes[20]
+	mi := &file_internalservice_internalservice_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1278,7 +1278,7 @@ func (x *DepositResp) String() string {
 func (*DepositResp) ProtoMessage() {}
 
 func (x *DepositResp) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[20]
+	mi := &file_internalservice_internalservice_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1291,7 +1291,7 @@ func (x *DepositResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DepositResp.ProtoReflect.Descriptor instead.
 func (*DepositResp) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{20}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *DepositResp) GetSuccess() bool {
@@ -1318,7 +1318,7 @@ type WithdrawResp struct {
 
 func (x *WithdrawResp) Reset() {
 	*x = WithdrawResp{}
-	mi := &file_proto_internalservice_proto_msgTypes[21]
+	mi := &file_internalservice_internalservice_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1330,7 +1330,7 @@ func (x *WithdrawResp) String() string {
 func (*WithdrawResp) ProtoMessage() {}
 
 func (x *WithdrawResp) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[21]
+	mi := &file_internalservice_internalservice_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1343,7 +1343,7 @@ func (x *WithdrawResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WithdrawResp.ProtoReflect.Descriptor instead.
 func (*WithdrawResp) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{21}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *WithdrawResp) GetSuccess() bool {
@@ -1370,7 +1370,7 @@ type CapitalRaiseResp struct {
 
 func (x *CapitalRaiseResp) Reset() {
 	*x = CapitalRaiseResp{}
-	mi := &file_proto_internalservice_proto_msgTypes[22]
+	mi := &file_internalservice_internalservice_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1382,7 +1382,7 @@ func (x *CapitalRaiseResp) String() string {
 func (*CapitalRaiseResp) ProtoMessage() {}
 
 func (x *CapitalRaiseResp) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_internalservice_proto_msgTypes[22]
+	mi := &file_internalservice_internalservice_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1395,7 +1395,7 @@ func (x *CapitalRaiseResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CapitalRaiseResp.ProtoReflect.Descriptor instead.
 func (*CapitalRaiseResp) Descriptor() ([]byte, []int) {
-	return file_proto_internalservice_proto_rawDescGZIP(), []int{22}
+	return file_internalservice_internalservice_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *CapitalRaiseResp) GetSuccess() bool {
@@ -1412,11 +1412,11 @@ func (x *CapitalRaiseResp) GetReason() string {
 	return ""
 }
 
-var File_proto_internalservice_proto protoreflect.FileDescriptor
+var File_internalservice_internalservice_proto protoreflect.FileDescriptor
 
-const file_proto_internalservice_proto_rawDesc = "" +
+const file_internalservice_internalservice_proto_rawDesc = "" +
 	"\n" +
-	"\x1bproto/internalservice.proto\x12\x05proto\"\x97\x02\n" +
+	"%internalservice/internalservice.proto\x12\x0finternalservice\"\x97\x02\n" +
 	"\x0fcreate_user_req\x12\"\n" +
 	"\fglobaluserid\x18\x01 \x01(\tR\fglobaluserid\x12 \n" +
 	"\vphonenumber\x18\x02 \x01(\tR\vphonenumber\x12\x1c\n" +
@@ -1442,19 +1442,19 @@ const file_proto_internalservice_proto_rawDesc = "" +
 	"\fglobaluserid\x18\x03 \x01(\tR\fglobaluserid\"S\n" +
 	"\rcreate_wallet\x12 \n" +
 	"\vcashbalance\x18\x01 \x01(\tR\vcashbalance\x12 \n" +
-	"\vgoldbalance\x18\x02 \x01(\tR\vgoldbalance\"\x95\x01\n" +
+	"\vgoldbalance\x18\x02 \x01(\tR\vgoldbalance\"\x9f\x01\n" +
 	"\x10create_user_resp\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status\x12\x1d\n" +
-	"\amessage\x18\x02 \x01(\tH\x00R\amessage\x88\x01\x01\x123\n" +
-	"\x06errors\x18\x03 \x01(\v2\x16.proto.changeseterrorsH\x01R\x06errors\x88\x01\x01B\n" +
+	"\amessage\x18\x02 \x01(\tH\x00R\amessage\x88\x01\x01\x12=\n" +
+	"\x06errors\x18\x03 \x01(\v2 .internalservice.changeseterrorsH\x01R\x06errors\x88\x01\x01B\n" +
 	"\n" +
 	"\b_messageB\t\n" +
 	"\a_errors\"A\n" +
 	"\x0fvalidationerror\x12\x14\n" +
 	"\x05field\x18\x01 \x01(\tR\x05field\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage\"A\n" +
-	"\x0fchangeseterrors\x12.\n" +
-	"\x06errors\x18\x01 \x03(\v2\x16.proto.validationerrorR\x06errors\"'\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"K\n" +
+	"\x0fchangeseterrors\x128\n" +
+	"\x06errors\x18\x01 \x03(\v2 .internalservice.validationerrorR\x06errors\"'\n" +
 	"\x15user_account_data_req\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"~\n" +
 	"\ftransfer_req\x12\x17\n" +
@@ -1478,9 +1478,9 @@ const file_proto_internalservice_proto_rawDesc = "" +
 	"\vgold_amount\x18\x01 \x01(\x03R\n" +
 	"goldAmount\x12\x1f\n" +
 	"\vcash_amount\x18\x02 \x01(\x03R\n" +
-	"cashAmount\"\x99\x01\n" +
-	"\tsale_resp\x12:\n" +
-	"\vsuccessdata\x18\x01 \x01(\v2\x13.proto.success_saleH\x00R\vsuccessdata\x88\x01\x01\x12\x18\n" +
+	"cashAmount\"\xa3\x01\n" +
+	"\tsale_resp\x12D\n" +
+	"\vsuccessdata\x18\x01 \x01(\v2\x1d.internalservice.success_saleH\x00R\vsuccessdata\x88\x01\x01\x12\x18\n" +
 	"\asuccess\x18\x02 \x01(\bR\asuccess\x12\x1b\n" +
 	"\x06reason\x18\x03 \x01(\tH\x01R\x06reason\x88\x01\x01B\x0e\n" +
 	"\f_successdataB\t\n" +
@@ -1506,9 +1506,9 @@ const file_proto_internalservice_proto_rawDesc = "" +
 	"\a_reason\"I\n" +
 	"\fopening_resp\x12\x16\n" +
 	"\x06amount\x18\x01 \x01(\x03R\x06amount\x12!\n" +
-	"\fclosing_date\x18\x02 \x01(\tR\vclosingDate\"8\n" +
-	"\fhistory_resp\x12(\n" +
-	"\arequest\x18\x01 \x03(\v2\x0e.proto.historyR\arequest\"\xd9\x01\n" +
+	"\fclosing_date\x18\x02 \x01(\tR\vclosingDate\"B\n" +
+	"\fhistory_resp\x122\n" +
+	"\arequest\x18\x01 \x03(\v2\x18.internalservice.historyR\arequest\"\xd9\x01\n" +
 	"\ahistory\x12!\n" +
 	"\fopening_date\x18\x01 \x01(\tR\vopeningDate\x12!\n" +
 	"\fclosing_date\x18\x02 \x01(\tR\vclosingDate\x12\x1f\n" +
@@ -1529,80 +1529,80 @@ const file_proto_internalservice_proto_rawDesc = "" +
 	"\x12capital_raise_resp\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1b\n" +
 	"\x06reason\x18\x02 \x01(\tH\x00R\x06reason\x88\x01\x01B\t\n" +
-	"\a_reason2\x90\x04\n" +
+	"\a_reason2\xc4\x05\n" +
 	"\n" +
-	"gigservice\x12F\n" +
-	"\x0faccount_details\x12\x1c.proto.user_account_data_req\x1a\x15.proto.user_data_resp\x122\n" +
-	"\adeposit\x12\x12.proto.deposit_req\x1a\x13.proto.deposit_resp\x125\n" +
-	"\bwithdraw\x12\x13.proto.withdraw_req\x1a\x14.proto.withdraw_resp\x12C\n" +
-	"\fcapitalraise\x12\x18.proto.capital_raise_req\x1a\x19.proto.capital_raise_resp\x125\n" +
-	"\btransfer\x12\x13.proto.transfer_req\x1a\x14.proto.transfer_resp\x12)\n" +
-	"\x04sale\x12\x0f.proto.sale_req\x1a\x10.proto.sale_resp\x122\n" +
-	"\ahistory\x12\x12.proto.history_req\x1a\x13.proto.history_resp\x122\n" +
-	"\aopening\x12\x12.proto.opening_req\x1a\x13.proto.opening_resp\x12@\n" +
-	"\rcreateaccount\x12\x16.proto.create_user_req\x1a\x17.proto.create_user_respB\tZ\a./protob\x06proto3"
+	"gigservice\x12Z\n" +
+	"\x0faccount_details\x12&.internalservice.user_account_data_req\x1a\x1f.internalservice.user_data_resp\x12F\n" +
+	"\adeposit\x12\x1c.internalservice.deposit_req\x1a\x1d.internalservice.deposit_resp\x12I\n" +
+	"\bwithdraw\x12\x1d.internalservice.withdraw_req\x1a\x1e.internalservice.withdraw_resp\x12W\n" +
+	"\fcapitalraise\x12\".internalservice.capital_raise_req\x1a#.internalservice.capital_raise_resp\x12I\n" +
+	"\btransfer\x12\x1d.internalservice.transfer_req\x1a\x1e.internalservice.transfer_resp\x12=\n" +
+	"\x04sale\x12\x19.internalservice.sale_req\x1a\x1a.internalservice.sale_resp\x12F\n" +
+	"\ahistory\x12\x1c.internalservice.history_req\x1a\x1d.internalservice.history_resp\x12F\n" +
+	"\aopening\x12\x1c.internalservice.opening_req\x1a\x1d.internalservice.opening_resp\x12T\n" +
+	"\rcreateaccount\x12 .internalservice.create_user_req\x1a!.internalservice.create_user_respB\tZ\a./protob\x06proto3"
 
 var (
-	file_proto_internalservice_proto_rawDescOnce sync.Once
-	file_proto_internalservice_proto_rawDescData []byte
+	file_internalservice_internalservice_proto_rawDescOnce sync.Once
+	file_internalservice_internalservice_proto_rawDescData []byte
 )
 
-func file_proto_internalservice_proto_rawDescGZIP() []byte {
-	file_proto_internalservice_proto_rawDescOnce.Do(func() {
-		file_proto_internalservice_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_proto_internalservice_proto_rawDesc), len(file_proto_internalservice_proto_rawDesc)))
+func file_internalservice_internalservice_proto_rawDescGZIP() []byte {
+	file_internalservice_internalservice_proto_rawDescOnce.Do(func() {
+		file_internalservice_internalservice_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_internalservice_internalservice_proto_rawDesc), len(file_internalservice_internalservice_proto_rawDesc)))
 	})
-	return file_proto_internalservice_proto_rawDescData
+	return file_internalservice_internalservice_proto_rawDescData
 }
 
-var file_proto_internalservice_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
-var file_proto_internalservice_proto_goTypes = []any{
-	(*CreateUserReq)(nil),      // 0: proto.create_user_req
-	(*DepositReq)(nil),         // 1: proto.deposit_req
-	(*CapitalRaiseReq)(nil),    // 2: proto.capital_raise_req
-	(*WithdrawReq)(nil),        // 3: proto.withdraw_req
-	(*CreateWallet)(nil),       // 4: proto.create_wallet
-	(*CreateUserResp)(nil),     // 5: proto.create_user_resp
-	(*Validationerror)(nil),    // 6: proto.validationerror
-	(*Changeseterrors)(nil),    // 7: proto.changeseterrors
-	(*UserAccountDataReq)(nil), // 8: proto.user_account_data_req
-	(*TransferReq)(nil),        // 9: proto.transfer_req
-	(*SaleReq)(nil),            // 10: proto.sale_req
-	(*OpeningReq)(nil),         // 11: proto.opening_req
-	(*HistoryReq)(nil),         // 12: proto.history_req
-	(*UserDataResp)(nil),       // 13: proto.user_data_resp
-	(*SaleResp)(nil),           // 14: proto.sale_resp
-	(*SuccessSale)(nil),        // 15: proto.success_sale
-	(*TransferResp)(nil),       // 16: proto.transfer_resp
-	(*OpeningResp)(nil),        // 17: proto.opening_resp
-	(*HistoryResp)(nil),        // 18: proto.history_resp
-	(*History)(nil),            // 19: proto.history
-	(*DepositResp)(nil),        // 20: proto.deposit_resp
-	(*WithdrawResp)(nil),       // 21: proto.withdraw_resp
-	(*CapitalRaiseResp)(nil),   // 22: proto.capital_raise_resp
+var file_internalservice_internalservice_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
+var file_internalservice_internalservice_proto_goTypes = []any{
+	(*CreateUserReq)(nil),      // 0: internalservice.create_user_req
+	(*DepositReq)(nil),         // 1: internalservice.deposit_req
+	(*CapitalRaiseReq)(nil),    // 2: internalservice.capital_raise_req
+	(*WithdrawReq)(nil),        // 3: internalservice.withdraw_req
+	(*CreateWallet)(nil),       // 4: internalservice.create_wallet
+	(*CreateUserResp)(nil),     // 5: internalservice.create_user_resp
+	(*Validationerror)(nil),    // 6: internalservice.validationerror
+	(*Changeseterrors)(nil),    // 7: internalservice.changeseterrors
+	(*UserAccountDataReq)(nil), // 8: internalservice.user_account_data_req
+	(*TransferReq)(nil),        // 9: internalservice.transfer_req
+	(*SaleReq)(nil),            // 10: internalservice.sale_req
+	(*OpeningReq)(nil),         // 11: internalservice.opening_req
+	(*HistoryReq)(nil),         // 12: internalservice.history_req
+	(*UserDataResp)(nil),       // 13: internalservice.user_data_resp
+	(*SaleResp)(nil),           // 14: internalservice.sale_resp
+	(*SuccessSale)(nil),        // 15: internalservice.success_sale
+	(*TransferResp)(nil),       // 16: internalservice.transfer_resp
+	(*OpeningResp)(nil),        // 17: internalservice.opening_resp
+	(*HistoryResp)(nil),        // 18: internalservice.history_resp
+	(*History)(nil),            // 19: internalservice.history
+	(*DepositResp)(nil),        // 20: internalservice.deposit_resp
+	(*WithdrawResp)(nil),       // 21: internalservice.withdraw_resp
+	(*CapitalRaiseResp)(nil),   // 22: internalservice.capital_raise_resp
 }
-var file_proto_internalservice_proto_depIdxs = []int32{
-	7,  // 0: proto.create_user_resp.errors:type_name -> proto.changeseterrors
-	6,  // 1: proto.changeseterrors.errors:type_name -> proto.validationerror
-	15, // 2: proto.sale_resp.successdata:type_name -> proto.success_sale
-	19, // 3: proto.history_resp.request:type_name -> proto.history
-	8,  // 4: proto.gigservice.account_details:input_type -> proto.user_account_data_req
-	1,  // 5: proto.gigservice.deposit:input_type -> proto.deposit_req
-	3,  // 6: proto.gigservice.withdraw:input_type -> proto.withdraw_req
-	2,  // 7: proto.gigservice.capitalraise:input_type -> proto.capital_raise_req
-	9,  // 8: proto.gigservice.transfer:input_type -> proto.transfer_req
-	10, // 9: proto.gigservice.sale:input_type -> proto.sale_req
-	12, // 10: proto.gigservice.history:input_type -> proto.history_req
-	11, // 11: proto.gigservice.opening:input_type -> proto.opening_req
-	0,  // 12: proto.gigservice.createaccount:input_type -> proto.create_user_req
-	13, // 13: proto.gigservice.account_details:output_type -> proto.user_data_resp
-	20, // 14: proto.gigservice.deposit:output_type -> proto.deposit_resp
-	21, // 15: proto.gigservice.withdraw:output_type -> proto.withdraw_resp
-	22, // 16: proto.gigservice.capitalraise:output_type -> proto.capital_raise_resp
-	16, // 17: proto.gigservice.transfer:output_type -> proto.transfer_resp
-	14, // 18: proto.gigservice.sale:output_type -> proto.sale_resp
-	18, // 19: proto.gigservice.history:output_type -> proto.history_resp
-	17, // 20: proto.gigservice.opening:output_type -> proto.opening_resp
-	5,  // 21: proto.gigservice.createaccount:output_type -> proto.create_user_resp
+var file_internalservice_internalservice_proto_depIdxs = []int32{
+	7,  // 0: internalservice.create_user_resp.errors:type_name -> internalservice.changeseterrors
+	6,  // 1: internalservice.changeseterrors.errors:type_name -> internalservice.validationerror
+	15, // 2: internalservice.sale_resp.successdata:type_name -> internalservice.success_sale
+	19, // 3: internalservice.history_resp.request:type_name -> internalservice.history
+	8,  // 4: internalservice.gigservice.account_details:input_type -> internalservice.user_account_data_req
+	1,  // 5: internalservice.gigservice.deposit:input_type -> internalservice.deposit_req
+	3,  // 6: internalservice.gigservice.withdraw:input_type -> internalservice.withdraw_req
+	2,  // 7: internalservice.gigservice.capitalraise:input_type -> internalservice.capital_raise_req
+	9,  // 8: internalservice.gigservice.transfer:input_type -> internalservice.transfer_req
+	10, // 9: internalservice.gigservice.sale:input_type -> internalservice.sale_req
+	12, // 10: internalservice.gigservice.history:input_type -> internalservice.history_req
+	11, // 11: internalservice.gigservice.opening:input_type -> internalservice.opening_req
+	0,  // 12: internalservice.gigservice.createaccount:input_type -> internalservice.create_user_req
+	13, // 13: internalservice.gigservice.account_details:output_type -> internalservice.user_data_resp
+	20, // 14: internalservice.gigservice.deposit:output_type -> internalservice.deposit_resp
+	21, // 15: internalservice.gigservice.withdraw:output_type -> internalservice.withdraw_resp
+	22, // 16: internalservice.gigservice.capitalraise:output_type -> internalservice.capital_raise_resp
+	16, // 17: internalservice.gigservice.transfer:output_type -> internalservice.transfer_resp
+	14, // 18: internalservice.gigservice.sale:output_type -> internalservice.sale_resp
+	18, // 19: internalservice.gigservice.history:output_type -> internalservice.history_resp
+	17, // 20: internalservice.gigservice.opening:output_type -> internalservice.opening_resp
+	5,  // 21: internalservice.gigservice.createaccount:output_type -> internalservice.create_user_resp
 	13, // [13:22] is the sub-list for method output_type
 	4,  // [4:13] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
@@ -1610,32 +1610,32 @@ var file_proto_internalservice_proto_depIdxs = []int32{
 	0,  // [0:4] is the sub-list for field type_name
 }
 
-func init() { file_proto_internalservice_proto_init() }
-func file_proto_internalservice_proto_init() {
-	if File_proto_internalservice_proto != nil {
+func init() { file_internalservice_internalservice_proto_init() }
+func file_internalservice_internalservice_proto_init() {
+	if File_internalservice_internalservice_proto != nil {
 		return
 	}
-	file_proto_internalservice_proto_msgTypes[5].OneofWrappers = []any{}
-	file_proto_internalservice_proto_msgTypes[14].OneofWrappers = []any{}
-	file_proto_internalservice_proto_msgTypes[16].OneofWrappers = []any{}
-	file_proto_internalservice_proto_msgTypes[20].OneofWrappers = []any{}
-	file_proto_internalservice_proto_msgTypes[21].OneofWrappers = []any{}
-	file_proto_internalservice_proto_msgTypes[22].OneofWrappers = []any{}
+	file_internalservice_internalservice_proto_msgTypes[5].OneofWrappers = []any{}
+	file_internalservice_internalservice_proto_msgTypes[14].OneofWrappers = []any{}
+	file_internalservice_internalservice_proto_msgTypes[16].OneofWrappers = []any{}
+	file_internalservice_internalservice_proto_msgTypes[20].OneofWrappers = []any{}
+	file_internalservice_internalservice_proto_msgTypes[21].OneofWrappers = []any{}
+	file_internalservice_internalservice_proto_msgTypes[22].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_internalservice_proto_rawDesc), len(file_proto_internalservice_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_internalservice_internalservice_proto_rawDesc), len(file_internalservice_internalservice_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   23,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_proto_internalservice_proto_goTypes,
-		DependencyIndexes: file_proto_internalservice_proto_depIdxs,
-		MessageInfos:      file_proto_internalservice_proto_msgTypes,
+		GoTypes:           file_internalservice_internalservice_proto_goTypes,
+		DependencyIndexes: file_internalservice_internalservice_proto_depIdxs,
+		MessageInfos:      file_internalservice_internalservice_proto_msgTypes,
 	}.Build()
-	File_proto_internalservice_proto = out.File
-	file_proto_internalservice_proto_goTypes = nil
-	file_proto_internalservice_proto_depIdxs = nil
+	File_internalservice_internalservice_proto = out.File
+	file_internalservice_internalservice_proto_goTypes = nil
+	file_internalservice_internalservice_proto_depIdxs = nil
 }

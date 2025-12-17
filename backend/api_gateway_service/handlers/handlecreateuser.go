@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func Createuser(newuser *types.Create_user, server *types.Internalgatewayserver) (types.Errortype, *proto.CreateUserResp) {
+func Createuser(newuser *types.Create_user, intserver *types.Internalgatewayserver, authserver *types.Gatewayserver) (types.Errortype, *proto.CreateUserResp) {
 	// TODO: we need to authenticate the incoming data (sanitized the values that came in)
 	err := newuser.Validate_input()
 	if err != nil {
@@ -38,8 +38,8 @@ func Createuser(newuser *types.Create_user, server *types.Internalgatewayserver)
 		Email:    newuser.Email,
 		Password: string(hash),
 	}
-	// TODO: here we put the database stuff for creating a user
-	errt, response := types.Createuserauthservice(&temporary)
+	// TODO: here we are sending user to the authservice
+	errt, response := types.Createuserauthservice(&temporary, authserver)
 	if errt.Errtype != "" {
 		types.Logger.Printf("There was an issue receiving from auth service %v", errt)
 		return errt, &proto.CreateUserResp{}
@@ -64,7 +64,7 @@ func Createuser(newuser *types.Create_user, server *types.Internalgatewayserver)
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	resp, err := server.Createaccount(ctx, &tempuser)
+	resp, err := intserver.Createaccount(ctx, &tempuser)
 	types.Logger.Printf("there was a response from internal server %v", resp)
 	if err != nil {
 		types.Logger.Fatalf("there was an issue returning from internalserver %v", err)

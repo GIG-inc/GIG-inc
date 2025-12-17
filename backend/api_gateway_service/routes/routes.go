@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-func Routes(router *mux.Router, internalserver *types.Internalgatewayserver) {
+func Routes(router *mux.Router, internalserver *types.Internalgatewayserver, authserver *types.Gatewayserver) {
 	router.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Touched the server")
 	})
@@ -26,7 +26,7 @@ func Routes(router *mux.Router, internalserver *types.Internalgatewayserver) {
 			http.Error(resp, "Invalid JSON", http.StatusBadRequest)
 			return
 		}
-		err, hold := handlers.Createuser(&newuser, internalserver)
+		err, hold := handlers.Createuser(&newuser, internalserver, authserver)
 		bool, _ := err.Check()
 
 		if bool == true {

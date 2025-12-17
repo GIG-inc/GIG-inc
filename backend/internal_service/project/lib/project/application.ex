@@ -12,13 +12,8 @@ defmodule Project.Application do
       {Project.Repo,[]},
       Project.CommandedApp,
       Projections.Projectionapplication,
-      GrpcReflection,{
-        GRPC.Server.Supervisor, [
-        endpoint: Comms.Endpoint,
-        port: 50053,
-        start_server: true
-        ]
-      },
+      GrpcReflection,
+      {GRPC.Server.Supervisor, endpoint: Comms.Endpoint},
       {DynamicSupervisor, name: Project.Dynamicsupervisor, strategy: :one_for_one}
     ]
 
