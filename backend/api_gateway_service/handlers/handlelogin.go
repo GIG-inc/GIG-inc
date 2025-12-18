@@ -3,9 +3,10 @@ package handlers
 import (
 	"gateway/auth"
 	"gateway/types"
+	"gateway/types/httptypes"
 )
 
-func Handlelogin(login *types.Login) (types.Errortype, *auth.AuthResponse) {
+func Handlelogin(login *httptypes.Login) (types.Errortype, *auth.AuthResponse) {
 	//  this is to handle validation
 	resp := login.Validation()
 	bool, msg := resp.Check()

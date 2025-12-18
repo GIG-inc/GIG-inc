@@ -6,12 +6,13 @@ import (
 	"gateway/auth"
 	"gateway/proto"
 	"gateway/types"
+	"gateway/types/httptypes"
 	"github.com/google/uuid"
 	"github.com/microcosm-cc/bluemonday"
 	"time"
 )
 
-func Createuser(newuser *types.Create_user, intserver *types.Internalgatewayserver, authserver *types.Gatewayserver) (types.Errortype, *proto.CreateUserResp) {
+func Createuser(newuser *httptypes.Create_user, intserver *types.Internalgatewayserver, authserver *types.Gatewayserver) (types.Errortype, *proto.CreateUserResp) {
 	// TODO: we need to authenticate the incoming data (sanitized the values that came in)
 	err := newuser.Validate_input()
 	if err != nil {

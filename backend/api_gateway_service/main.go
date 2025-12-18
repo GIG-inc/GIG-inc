@@ -6,17 +6,22 @@ import (
 	pb2 "gateway/proto"
 	"gateway/routes"
 	"gateway/types"
-	"github.com/gorilla/mux"
-	"github.com/lpernett/godotenv"
-	"google.golang.org/grpc"
+	config "gateway/types/Config"
 	"net"
 	"net/http"
 	"os"
+
+	"github.com/gorilla/mux"
+	"github.com/lpernett/godotenv"
+	"google.golang.org/grpc"
 )
 
 func main() {
 	types.Initlogger()
 	types.Logger.Println("server starting")
+	if cfg, cerr := config.LoadConfig("config.yaml"); cerr != nil {
+		types.Logger.Fatalf("there was an error loading config%v", cerr)
+	}
 	err := godotenv.Load("./.env")
 	if err != nil {
 		types.Logger.Printf("error loading the environment variables %v", err)

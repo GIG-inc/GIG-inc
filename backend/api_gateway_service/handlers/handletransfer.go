@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"gateway/types"
+	"gateway/types/httptypes"
 )
 
-func Handletransfer(req *types.Transfer) string {
+func Handletransfer(req *httptypes.Transfer) string {
 	// TODO: check if all the details for transfer have been provided
 	err := req.Checktransfer()
 	bool, resp := err.Check()
