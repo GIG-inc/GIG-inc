@@ -2,7 +2,7 @@ use std::sync::Arc;
 use tonic::{Request, Response, Status};
 
 use crate::grpc::auth::{
-    auth_service_server::{AuthService, AuthServiceServer},
+    auth_service_server::{AuthServiceServer},
     SignupRequest, AuthResponse,
     LoginRequest,
     LogoutRequest, EmptyResponse,
@@ -12,8 +12,15 @@ use crate::grpc::auth::{
     ProfileRequest, User,
     UpdateUserRequest, UpdateResponse,
 };
+use crate::grpc::auth::auth_service_server::AuthService;
 use crate::grpc::login_handler::LoginHandler;
+use crate::grpc::logout_handler::LogoutHandler;
+use crate::grpc::password_reset_handler::PasswordResetHandler;
+use crate::grpc::profile_handler::ProfileHandler;
+use crate::grpc::refresh_handler::RefreshSessionHandler;
 use crate::grpc::signup_handler::SignupHandler;
+use crate::grpc::update_handler::UpdateUserHandler;
+use crate::grpc::verify_handler::VerifySessionHandler;
 use crate::state::AppState;
 
 #[derive(Debug)]
@@ -67,43 +74,101 @@ impl AuthService for GrpcAuthServer {
 
     async fn logout(
         &self,
-        _request: Request<LogoutRequest>,
+        request: Request<LogoutRequest>,
     ) -> Result<Response<EmptyResponse>, Status> {
-        Err(Status::unimplemented("logout not implemented"))
+        let req = request.into_inner();
+
+        LogoutHandler::handle(&*self.state.supabase, req)
+            .await
+            .map_err(|e| Status::internal(e.to_string()))?;
+
+        Ok(Response::new(EmptyResponse {}))
     }
+
 
     async fn password_reset(
         &self,
-        _request: Request<PasswordResetRequest>,
+        request: Request<PasswordResetRequest>,
     ) -> Result<Response<EmptyResponse>, Status> {
-        Err(Status::unimplemented("password_reset not implemented"))
+        let req = request.into_inner();
+
+        PasswordResetHandler::handle(&*self.state.supabase, req)
+            .await
+            .map_err(|e| Status::internal(e.to_string()))?;
+
+        Ok(Response::new(EmptyResponse {}))
     }
+
 
     async fn refresh_session(
         &self,
-        _request: Request<RefreshRequest>,
+        request: Request<RefreshRequest>,
     ) -> Result<Response<RefreshResponse>, Status> {
-        Err(Status::unimplemented("refresh_session not implemented"))
+
+        let req = request.into_inner();
+
+        let result = RefreshSessionHandler::handle(
+            &*self.state.supabase,
+            req,
+        )
+            .await
+            .map_err(|e| Status::internal(e.to_string()))?;
+
+        Ok(Response::new(result))
     }
+
 
     async fn verify_session(
         &self,
-        _request: Request<VerifyRequest>,
+        request: Request<VerifyRequest>,
     ) -> Result<Response<VerifyResponse>, Status> {
-        Err(Status::unimplemented("verify not implemented"))
+
+        let req = request.into_inner();
+
+        let result = VerifySessionHandler::handle(
+            &*self.state.supabase,
+            req,
+        )
+            .await
+            .map_err(|e| Status::internal(e.to_string()))?;
+
+        Ok(Response::new(result))
     }
+
 
     async fn get_profile(
         &self,
-        _request: Request<ProfileRequest>,
+        request: Request<ProfileRequest>,
     ) -> Result<Response<User>, Status> {
-        Err(Status::unimplemented("profile not implemented"))
+
+        let req = request.into_inner();
+
+        let result = ProfileHandler::handle(
+            &*self.state.supabase,
+            req,
+        )
+            .await
+            .map_err(|e| Status::internal(e.to_string()))?;
+
+        Ok(Response::new(result))
     }
+
 
     async fn update_user(
         &self,
-        _request: Request<UpdateUserRequest>,
+        request: Request<UpdateUserRequest>,
     ) -> Result<Response<UpdateResponse>, Status> {
-        Err(Status::unimplemented("update not implemented"))
+
+        let req = request.into_inner();
+
+        let result = UpdateUserHandler::handle(
+            &*self.state.supabase,
+            req,
+        )
+            .await
+            .map_err(|e| Status::internal(e.to_string()))?;
+
+        Ok(Response::new(result))
     }
+
 }

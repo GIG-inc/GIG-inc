@@ -54,8 +54,6 @@ message UpdateUserRequest {
   string access_token = 1;
   string email = 2;        
   string password = 3;
-  string phone = 4;
-  string username = 5;
 }
 
 message LogoutRequest {
@@ -84,7 +82,7 @@ message ProfileRequest {
 
 
 message UpdateResponse {
-  User user = 1;
+  bool success = 1;
 }
 
 message RefreshResponse {
