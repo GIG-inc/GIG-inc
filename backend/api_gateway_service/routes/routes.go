@@ -1,20 +1,24 @@
 package routes
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
+	"gateway/aggregatorservice"
 	"gateway/handlers"
-	proto "gateway/internalservice"
 	"gateway/types"
+	config "gateway/types/Config"
 	"gateway/types/httptypes"
-
 	"net/http"
+	"time"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
 )
 
-func Routes(router *mux.Router, internalserver *types.Internalgatewayserver, authserver *types.Gatewayserver) {
+func Routes(router *mux.Router, internalserver *types.Internalgatewayserver, authserver *types.Gatewayserver, aggserver *types.Aggregatorserver, cfg *config.Configtype) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(cfg.Timeouts.Contexttimeout)*time.Second)
+	defer cancel()
 	router.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Touched the server")
 	})
@@ -90,9 +94,8 @@ func Routes(router *mux.Router, internalserver *types.Internalgatewayserver, aut
 
 	})
 	router.HandleFunc("/api/deposit", func(w http.ResponseWriter, r *http.Request) {
-		var depositreq httptypes.Deposit
+		var depositreq aggregatorservice.DepositReq
 		json.NewDecoder(r.Body).Decode(&depositreq)
-
-		handlers.Handledeposit(&depositreq)
+		aggserver.Deposit(ctx, &depositreq)
 	})
 }

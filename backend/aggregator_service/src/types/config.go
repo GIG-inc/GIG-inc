@@ -15,7 +15,7 @@ func Loadconfig(path string) (*Configtype, error) {
 	}
 	var config Configtype
 
-	if uerr := yaml.Unmarshal(data, &config); err != nil {
+	if uerr := yaml.Unmarshal(data, &config); uerr != nil {
 		src.Logger.Fatalf("could not unmarshall the config %v", uerr)
 	}
 	return &config, nil

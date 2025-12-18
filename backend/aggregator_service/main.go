@@ -2,8 +2,9 @@ package main
 
 import (
 	"agg/src"
+	"agg/src/gatewayproto"
 	"agg/src/paymentproto"
-	"fmt"
+	"agg/src/types"
 	"net"
 	"os"
 
@@ -12,24 +13,30 @@ import (
 
 func main() {
 	src.Initlogger()
-	cfg, cerr := src.Loadconfig("config.yaml")
-	if cerr != nil {
-		src.Logger.Fatalf("there was an error loading config%v", cerr)
-	}
 
-	grpcport := os.Getenv("PAYMENTGRPCPORT")
+	port := os.Getenv("GRPCPORT")
 
-	lis, nerr := net.Listen("tcp", grpcport)
-	if nerr != nil {
-		fmt.Errorf("grpc server error: %v", nerr)
-		src.Logger.Fatalf("Issue starting the grpc server %v", nerr)
+	lis, gerr := net.Listen("tcp", port)
+	if gerr != nil {
+		src.Logger.Fatalf("Issue starting the grpc server %v", gerr)
 	}
+	// this is creating an instance fot gateway service
+	gatewayserver, eerr := types.Newgatewayserver()
+	if eerr != nil {
+		src.Logger.Panicf("could not ")
+	}
+	defer gatewayserver.Close()
+
 	grpcserver := grpc.NewServer()
-	paymentser, serr := src.Newpaymentserver()
+	// this is creating an instance for paymentservice
+	paymentser, serr := types.Newpaymentserver()
 	if serr != nil {
 		src.Logger.Fatalln(serr)
 	}
-	proto.RegisterPaymentserviceServer(grpcserver, paymentser)
+	defer paymentser.Close()
+
+	paymentproto.RegisterPaymentserviceServer(grpcserver, paymentser)
+	gatewayproto.RegisterGatewayserviceServer(grpcserver, gatewayserver)
 	if err := grpcserver.Serve(lis); err != nil {
 		src.Logger.Fatalf("grpc serverfailed %v", err)
 	}

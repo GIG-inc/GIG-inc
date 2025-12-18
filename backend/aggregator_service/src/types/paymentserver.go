@@ -6,7 +6,6 @@ import (
 	context "context"
 	"fmt"
 	"os"
-	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -18,18 +17,18 @@ type Paymentserver struct {
 	payconn   *grpc.ClientConn
 }
 
-func initconfig() (*Configtype, context.Context) {
-	cfg, err := Loadconfig("config.yaml")
-	if err != nil {
-		src.Logger.Panicf("there was an issue getting the config %v", err)
+// func initconfig() (*Configtype, context.Context) {
+// 	cfg, err := Loadconfig("config.yaml")
+// 	if err != nil {
+// 		src.Logger.Panicf("there was an issue getting the config %v", err)
 
-	}
-	ctx, cerr := context.WithTimeout(context.Background(), time.Duration(cfg.Timeouts.Contexttimeouts)*time.Second)
-	if cerr != nil {
-		src.Logger.Panicf("could not create context %v", cerr)
-	}
-	return cfg, ctx
-}
+// 	}
+// 	ctx, cerr := context.WithTimeout(context.Background(), time.Duration(cfg.Timeouts.Contexttimeouts)*time.Second)
+// 	if cerr != nil {
+// 		src.Logger.Panicf("could not create context %v", cerr)
+// 	}
+// 	return cfg, ctx
+// }
 
 func Newpaymentserver() (*Paymentserver, error) {
 	port := os.Getenv("PAYMENTGRPCPORT")
@@ -59,14 +58,13 @@ func (server *Paymentserver) Close() error {
 	}
 	return nil
 }
-func (s *Paymentserver) Deposit(ctx context.Context, req *paymentproto.DepositReq) (*paymentproto.DepositResp, *Configtype, error) {
+func (s *Paymentserver) Deposit(ctx context.Context, req *paymentproto.DepositReq) (*paymentproto.DepositResp, error) {
 	// Call auth service directly
 	resp, err := s.payclient.Deposit(ctx, req)
 	if err != nil {
 		src.Logger.Printf("error calling internal service createaccount: %v", err)
-		return nil, nil, err
+		return nil, err
 	}
-	cfg, ctx := initconfig()
 
-	return resp, cfg, nil
+	return resp, nil
 }
