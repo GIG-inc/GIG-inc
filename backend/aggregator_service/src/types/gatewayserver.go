@@ -3,18 +3,24 @@ package types
 import (
 	"agg/src"
 	"agg/src/gatewayproto"
+	"agg/src/payments"
 	context "context"
-	"fmt"
-	"os"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+	"time"
 )
+
+func Createctx() (context.Context, context.CancelFunc) {
+	cfg, err := Loadconfig("../config.yaml")
+	if err != nil {
+		src.Logger.Panicf("error loading config %v", err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(cfg.Timeouts.Contexttimeouts)*time.Second)
+	return ctx, cancel
+
+}
 
 type Gatewayserver struct {
 	gatewayproto.UnimplementedGatewayserviceServer
-	apiclient gatewayproto.GatewayserviceClient
-	apiconn   *grpc.ClientConn
+	payment *Paymentserver
 }
 
 // func config() (*Configtype, context.Context) {
@@ -31,40 +37,43 @@ type Gatewayserver struct {
 // }
 
 func Newgatewayserver() (*Gatewayserver, error) {
-	port := os.Getenv("GATEWAYGRPCPORT")
-	if port == "" {
-		src.Logger.Fatalf("there was an issue loading the port %v", port)
-		return nil, fmt.Errorf("there was an issue getting the port")
-	}
-
-	conn, err := grpc.NewClient(
-		port,
-		grpc.WithTransportCredentials(insecure.NewCredentials()),
-	)
+	server, err := Newpaymentserver()
 	if err != nil {
-		src.Logger.Fatalf("there was an issue creating a client for grpc payment service")
-		return nil, fmt.Errorf("error creating client for payment service")
+		src.Logger.Panicf("there was an issue initiating paymentserver %v", err)
+		return nil, err
 	}
-	client := gatewayproto.NewGatewayserviceClient(conn)
 	return &Gatewayserver{
-		apiclient: client,
-		apiconn:   conn,
+		payment: server,
 	}, nil
 }
 
 func (server *Gatewayserver) Close() error {
-	if server.apiconn != nil {
-		return server.apiconn.Close()
+	if server.payment == nil {
+		return server.payment.Close()
 	}
 	return nil
 }
-func (s *Gatewayserver) Deposit(ctx context.Context, req *gatewayproto.DepositReq) (*gatewayproto.DepositResp, error) {
+func (server *Gatewayserver) Deposit(ctx context.Context, req *gatewayproto.DepositReq) (*gatewayproto.DepositResp, error) {
 	// Call auth service directly
-	resp, err := s.apiclient.Deposit(ctx, req)
+	depositresp := payments.StkPushRequest{
+		PhoneNumber:      req.Phonenumber,
+		Amount:           req.Amount,
+		AccountReference: req.Accref,
+		TransactionDesc:  "Deposit",
+	}
+	ctx, cancel := Createctx()
+	defer cancel()
+	_, err := server.payment.InitiateStkPush(ctx, &depositresp)
 	if err != nil {
-		src.Logger.Printf("error calling internal service createaccount: %v", err)
+		src.Logger.Printf("error calling payment service deposit: %v", err)
 		return nil, err
 	}
-
-	return resp, nil
+	// TODO: implement the response correctly
+	// resp := payments.StkPushResponse{
+	// 	su
+	// }v
+	gresp := gatewayproto.DepositResp{
+		Success: "true",
+	}
+	return &gresp, nil
 }

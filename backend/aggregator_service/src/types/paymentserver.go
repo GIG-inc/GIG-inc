@@ -2,7 +2,7 @@ package types
 
 import (
 	"agg/src"
-	"agg/src/paymentproto"
+	"agg/src/payments"
 	context "context"
 	"fmt"
 	"os"
@@ -12,8 +12,8 @@ import (
 )
 
 type Paymentserver struct {
-	paymentproto.UnimplementedPaymentserviceServer
-	payclient paymentproto.PaymentserviceClient
+	payments.UnimplementedMpesaPaymentsServer
+	payclient payments.MpesaPaymentsClient
 	payconn   *grpc.ClientConn
 }
 
@@ -45,7 +45,7 @@ func Newpaymentserver() (*Paymentserver, error) {
 		src.Logger.Fatalf("there was an issue creating a client for grpc payment service")
 		return nil, fmt.Errorf("error creating client for payment service")
 	}
-	client := paymentproto.NewPaymentserviceClient(conn)
+	client := payments.NewMpesaPaymentsClient(conn)
 	return &Paymentserver{
 		payclient: client,
 		payconn:   conn,
@@ -58,9 +58,9 @@ func (server *Paymentserver) Close() error {
 	}
 	return nil
 }
-func (s *Paymentserver) Deposit(ctx context.Context, req *paymentproto.DepositReq) (*paymentproto.DepositResp, error) {
+func (s *Paymentserver) InitiateStkPush(ctx context.Context, req *payments.StkPushRequest) (*payments.StkPushResponse, error) {
 	// Call auth service directly
-	resp, err := s.payclient.Deposit(ctx, req)
+	resp, err := s.payclient.InitiateStkPush(ctx, req)
 	if err != nil {
 		src.Logger.Printf("error calling internal service createaccount: %v", err)
 		return nil, err

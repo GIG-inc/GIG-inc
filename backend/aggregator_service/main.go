@@ -3,7 +3,7 @@ package main
 import (
 	"agg/src"
 	"agg/src/gatewayproto"
-	"agg/src/paymentproto"
+	"agg/src/payments"
 	"agg/src/types"
 	"net"
 	"os"
@@ -35,7 +35,7 @@ func main() {
 	}
 	defer paymentser.Close()
 
-	paymentproto.RegisterPaymentserviceServer(grpcserver, paymentser)
+	payments.RegisterMpesaPaymentsServer(grpcserver, paymentser)
 	gatewayproto.RegisterGatewayserviceServer(grpcserver, gatewayserver)
 	if err := grpcserver.Serve(lis); err != nil {
 		src.Logger.Fatalf("grpc serverfailed %v", err)
