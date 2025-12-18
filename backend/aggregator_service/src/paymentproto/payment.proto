@@ -1,0 +1,18 @@
+syntax="proto3";
+package paymentproto;
+
+option go_package="./paymentproto";
+
+message deposit_req{
+    string Phonenumber=1;
+    string Amount=2;
+    string Accref=3;
+    string Desc=4;
+}
+
+message deposit_resp{
+    string successful=1;
+}
+service paymentservice{
+    rpc deposit(deposit_req) returns (deposit_resp);
+}

@@ -1,0 +1,6 @@
+services:
+  internal_service:
+
+timeouts:
+  contexttimeout: 10
+  databaseconn: 10

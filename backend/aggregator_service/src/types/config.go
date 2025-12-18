@@ -1,0 +1,22 @@
+package types
+
+import (
+	"agg/src"
+	"os"
+
+	"gopkg.in/yaml.v3"
+)
+
+func Loadconfig(path string) (*Configtype, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		src.Logger.Fatalf("could not load config file %v", err)
+		return nil, err
+	}
+	var config Configtype
+
+	if uerr := yaml.Unmarshal(data, &config); err != nil {
+		src.Logger.Fatalf("could not unmarshall the config %v", uerr)
+	}
+	return &config, nil
+}
