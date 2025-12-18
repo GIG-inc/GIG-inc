@@ -3,9 +3,20 @@ syntax = "proto3";
 package payments;
 
 service MpesaPayments {
+  // STK Push - prompt customer to pay
   rpc InitiateStkPush (StkPushRequest) returns (StkPushResponse);
+
+  // B2C - pay customer (returns/withdrawals)
+  rpc InitiateB2CPayment (B2CPaymentRequest) returns (B2CPaymentResponse);
+
+  // C2B - register URLs for receiving payments
+  rpc RegisterC2BUrls (C2BRegisterRequest) returns (C2BRegisterResponse);
+
+  // C2B Simulate - test C2B payment (sandbox only)
+  rpc SimulateC2BPayment (C2BSimulateRequest) returns (C2BSimulateResponse);
 }
 
+// STK Push Messages
 message StkPushRequest {
   string phone_number = 1;
   uint32 amount = 2;
@@ -18,4 +29,42 @@ message StkPushResponse {
   string message = 2;
   string merchant_request_id = 3;
   string checkout_request_id = 4;
+}
+
+// B2C Messages
+message B2CPaymentRequest {
+  string phone_number = 1;
+  uint32 amount = 2;
+  string remarks = 3;
+  string occasion = 4;
+}
+
+message B2CPaymentResponse {
+  bool success = 1;
+  string message = 2;
+  string conversation_id = 3;
+  string originator_conversation_id = 4;
+}
+
+// C2B Register Messages
+message C2BRegisterRequest {
+  string confirmation_url = 1;
+  string validation_url = 2;
+}
+
+message C2BRegisterResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// C2B Simulate Messages
+message C2BSimulateRequest {
+  string phone_number = 1;
+  uint32 amount = 2;
+  string bill_ref_number = 3;
+}
+
+message C2BSimulateResponse {
+  bool success = 1;
+  string message = 2;
 }

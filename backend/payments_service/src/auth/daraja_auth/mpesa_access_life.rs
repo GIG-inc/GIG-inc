@@ -1,8 +1,9 @@
+use std::sync::Arc;
 use std::time::{Duration, Instant};
 use tokio::sync::RwLock;
 
 use reqwest::Client;
-use crate::auth::mpesa_auth::get_access_token;
+use crate::auth::daraja_auth::mpesa_auth::get_access_token;
 use crate::config::config::MpesaAuthorizationConfig;
 
 #[derive(Clone)]
@@ -10,11 +11,11 @@ struct CachedToken {
     access_token: String,
     expires_at: Instant,
 }
-
+#[derive(Clone)]
 pub struct AuthAccessTokenLife{
     client: Client,
     config: MpesaAuthorizationConfig,
-    token: RwLock<Option<CachedToken>>
+    token: Arc<RwLock<Option<CachedToken>>>,
 }
 
 impl AuthAccessTokenLife{
@@ -22,7 +23,7 @@ impl AuthAccessTokenLife{
         Self{
             client,
             config,
-            token: RwLock::new(None)
+            token: Arc::new(RwLock::new(None)),
         }
     }
 

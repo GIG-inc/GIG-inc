@@ -2,7 +2,6 @@ use axum::{Json, response::IntoResponse, http::StatusCode};
 use serde::Deserialize;
 use serde_json::Value;
 
-/* ------------------ Payload Models ------------------ */
 
 #[derive(Debug, Deserialize)]
 pub struct StkCallbackPayload {
@@ -34,7 +33,6 @@ pub struct CallbackItem {
     pub Value: Option<Value>,
 }
 
-/* ------------------ Helpers ------------------ */
 
 impl CallbackMetadata {
     pub fn get(&self, key: &str) -> Option<&Value> {
@@ -45,7 +43,6 @@ impl CallbackMetadata {
     }
 }
 
-/* ------------------ HTTP Handler ------------------ */
 
 pub async fn mpesa_stk_callback(
     Json(payload): Json<StkCallbackPayload>,
