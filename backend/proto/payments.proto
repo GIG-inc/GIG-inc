@@ -34,7 +34,7 @@ message StkPushResponse {
 // B2C Messages
 message B2CPaymentRequest {
   string phone_number = 1;
-  uint32 amount = 2;
+  string amount = 2;
   string remarks = 3;
   string occasion = 4;
 }

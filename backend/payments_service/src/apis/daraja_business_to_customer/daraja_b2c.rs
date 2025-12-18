@@ -8,7 +8,7 @@ pub struct B2CRequest {
     pub InitiatorName: String,
     pub SecurityCredential: String,
     pub CommandID: String,
-    pub Amount: u32,
+    pub Amount: String,
     pub PartyA: String,
     pub PartyB: String,
     pub Remarks: String,
@@ -30,7 +30,7 @@ pub async fn initiate_b2c_payment(
     auth_service: &AuthAccessTokenLife,
     config: &MpesaAuthorizationConfig,
     phone: String,
-    amount: u32,
+    amount: String,
     remarks: String,
     occasion: String,
 ) -> Result<B2CResponse, reqwest::Error> {
