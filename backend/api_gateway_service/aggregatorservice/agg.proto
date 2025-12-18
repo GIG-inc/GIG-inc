@@ -1,0 +1,18 @@
+syntax="proto3";
+package aggregatorservice;
+
+option go_package="./aggregatorservice";
+
+message deposit_req{
+    string Phonenumber=1;
+    string Amount=2;
+    string Accref=3;
+}
+
+message deposit_resp{
+    string success=1;
+}
+
+service gatewayservice{
+    rpc deposit(deposit_req) returns (deposit_resp);
+}
