@@ -3,7 +3,7 @@ package types
 import (
 	"context"
 	"fmt"
-	pb "gateway/aggregatorservice"
+	pb "gateway/gatewayproto"
 	"os"
 
 	"google.golang.org/grpc"

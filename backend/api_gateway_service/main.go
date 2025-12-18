@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	pb3 "gateway/aggregatorservice"
 	pb "gateway/auth"
+	pb3 "gateway/gatewayproto"
 	pb2 "gateway/proto"
 	"gateway/routes"
 	"gateway/types"

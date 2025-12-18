@@ -5,7 +5,6 @@ import (
 	"agg/src/payments"
 	context "context"
 	"fmt"
-	"os"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -31,9 +30,10 @@ type Paymentserver struct {
 // }
 
 func Newpaymentserver() (*Paymentserver, error) {
-	port := os.Getenv("PAYMENTGRPCPORT")
+	// port := os.Getenv("PAYMENTGRPCPORT")
+	port := "9000"
 	if port == "" {
-		src.Logger.Fatalln("there was an issue loading the port ")
+		src.Logger.Fatalf("there was an issue loading the port %v", port)
 		return nil, fmt.Errorf("there was an issue getting the port")
 	}
 

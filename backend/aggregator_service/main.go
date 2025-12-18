@@ -20,6 +20,7 @@ func main() {
 	if gerr != nil {
 		src.Logger.Fatalf("Issue starting the grpc server %v", gerr)
 	}
+
 	// this is creating an instance fot gateway service
 	gatewayserver, eerr := types.Newgatewayserver()
 	if eerr != nil {
@@ -40,4 +41,5 @@ func main() {
 	if err := grpcserver.Serve(lis); err != nil {
 		src.Logger.Fatalf("grpc serverfailed %v", err)
 	}
+	src.Logger.Printf("successfully starting server on port %v", port)
 }

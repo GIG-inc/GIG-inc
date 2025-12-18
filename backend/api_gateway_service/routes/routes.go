@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"gateway/aggregatorservice"
+	"gateway/gatewayproto"
 	"gateway/handlers"
 	"gateway/types"
 	config "gateway/types/Config"
@@ -94,8 +94,13 @@ func Routes(router *mux.Router, internalserver *types.Internalgatewayserver, aut
 
 	})
 	router.HandleFunc("/api/deposit", func(w http.ResponseWriter, r *http.Request) {
-		var depositreq aggregatorservice.DepositReq
-		json.NewDecoder(r.Body).Decode(&depositreq)
+		var depositex Deposittype
+		depositreq := gatewayproto.DepositReq{
+			Phonenumber: depositex.Phonenumber,
+			Amount:      depositex.Amount,
+			Accref:      depositex.Accref,
+		}
+		json.NewDecoder(r.Body).Decode(&depositex)
 		aggserver.Deposit(ctx, &depositreq)
 	})
 }

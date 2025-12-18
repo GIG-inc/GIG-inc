@@ -1,7 +1,7 @@
 <!-- this is for internal service -->
 protoc --go_out=. --go-grpc_out=. internalservice/internalservice.proto
 <!-- this is for aggregator service -->
-protoc --go_out=. --go-grpc_out=. aggregatorservice/agg.proto
+protoc --go_out=. --go-grpc_out=. gatewayproto/gateway.proto
 <!-- this is for the auth service -->
 protoc --go_out=. --go-grpc_out=. auth/auth.proto
 
