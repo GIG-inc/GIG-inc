@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	pb "gateway/gatewayproto"
-	"os"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -17,7 +16,8 @@ type Aggregatorserver struct {
 }
 
 func Newaggserver() (*Aggregatorserver, error) {
-	port := os.Getenv("GRPC_AGGREGATOR_SERVER")
+	// port := os.Getenv("GRPC_AGGREGATOR_SERVER")
+	port := "localhost:50055"
 	if port == "" {
 		Logger.Fatalf("could not load the port from environment %v", port)
 		return nil, fmt.Errorf("grpc internal server port not set")
@@ -45,9 +45,9 @@ func (server *Aggregatorserver) Close() error {
 }
 
 func (server *Aggregatorserver) Deposit(ctx context.Context, req *pb.DepositReq) (*pb.DepositResp, error) {
-	resp, err := server.aggclient.Deposit(ctx, req)
+	resp, err := server.aggclient.Deposit(context.Background(), req)
 	if err != nil {
-		Logger.Printf("error calling auth service Signup: %v", err)
+		Logger.Printf("error calling auth aggregator service: %v", err)
 		return nil, err
 	}
 	return resp, nil

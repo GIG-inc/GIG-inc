@@ -4,3 +4,5 @@ services:
 timeouts:
   contexttimeout: 10
   databaseconn: 10
+redisconn:
+  add: "localhost:6379"

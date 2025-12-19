@@ -7,8 +7,10 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-func Loadconfig(path string) (*Configtype, error) {
-	data, err := os.ReadFile(path)
+func Loadconfig() (*Configtype, error) {
+	// data, err := os.ReadFile("./config.yaml")
+	data, err := os.ReadFile("src/types/config.yaml")
+
 	if err != nil {
 		src.Logger.Fatalf("could not load config file %v", err)
 		return nil, err

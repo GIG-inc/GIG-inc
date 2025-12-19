@@ -6,7 +6,6 @@ import (
 	"agg/src/payments"
 	"agg/src/types"
 	"net"
-	"os"
 
 	"google.golang.org/grpc"
 )
@@ -14,7 +13,8 @@ import (
 func main() {
 	src.Initlogger()
 
-	port := os.Getenv("GRPCPORT")
+	// port := os.Getenv("GRPCPORT")
+	port := ":50055"
 
 	lis, gerr := net.Listen("tcp", port)
 	if gerr != nil {
@@ -38,8 +38,8 @@ func main() {
 
 	payments.RegisterMpesaPaymentsServer(grpcserver, paymentser)
 	gatewayproto.RegisterGatewayserviceServer(grpcserver, gatewayserver)
+	src.Logger.Printf("successfully starting server on port %v", port)
 	if err := grpcserver.Serve(lis); err != nil {
 		src.Logger.Fatalf("grpc serverfailed %v", err)
 	}
-	src.Logger.Printf("successfully starting server on port %v", port)
 }

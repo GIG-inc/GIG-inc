@@ -16,22 +16,9 @@ type Paymentserver struct {
 	payconn   *grpc.ClientConn
 }
 
-// func initconfig() (*Configtype, context.Context) {
-// 	cfg, err := Loadconfig("config.yaml")
-// 	if err != nil {
-// 		src.Logger.Panicf("there was an issue getting the config %v", err)
-
-// 	}
-// 	ctx, cerr := context.WithTimeout(context.Background(), time.Duration(cfg.Timeouts.Contexttimeouts)*time.Second)
-// 	if cerr != nil {
-// 		src.Logger.Panicf("could not create context %v", cerr)
-// 	}
-// 	return cfg, ctx
-// }
-
 func Newpaymentserver() (*Paymentserver, error) {
 	// port := os.Getenv("PAYMENTGRPCPORT")
-	port := "9000"
+	port := "localhost:9000"
 	if port == "" {
 		src.Logger.Fatalf("there was an issue loading the port %v", port)
 		return nil, fmt.Errorf("there was an issue getting the port")
@@ -62,9 +49,29 @@ func (s *Paymentserver) InitiateStkPush(ctx context.Context, req *payments.StkPu
 	// Call auth service directly
 	resp, err := s.payclient.InitiateStkPush(ctx, req)
 	if err != nil {
-		src.Logger.Printf("error calling internal service createaccount: %v", err)
-		return nil, err
+		src.Logger.Panicf("error calling payments service to initiate an stk push: %v", err)
 	}
 
+	return resp, nil
+}
+func (server *Paymentserver) Inititateb2cpayment(ctx context.Context, req *payments.B2CPaymentRequest) (*payments.B2CPaymentResponse, error) {
+	resp, err := server.payclient.InitiateB2CPayment(ctx, req)
+	if err != nil {
+		src.Logger.Panicf("error calling payments service to initiate an b2c payment %v", err)
+	}
+	return resp, nil
+}
+func (server *Paymentserver) Registerc2burls(ctx context.Context, req *payments.C2BRegisterRequest) (*payments.C2BRegisterResponse, error) {
+	resp, err := server.payclient.RegisterC2BUrls(ctx, req)
+	if err != nil {
+		src.Logger.Panicf("error calling payments service to initiate an b2c payment %v", err)
+	}
+	return resp, nil
+}
+func (server *Paymentserver) Simulatec2bpayment(ctx context.Context, req *payments.C2BSimulateRequest) (*payments.C2BSimulateResponse, error) {
+	resp, err := server.payclient.SimulateC2BPayment(ctx, req)
+	if err != nil {
+		src.Logger.Panicf("error calling payments service to initiate an b2c payment %v", err)
+	}
 	return resp, nil
 }

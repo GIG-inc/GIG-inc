@@ -103,4 +103,16 @@ func Routes(router *mux.Router, internalserver *types.Internalgatewayserver, aut
 		json.NewDecoder(r.Body).Decode(&depositex)
 		aggserver.Deposit(ctx, &depositreq)
 	})
+	router.HandleFunc("/api/withdraw", func(w http.ResponseWriter, r *http.Request) {
+		var depositex Deposittype
+		dummyuserid := "34b3g6ggso6w5"
+		withdrawreq := gatewayproto.WithdrawReq{
+			Phonenumber: depositex.Phonenumber,
+			Amount:      depositex.Amount,
+			// TODO: remember to implement redis for this to pass on globaluser id
+			Globaluserid: dummyuserid,
+		}
+		json.NewDecoder(r.Body).Decode(&depositex)
+		aggserver.Withdraw(ctx, &withdrawreq)
+	})
 }

@@ -9,7 +9,7 @@ import (
 )
 
 func Createctx() (context.Context, context.CancelFunc) {
-	cfg, err := Loadconfig("../config.yaml")
+	cfg, err := Loadconfig()
 	if err != nil {
 		src.Logger.Panicf("error loading config %v", err)
 	}
@@ -22,19 +22,6 @@ type Gatewayserver struct {
 	gatewayproto.UnimplementedGatewayserviceServer
 	payment *Paymentserver
 }
-
-// func config() (*Configtype, context.Context) {
-// 	cfg, err := Loadconfig("config.yaml")
-// 	if err != nil {
-// 		src.Logger.Panicf("there was an issue getting the config %v", err)
-
-// 	}
-// 	ctx, cerr := context.WithTimeout(context.Background(), time.Duration(cfg.Timeouts.Contexttimeouts)*time.Second)
-// 	if cerr != nil {
-// 		src.Logger.Panicf("could not create context %v", cerr)
-// 	}
-// 	return cfg, ctx
-// }
 
 func Newgatewayserver() (*Gatewayserver, error) {
 	server, err := Newpaymentserver()
@@ -76,4 +63,23 @@ func (server *Gatewayserver) Deposit(ctx context.Context, req *gatewayproto.Depo
 		Success: "true",
 	}
 	return &gresp, nil
+}
+func (server *Gatewayserver) Withdraw(req *gatewayproto.WithdrawReq) (*gatewayproto.WithdrawResp, error) {
+	ctx, cancel := Createctx()
+	defer cancel()
+	withdrawreq := payments.B2CPaymentRequest{
+		PhoneNumber: req.Phonenumber,
+		Amount:      req.Amount,
+		Remarks:     "withdraw",
+		Occasion:    "customerwithdraw",
+	}
+
+	_, serr := server.payment.InitiateB2CPayment(ctx, &withdrawreq)
+	if serr != nil {
+		src.Logger.Panicf("there was an issue initiating a withdraw request")
+	}
+	sresp := gatewayproto.WithdrawResp{
+		Success: "true",
+	}
+	return &sresp, nil
 }

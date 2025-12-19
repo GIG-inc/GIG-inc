@@ -1,0 +1,5 @@
+timeouts:
+  ctxtimeout: 20
+  dbctxtimeout: 20
+database:
+  conn: "postgres://deeznutz:0000@localhost:5433/postgres"
