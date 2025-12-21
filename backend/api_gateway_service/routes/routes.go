@@ -85,7 +85,6 @@ func Routes(router *mux.Router, internalserver *types.Internalgatewayserver, aut
 		json.NewEncoder(writer).Encode(resp)
 
 	})
-
 	router.HandleFunc("/api/createtransfer", func(writer http.ResponseWriter, request *http.Request) {
 		// first receive the data from the user end
 		var transferreq *httptypes.Transfer
@@ -115,5 +114,8 @@ func Routes(router *mux.Router, internalserver *types.Internalgatewayserver, aut
 		}
 		json.NewDecoder(r.Body).Decode(&depositex)
 		aggserver.Withdraw(ctx, &withdrawreq)
+	})
+	router.HandleFunc("/api/sale", func(writer http.ResponseWriter, request *http.Request) {
+		var 
 	})
 }

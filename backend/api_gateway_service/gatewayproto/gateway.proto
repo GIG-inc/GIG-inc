@@ -20,8 +20,27 @@ message withdraw_resp{
 message deposit_resp{
     string success=1;
 }
+message sale_req{
+    string from_id =1;
+    string to_id=2;
+    int64 gold_amount=3;
+    int64 cash_amount=4;
+}
+message sale_resp{
+    optional success_sale successdata=1;
+    bool success = 2;
+    optional string reason=3;
+}
+message success_sale{
+    string id = 1;
+    string from = 2;
+    string to = 3;
+    int64 goldamount = 4;
+    int64 moneyamount = 5;
+}
 
 service gatewayservice{
     rpc deposit(deposit_req) returns (deposit_resp);
     rpc withdraw(withdraw_req) returns (withdraw_resp);
+    rpc sale(sale_req) returns (sale_resp)
 }

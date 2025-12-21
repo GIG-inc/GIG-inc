@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package="./auth";
+
+service AuthService {
+  // Authentication
+  rpc Signup (SignupRequest) returns (AuthResponse);
+  rpc Login (LoginRequest) returns (AuthResponse);
+
+  // Session management
+  rpc Logout (LogoutRequest) returns (EmptyResponse);
+  rpc RefreshSession (RefreshRequest) returns (RefreshResponse);
+  rpc VerifySession (VerifyRequest) returns (VerifyResponse);
+
+  // User management
+  rpc GetProfile (ProfileRequest) returns (User);
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateResponse);
+  rpc PasswordReset (PasswordResetRequest) returns (EmptyResponse);
+}
+
+
+message SignupRequest {
+  string email = 1;
+  string password = 2;
+  optional string phone = 3;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+  optional string phone = 3;
+}
+
+message AuthResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  string token_type = 3;
+  int64 expires_in = 4;
+  User user = 5;
+}
+
+message User {
+  optional string id = 1;
+  optional string email = 2;
+  optional string phone = 3;
+  optional string confirmed_at = 4;
+  optional string last_sign_in_at = 5;
+  optional string role = 6;
+  optional string created_at = 7;
+  optional string updated_at = 8;
+}
+
+message UpdateUserRequest {
+  string access_token = 1;
+  string email = 2;        
+  string password = 3;
+  string phone = 4;
+  string username = 5;
+}
+
+message LogoutRequest {
+  string access_token = 1;
+}
+
+message PasswordResetRequest {
+  string email = 1;
+}
+
+message RefreshRequest {
+  string refresh_token = 1;
+}
+
+message VerifyRequest {
+  string access_token = 1;
+}
+
+message VerifyResponse {
+  bool valid = 1;
+}
+
+message ProfileRequest {
+  string access_token = 1;
+}
+
+
+message UpdateResponse {
+  User user = 1;
+}
+
+message RefreshResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  string token_type = 3;
+  int64 expires_in = 4;
+  User user = 5;
+}
+
+message EmptyResponse {}
