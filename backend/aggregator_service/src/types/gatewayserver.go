@@ -64,7 +64,7 @@ func (server *Gatewayserver) Deposit(ctx context.Context, req *gatewayproto.Depo
 	}
 	return &gresp, nil
 }
-func (server *Gatewayserver) Withdraw(req *gatewayproto.WithdrawReq) (*gatewayproto.WithdrawResp, error) {
+func (server *Gatewayserver) Withdraw(ctx context.Context, req *gatewayproto.WithdrawReq) (*gatewayproto.WithdrawResp, error) {
 	ctx, cancel := Createctx()
 	defer cancel()
 	withdrawreq := payments.B2CPaymentRequest{

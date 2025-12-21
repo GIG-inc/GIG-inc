@@ -10,7 +10,7 @@ import (
 
 func Conn() (*pgx.Conn, error) {
 	// TODO: get the connection string from the yaml file
-	connstring := "postgres://deeznutz:0000@localhost:5433/postgres"
+	connstring := "postgres://deeznutz:0000@localhost:5433/giginc"
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()

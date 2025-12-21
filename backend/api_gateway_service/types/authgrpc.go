@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// this is for auth service
 func Createuserauthservice(user *pb.SignupRequest, server *Gatewayserver) (Errortype, *pb.AuthResponse) {
 	fmt.Println("wanting to auth server")
 	Logger.Printf("wanting to contact server with information :%s", user)

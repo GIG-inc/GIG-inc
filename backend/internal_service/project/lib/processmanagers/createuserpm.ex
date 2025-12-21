@@ -17,6 +17,8 @@ defmodule Processmanagers.Createuserpm do
       lasttransacted: DateTime.utc_now(),
       lockversion: 0
     }
+    # this dispatches it to the router to head to the create wallet aggregate
+    # as is it is sufficient that when a user is created a create wallet command is created and is passed on by the router at the top to the responsible aggregate
     {:start, command}
   end
 end

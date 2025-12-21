@@ -61,17 +61,16 @@ def sendtoeventstore(newuser, _request) do
   case DatabaseConn.Getuser.checkuser(newuser.globaluserid) do
     {:ok, nil} ->
       IO.puts("There is a request to create a new user")
-
       # Check terms and conditions
       if not newuser.acceptterms do
-        {:accepttermsfalse, "To register as a user you have to accept the terms and conditions"}
+        {:accepttermsfalse, "To register you have to accept the terms and conditions"}
       else
         # Dispatch the command to the router TODO: check if this is the correct place to put this
       CommandedApp.dispatch(newuser, consistency: :strong)
       Logger.info("successfully created user")
       end
 
-    {:ok, %Project.User{} = user} ->
+    {:error, %Project.User{} = user} ->
       IO.puts("User already exists: #{user.username}")
       {:userexistserror, "There is a user with this id #{user.username}", user}
 

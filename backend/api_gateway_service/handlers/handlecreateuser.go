@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"gateway/auth"
 	"gateway/proto"
+	"gateway/redis"
 	"gateway/types"
 	"gateway/types/httptypes"
+	"time"
+
 	"github.com/google/uuid"
 	"github.com/microcosm-cc/bluemonday"
-	"time"
 )
 
 func Createuser(newuser *httptypes.Create_user, intserver *types.Internalgatewayserver, authserver *types.Gatewayserver) (types.Errortype, *proto.CreateUserResp) {
@@ -73,6 +75,10 @@ func Createuser(newuser *httptypes.Create_user, intserver *types.Internalgateway
 			Errtype: "grpc err",
 			Aerr:    err,
 		}, &proto.CreateUserResp{}
+	}
+	rerr := redis.Redisset(response.AccessToken, resp)
+	if rerr != nil {
+		types.Logger.Fatalf("there was an issue setting redis %v", rerr)
 	}
 	return types.Errortype{}, resp
 }

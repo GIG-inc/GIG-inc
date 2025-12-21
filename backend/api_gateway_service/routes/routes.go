@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"gateway/gatewayproto"
 	"gateway/handlers"
+	"gateway/redis"
 	"gateway/types"
 	config "gateway/types/Config"
 	"gateway/types/httptypes"
@@ -54,44 +55,44 @@ func Routes(router *mux.Router, internalserver *types.Internalgatewayserver, aut
 		types.Logger.Printf("reached create user api")
 		json.NewEncoder(resp).Encode(hold)
 	})
-	router.HandleFunc("/api/login", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/api/login", func(writer http.ResponseWriter, r *http.Request) {
 		var login *httptypes.Login
+
+		writer.Header().Set("Content-Type", "application/json")
+
 		if err := json.NewDecoder(r.Body).Decode(&login); err != nil {
 			types.Logger.Printf("There was an error decoding login :%v", err)
-			http.Error(w, "There was a server error", http.StatusInternalServerError)
+			http.Error(writer, "There was a server error", http.StatusInternalServerError)
 		}
 
-		// first receive
+		err, resp := handlers.Handlelogin(internalserver, cfg, login)
+		bool, _ := err.Check()
+		if bool == true {
+			if errs, ok := err.Aerr.(validator.ValidationErrors); ok {
+				for _, e := range errs {
+					types.Logger.Printf("field %s failed because it did not meet %s", e.Field(), e.Tag())
+					http.Error(
+						writer,
+						fmt.Sprintf("field %s failed because it did not meet %s", e.Field(), e.Tag()),
+						http.StatusBadRequest,
+					)
+					return
+				}
+			}
+		}
+
+		types.Logger.Printf("reached Login api")
+		json.NewEncoder(writer).Encode(resp)
+
 	})
 
-	router.HandleFunc("/api/createtransfer", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/api/createtransfer", func(writer http.ResponseWriter, request *http.Request) {
 		// first receive the data from the user end
 		var transferreq *httptypes.Transfer
-		token := r.Header.Get("Authorization")[7:]
-		//  check if the user is logged
-		claim, err := types.Validate_token(token)
-		if bool, _ := err.Check(); bool {
-			http.Error(
-				w,
-				"Please login again to attempt a transfer",
-				http.StatusBadRequest,
-			)
-		}
 		//  check for the user in redis(at this point the token has not been tampered with)
-		// TODO: remember to extend the user's session with every request
-		client, ctx := types.Redis_conn()
-		_, geterr := client.Get(ctx, claim.ID).Result()
-		if geterr != nil {
-			http.Error(
-				w,
-				"Your sesion has expired",
-				http.StatusBadRequest,
-			)
-		}
-		json.NewDecoder(r.Body).Decode(&transferreq)
-		handlers.Handletransfer(transferreq)
-		//TODO: verify the user data from the front end
-
+		// TODO: remember to extend the user's session with every request(ask mark)
+		json.NewDecoder(request.Body).Decode(&transferreq)
+		handlers.Handletransfer(transferreq, internalserver, cfg)
 	})
 	router.HandleFunc("/api/deposit", func(w http.ResponseWriter, r *http.Request) {
 		var depositex Deposittype

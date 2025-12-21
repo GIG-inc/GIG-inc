@@ -1,11 +1,25 @@
 defmodule Project.Repo.Migrations.Users do
   use Ecto.Migration
 
-  def change do
-    execute "create type account_status as enum ('active', 'inactive', 'banned')"
-    execute "create type kycstatus as enum('registered', 'pending','rejected', 'not_available')"
-    execute "create type kyclevel as enum('standard', 'advanced', 'pro')"
-    create table(:userstable, primary_key: false) do
+  def up do
+    execute """
+    DO $$
+    BEGIN
+      IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'account_status') THEN
+        CREATE TYPE account_status AS ENUM ('active', 'inactive', 'banned');
+      END IF;
+
+      IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'kycstatus') THEN
+        CREATE TYPE kycstatus AS ENUM ('registered', 'pending', 'rejected', 'not_available');
+      END IF;
+
+      IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'kyclevel') THEN
+        CREATE TYPE kyclevel AS ENUM ('standard', 'advanced', 'pro');
+      END IF;
+    END
+    $$;
+    """
+  create table(:userstable, primary_key: false) do
       add :localuserid, :binary_id, null: false, primary_key: true
       add :globaluserid, :binary_id, null: false
       add :fullname, :string, null: false
@@ -18,7 +32,13 @@ defmodule Project.Repo.Migrations.Users do
       add :username, :string, null: false
       timestamps()
     end
-    # adds unique index for app_uuid for fast lookups since we cant have two foreign keys in a table
-      create unique_index(:userstable, [:globaluserid])
+    create unique_index(:userstable, [:globaluserid, :localuserid])
   end
+
+  def down do
+    execute "DROP TYPE IF EXISTS account_status CASCADE"
+    execute "DROP TYPE IF EXISTS kycstatus CASCADE"
+    execute "DROP TYPE IF EXISTS kyclevel CASCADE"
+  end
+    # adds unique index for app_uuid for fast lookups since we cant have two foreign keys in a table
 end

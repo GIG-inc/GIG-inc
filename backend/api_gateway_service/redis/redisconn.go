@@ -46,7 +46,7 @@ func Redisget(token string) (interface{}, error) {
 	// TODO: check if the error is to check for expired values
 	if rerr != nil {
 		types.Logger.Fatalf("there was an issue loading your data from redis %v ", rerr)
-		return nil, rerr
+		return struct{}{}, rerr
 	}
 	json.Unmarshal([]byte(status), datatype)
 	return datatype, nil

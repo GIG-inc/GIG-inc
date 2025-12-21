@@ -1,25 +1,29 @@
 package handlers
 
 import (
+	"context"
 	"gateway/auth"
+	"gateway/proto"
+	"gateway/redis"
 	"gateway/types"
+	config "gateway/types/Config"
 	"gateway/types/httptypes"
+	"time"
 )
 
-func Handlelogin(login *httptypes.Login) (types.Errortype, *auth.AuthResponse) {
+func Handlelogin(server *types.Internalgatewayserver, cfg *config.Configtype, login *httptypes.Login) (types.Errortype, *proto.UserDataResp) {
 	//  this is to handle validation
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(cfg.Timeouts.Contexttimeout))
+	defer cancel()
 	resp := login.Validation()
 	bool, msg := resp.Check()
 	if bool {
 		types.Logger.Printf("there was an issue in login %s", msg)
-		return resp, &auth.AuthResponse{}
+		return resp, &proto.UserDataResp{}
 	}
-	// TODO: handle login logic here(third party login handler)
-	// TODO: this is to handle checking the database(when you retrieve the user from the database pass their id to the jwt function below)
-	// TODO: this is to add the user to generate jwt token
 	err, hash := login.Hashpassword()
 	if check, _ := err.Check(); check == true {
-		return err, &auth.AuthResponse{}
+		return err, &proto.UserDataResp{}
 	}
 	temporary := auth.LoginRequest{
 		Email:    login.Email,
@@ -27,10 +31,21 @@ func Handlelogin(login *httptypes.Login) (types.Errortype, *auth.AuthResponse) {
 	}
 	nerr, nresp := types.Loginauthservice(&temporary)
 	if nerr.Aerr != nil {
-		return err, &auth.AuthResponse{}
+		return err, &proto.UserDataResp{}
 	}
-	return types.Errortype{}, nresp
-	// TODO: this is to add the user to redis with a timer
-	// client, ctx := types.Redis_conn()
+	req := proto.UserAccountDataReq{
+		Id: *nresp.User.Id,
+	}
+	aresp, aerr := server.AccountDetails(ctx, &req)
+	if aerr != nil {
+		types.Logger.Panicf("there was an issue receiving from internalservice %v", aerr)
+	}
+	data := redis.Loginredistype{
+		Auth:     nresp,
+		Internal: aresp,
+	}
+	// TODO: change that auth sends directly to internal service
+	redis.Redisset(nresp.AccessToken, data)
+	return types.Errortype{}, aresp
 
 }

@@ -27,7 +27,23 @@ addedamount (mark)
 mix ecto create -to create the database config (already done this)
 mix ecto.migrate - to build the schemas
 mix ecto.rollback -n 1 -this is to rollback one step
+mix ecto.rollback -v 20251029112152
+mix ecto.rollback --all
 
 <!-- for the events store -->
 create a schema for event_store 
 then run - mix event_store.init
+
+DO
+$$
+DECLARE
+    r RECORD;
+BEGIN
+    -- loop through all tables in 'public' schema
+    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+        EXECUTE 'DROP TABLE IF EXISTS public.' || quote_ident(r.tablename) || ' CASCADE';
+    END LOOP;
+END
+$$;
+
+

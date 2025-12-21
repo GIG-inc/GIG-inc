@@ -13,7 +13,7 @@ defmodule Aggregates.Useraggregate do
 
   alias Commanded.Aggregates.Aggregate
   @behaviour Aggregate
-
+# this is to send to the eventstore db
   @impl Aggregate
   def execute(_, %Projectcommands.Createusercommand{}= command) do
     %Events.Createuserevent{
@@ -28,7 +28,7 @@ defmodule Aggregates.Useraggregate do
       fullname: command.fullname
     }
   end
-
+# this is to be kept in memory
 @impl Aggregate
   def apply(%Aggregates.Useraggregate{}= aggregate, %Events.Createuserevent{}=event) do
 
