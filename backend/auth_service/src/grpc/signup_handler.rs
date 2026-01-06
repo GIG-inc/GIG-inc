@@ -20,7 +20,7 @@ impl SignupHandler {
             }
         ).await?;
 
-        let supa_user = result.user.as_ref().expect("Missing user object");
+        let supa_user = result.user.as_ref().expect("Missing user object in signup");
 
         let grpc_response = AuthResponse {
             access_token: result.access_token.expect("No access token"),

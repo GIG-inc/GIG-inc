@@ -1,16 +1,37 @@
-version: "3.9"
-
 services:
-  bank_service:
-    build:
-      context: .
-      dockerfile: bank_service/Dockerfile
-    container_name: bank_service
+  auth:
+    build: ./auth_service
+    container_name: auth_service
+    env_file:
+      - ./auth_service/.env
     ports:
-      - "8000:8000"
+      - "8000:8000"     # HTTP
+      - "50051:50051"   # gRPC
     networks:
-      - gig-network
+      - internal_net
+
+  payment:
+    build: ./payments_service
+    container_name: payment_service
+    env_file:
+      - ./payments_service/.env
+    ports:
+      - "8001:8001"     # HTTP
+      - "50052:50052"   # gRPC
+    networks:
+      - internal_net
+
+  internal:
+    build: ./r_internal_service
+    container_name: r_internal_service
+    ports:
+      - "9000:9000"     # Public HTTP API
+    depends_on:
+      - auth
+      - payment
+    networks:
+      - internal_net
 
 networks:
-  gig-network:
+  internal_net:
     driver: bridge

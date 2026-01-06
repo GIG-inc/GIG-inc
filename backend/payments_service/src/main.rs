@@ -43,7 +43,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // -----------------------------
     // HTTP SERVER (Axum 0.7)
     // -----------------------------
-    let http_addr: SocketAddr = "0.0.0.0:9000".parse()?;
+    let http_addr: SocketAddr = "0.0.0.0:8001".parse()?;
     let listener = TcpListener::bind(http_addr).await?;
 
     let app = http_router(shared_state.clone());
@@ -53,7 +53,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // -----------------------------
     // gRPC SERVER
     // -----------------------------
-    let grpc_addr: SocketAddr = "0.0.0.0:8000".parse()?;
+    let grpc_addr: SocketAddr = "0.0.0.0:50052".parse()?;
 
     tokio::spawn(async move {
         use tonic::transport::Server;
