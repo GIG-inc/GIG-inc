@@ -40,6 +40,8 @@ func (server *Gatewayserver) Close() error {
 	}
 	return nil
 }
+
+// check if the user has logged in
 func (server *Gatewayserver) Deposit(ctx context.Context, req *gatewayproto.DepositReq) (*gatewayproto.DepositResp, error) {
 	// Call auth service directly
 	depositresp := payments.StkPushRequest{

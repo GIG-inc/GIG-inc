@@ -3,7 +3,7 @@ package types
 import (
 	"context"
 	"fmt"
-	pb "gateway/proto"
+	pb "gateway/internalservice"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"os"

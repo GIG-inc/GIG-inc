@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"gateway/auth"
-	"gateway/proto"
+	proto "gateway/internalservice"
 	"gateway/redis"
 	"gateway/types"
 	"gateway/types/httptypes"

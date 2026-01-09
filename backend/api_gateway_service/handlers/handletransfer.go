@@ -10,12 +10,13 @@ import (
 	"time"
 )
 
-func Handletransfer(req *httptypes.Transfer, server *types.Internalgatewayserver, cfg *config.Configtype) string {
+func Handletransfer(req *httptypes.Transfer, server *types.Internalgatewayserver, cfg *config.Configtype) *internal.TransferResp {
 	// TODO: check if all the details for transfer have been provided
 	err := req.Checktransfer()
-	bool, resp := err.Check()
+	bool, _ := err.Check()
 	if bool {
-		return resp
+		types.Logger.Fatalf("Not all values were provided %v", err)
+		return &internal.TransferResp{}
 	}
 	var data redis.Loginredistype
 	rerr := redis.Redisget(req.From, &data)
@@ -34,6 +35,9 @@ func Handletransfer(req *httptypes.Transfer, server *types.Internalgatewayserver
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(cfg.Timeouts.Contexttimeout))
 	defer cancel()
 	// continue from here
-	server.Transfer(ctx, internal)
-	return ""
+	tresp, terr := server.Transfer(ctx, internal)
+	if terr != nil {
+		types.Logger.Panicf("there was an error receiving for transfer %v", terr)
+	}
+	return tresp
 }

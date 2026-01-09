@@ -3,6 +3,8 @@ syntax="proto3";
 // i must add this so that the generated file will have a prefix  this to allow for calling
  package internalservice;
 
+ option go_package="./internalservice";
+
 // here we should describe the request from the api_gateway
 message create_user_req{
     string globaluserid =1;
@@ -55,14 +57,14 @@ message user_account_data_req{
 message transfer_req{
     string from_id =1;
     string to_id=2;
-    int64 gold_amount=3;
-    int64 cash_amount=4;
+    string gold_amount=3;
+    string cash_amount=4;
 }
 message sale_req{
     string from_id =1;
     string to_id=2;
-    int64 gold_amount=3;
-    int64 cash_amount=4;
+    string gold_amount=3;
+    string cash_amount=4;
 }
 
 message opening_req{
@@ -148,3 +150,17 @@ service gigservice{
     rpc opening(opening_req) returns (opening_resp);
     rpc createaccount(create_user_req) returns (create_user_resp);
 }
+
+
+
+
+
+/*
+request i am thinking should be values like get_account_amount(account_details)
+request transfering amount from one person's wallet to another(transfer)
+if they want to see any opening they can (openings)
+if they are looking for someone selling gold (sale)
+market
+history
+
+*/

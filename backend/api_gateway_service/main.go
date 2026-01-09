@@ -4,7 +4,7 @@ import (
 	"fmt"
 	pb "gateway/auth"
 	pb3 "gateway/gatewayproto"
-	pb2 "gateway/proto"
+	pb2 "gateway/internalservice"
 	"gateway/routes"
 	"gateway/types"
 	config "gateway/types/Config"

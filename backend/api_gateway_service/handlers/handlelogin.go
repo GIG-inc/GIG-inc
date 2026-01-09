@@ -3,7 +3,7 @@ package handlers
 import (
 	"context"
 	"gateway/auth"
-	"gateway/proto"
+	proto "gateway/internalservice"
 	"gateway/redis"
 	"gateway/types"
 	config "gateway/types/Config"
@@ -47,5 +47,4 @@ func Handlelogin(server *types.Internalgatewayserver, cfg *config.Configtype, lo
 	// TODO: change that auth sends directly to internal service
 	redis.Redisset(nresp.AccessToken, data)
 	return types.Errortype{}, aresp
-
 }

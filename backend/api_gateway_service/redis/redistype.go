@@ -2,12 +2,12 @@ package redis
 
 import (
 	"gateway/auth"
-	"gateway/proto"
+	internal "gateway/internalservice"
 )
 
 type Loginredistype struct {
 	Auth     *auth.AuthResponse
-	Internal *proto.UserDataResp
+	Internal *internal.UserDataResp
 }
 
 type Createusertype struct {

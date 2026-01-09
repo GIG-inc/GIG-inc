@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"gateway/gatewayproto"
 	"gateway/handlers"
-	"gateway/redis"
+	"gateway/internalservice"
 	"gateway/types"
 	config "gateway/types/Config"
 	"gateway/types/httptypes"
@@ -94,6 +94,7 @@ func Routes(router *mux.Router, internalserver *types.Internalgatewayserver, aut
 		handlers.Handletransfer(transferreq, internalserver, cfg)
 	})
 	router.HandleFunc("/api/deposit", func(w http.ResponseWriter, r *http.Request) {
+		// TODO: remember to implement checking for all these methods
 		var depositex Deposittype
 		depositreq := gatewayproto.DepositReq{
 			Phonenumber: depositex.Phonenumber,
@@ -116,6 +117,24 @@ func Routes(router *mux.Router, internalserver *types.Internalgatewayserver, aut
 		aggserver.Withdraw(ctx, &withdrawreq)
 	})
 	router.HandleFunc("/api/sale", func(writer http.ResponseWriter, request *http.Request) {
-		var 
+		var sale httptypes.Saletype
+		salereq := &internalservice.SaleReq{
+			FromId:     sale.From,
+			ToId:       sale.To,
+			GoldAmount: sale.Goldamount,
+			CashAmount: sale.Cashamount,
+		}
+
+		json.NewDecoder(request.Body).Decode(&sale)
+		internalserver.Sale(ctx, salereq)
 	})
+
 }
+
+/*
+createuser - internalservice
+deposit - aggservice
+withdraw - aggservice
+sale - internalservice
+
+*/
