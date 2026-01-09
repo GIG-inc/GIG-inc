@@ -38,16 +38,15 @@ func Redisset(token string, data interface{}) error {
 	return nil
 }
 
-func Redisget(token string) (interface{}, error) {
-	var datatype interface{}
+func Redisget(token string, target interface{}) error {
 	conn := Redisconn()
 	// find out what is the difference between getex and get
 	status, rerr := conn.Get(context.Background(), token).Result()
 	// TODO: check if the error is to check for expired values
 	if rerr != nil {
 		types.Logger.Fatalf("there was an issue loading your data from redis %v ", rerr)
-		return struct{}{}, rerr
+		return rerr
 	}
-	json.Unmarshal([]byte(status), datatype)
-	return datatype, nil
+	json.Unmarshal([]byte(status), target)
+	return nil
 }

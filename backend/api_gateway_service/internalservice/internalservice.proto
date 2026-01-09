@@ -57,14 +57,14 @@ message user_account_data_req{
 message transfer_req{
     string from_id =1;
     string to_id=2;
-    int64 gold_amount=3;
-    int64 cash_amount=4;
+    string gold_amount=3;
+    string cash_amount=4;
 }
 message sale_req{
     string from_id =1;
     string to_id=2;
-    int64 gold_amount=3;
-    int64 cash_amount=4;
+    string gold_amount=3;
+    string cash_amount=4;
 }
 
 message opening_req{

@@ -47,8 +47,16 @@ func (server *Aggregatorserver) Close() error {
 func (server *Aggregatorserver) Deposit(ctx context.Context, req *pb.DepositReq) (*pb.DepositResp, error) {
 	resp, err := server.aggclient.Deposit(context.Background(), req)
 	if err != nil {
-		Logger.Printf("error calling auth aggregator service: %v", err)
+		Logger.Printf("error calling auth aggregator service for deposit: %v", err)
 		return nil, err
 	}
 	return resp, nil
+}
+func (server *Aggregatorserver) Withdraw(ctx context.Context, req *pb.WithdrawReq) (*pb.WithdrawResp, error) {
+	resp, err := server.aggclient.Withdraw(context.Background(), req)
+	if err != nil {
+		Logger.Printf("error calling auth aggregator service for withdraw: %v", err)
+		return nil, err
+	}
+	return resp, err
 }
