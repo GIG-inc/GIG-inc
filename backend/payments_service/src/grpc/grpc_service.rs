@@ -10,9 +10,10 @@ use crate::grpc::payments::{
 
 use crate::apis::daraja_stk_push::daraja_stk_push::initiate_stk_push;
 use crate::apis::daraja_business_to_customer::daraja_b2c::initiate_b2c_payment;
-use crate::apis::daraja_customer_to_business::daraja_c2b::{register_c2b_urls, simulate_c2b_payment};
+use crate::apis::daraja_customer_to_business::daraja_c2b::{simulate_c2b_payment};
 use crate::auth::daraja_auth::mpesa_access_life::AuthAccessTokenLife;
 use reqwest::Client;
+use crate::apis::daraja_customer_to_business::daraja_c2b_register_url::register_c2b_urls;
 use crate::config::config::MpesaAuthorizationConfig;
 
 pub struct MpesaPaymentsService {
@@ -78,21 +79,18 @@ impl MpesaPayments for MpesaPaymentsService {
         &self,
         request: Request<C2bRegisterRequest>,
     ) -> Result<Response<C2bRegisterResponse>, Status> {
-        let payload = request.into_inner();
 
         let res = register_c2b_urls(
             &self.client,
             &self.auth,
             &self.config,
-            payload.confirmation_url,
-            payload.validation_url,
         )
             .await
             .map_err(|e| Status::internal(e.to_string()))?;
 
         Ok(Response::new(C2bRegisterResponse {
             success: true,
-            message: res.ResponseDescription,
+            message: "".to_string(),
         }))
     }
 

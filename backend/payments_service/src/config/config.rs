@@ -62,4 +62,26 @@ impl MpesaAuthorizationConfig {
             _ => "https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest",
         }
     }
+
+    pub fn c2b_register_url(&self) -> &'static str {
+        match self.env.as_str() {
+            "production" => "https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl",
+            _ => "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl",
+        }
+    }
+}
+
+#[derive(Clone)]
+pub struct DatabaseUrlConfig{
+    pub database_url: String,
+}
+
+impl DatabaseUrlConfig{
+    pub fn from_env()-> Self{
+        Self{
+            database_url: env::var("DATABASE_URL")
+                .expect("Database URL Invalid")
+        }
+    }
+
 }

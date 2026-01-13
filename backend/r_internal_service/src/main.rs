@@ -21,9 +21,9 @@ async fn main() {
 
     tracing_subscriber::fmt::init();
 
-    // --- Load config (.env) ---
+    // --- Load mpesa_config (.env) ---
     let cfg = load_config()
-        .expect("Failed to load application config");
+        .expect("Failed to load application mpesa_config");
 
     // --- gRPC client ---
     let auth_grpc_addr = "http://127.0.0.1:50051".to_string();

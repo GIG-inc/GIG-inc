@@ -16,6 +16,7 @@ tower-http = { version = "0.5", features = ["trace"] }
 tonic = { version = "0.13", features = ["transport"] }
 prost = "0.13"
 prost-types = "0.13"
+sqlx = { version = "0.8.6", features = ["postgres", "macros", "runtime-tokio", "rust_decimal", "chrono", "uuid"] }
 
 [build-dependencies]
 tonic-build = "0.13"

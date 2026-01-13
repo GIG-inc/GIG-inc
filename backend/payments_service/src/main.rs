@@ -11,12 +11,17 @@ mod grpc;
 mod auth;
 mod router;
 mod state;
+mod db;
 
 use config::config::MpesaAuthorizationConfig;
 use auth::daraja_auth::mpesa_access_life::AuthAccessTokenLife;
 use grpc::grpc_service::MpesaPaymentsService;
 use grpc::payments::mpesa_payments_server::MpesaPaymentsServer;
 use router::http::http_router;
+use crate::apis::daraja_customer_to_business::daraja_c2b_register_url::register_c2b_urls;
+use crate::apis::daraja_customer_to_business::daraja_c2b_validate_account_service::C2BService;
+use crate::config::config::DatabaseUrlConfig;
+use crate::db::connections::connection_pool;
 use crate::state::{AppState, SharedState};
 
 #[tokio::main]
@@ -26,18 +31,28 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // -----------------------------
     // Config + Client
     // -----------------------------
-    let config = MpesaAuthorizationConfig::mpesa_auth_env();
+    let db_config = DatabaseUrlConfig::from_env();
+    let pool = connection_pool(&db_config.database_url)
+        .await?;
+    println!("✅ Database connection successful");
+
+
+    let mpesa_config = MpesaAuthorizationConfig::mpesa_auth_env();
     let client = Client::new();
 
     let auth = AuthAccessTokenLife::new(
         client.clone(),
-        config.clone(),
+        mpesa_config.clone(),
     );
+
+    let c2b_service = C2BService::new(pool.clone());
 
     let shared_state: SharedState = Arc::new(AppState {
         client: client.clone(),
         auth: auth.clone(),
-        config: config.clone(),
+        mpesa_config: mpesa_config.clone(),
+        db_config: db_config.clone(),
+        c2b_service,
     });
 
     // -----------------------------
@@ -50,6 +65,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("🌐 HTTP server running on http://{}", http_addr);
 
+   match register_c2b_urls(&client, &auth, &mpesa_config).await {
+        Ok(resp) => println!("✅ C2B URLs registered successfully: {:?}", resp),
+        Err(err) => eprintln!("❌ Failed to register C2B URLs: {}", err),
+    }
+    
     // -----------------------------
     // gRPC SERVER
     // -----------------------------
@@ -61,7 +81,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let grpc_service = MpesaPaymentsService {
             client,
             auth,
-            config,
+            config: mpesa_config,
         };
 
         println!("🚀 gRPC server running on {}", grpc_addr);
@@ -78,4 +98,5 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     axum::serve(listener, app)
         .await
         .map_err(|e| e.into())
+
 }

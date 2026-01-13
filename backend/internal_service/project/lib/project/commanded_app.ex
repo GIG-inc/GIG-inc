@@ -1,7 +1,7 @@
 defmodule Project.CommandedApp do
   use Commanded.Application,
     otp_app: :project,
-  # this allows for reading of documentation from the config.exs
+  # this allows for reading of documentation from the mpesa_config.exs
     router: [
      Routers.Accountopenrouter.Accountrouter,
      Routers.Transferrouter,

@@ -4,6 +4,7 @@ use serde_json::json;
 use crate::apis::daraja_stk_push::daraja_stk_callback::mpesa_stk_callback;
 use crate::apis::daraja_business_to_customer::daraja_b2c_callback::b2c_callback;
 use crate::apis::daraja_customer_to_business::daraja_c2b_callback::{c2b_callback};
+use crate::apis::daraja_customer_to_business::daraja_c2b_validate_account::validate_account;
 use crate::state::SharedState;
 
 async fn health() -> Json<serde_json::Value> {
@@ -25,7 +26,8 @@ pub fn http_router(state: SharedState) -> Router {
         .route("/daraja/b2c/timeout", post(b2c_callback)) // Can use same handler
 
         // C2B callbacks
-        .route("/daraja/c2b/callback", post(c2b_callback))
+        .route("/daraja/c2b/callback", post(c2b_callback))// confirmation
+        .route("/daraja/c2b/validation", post(validate_account))
 
         .with_state(state)
 }
