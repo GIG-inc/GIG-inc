@@ -6,14 +6,10 @@ use crate::grpc::auth::{AuthResponse, EmptyResponse, LoginRequest, LogoutRequest
 
 #[derive(Clone)]
 pub struct AuthGrpcClient {
-    client: AuthServiceClient<Channel>,
+    pub(crate) client: AuthServiceClient<Channel>,
 }
 
 impl AuthGrpcClient {
-    pub async fn connect(addr: String) -> Result<Self, tonic::transport::Error> {
-        let client = AuthServiceClient::connect(addr).await?;
-        Ok(Self { client })
-    }
 
     pub async fn signup(
         &mut self,

@@ -1,12 +1,11 @@
 use axum::{Router, routing::post};
 use std::sync::Arc;
 use tokio::sync::Mutex;
-
-use crate::grpc::auth_client::AuthGrpcClient;
+use crate::grpc::all_internal_clients::InternalClients;
 use crate::http::auth::{signup_handler, login_handler, logout_handler, password_reset_handler, get_profile_handler, update_user_handler, refresh_session_handler, verify_session_handler};
 
 pub fn auth_routes(
-    state: Arc<Mutex<AuthGrpcClient>>,
+    state: Arc<Mutex<InternalClients>>,
 ) -> Router {
     Router::new()
         .route("/signup", post(signup_handler))
