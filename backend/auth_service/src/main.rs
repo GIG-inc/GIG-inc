@@ -85,7 +85,8 @@ async fn main() -> Result<(), AppError> {
     tracing::info!("🚀 HTTP server running at http://{}", addr);
 
 
-    let grpc_addr: SocketAddr = "0.0.0.0:50051"
+    let grpc_addr: SocketAddr = std::env::var("GRPC_SERVER_ADDRESS")
+        .unwrap_or("0.0.0.0:50051".to_string())
         .parse()
         .map_err(|e: std::net::AddrParseError| AppError::InternalError(e.to_string()))?;
 
