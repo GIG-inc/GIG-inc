@@ -10,6 +10,10 @@ pub struct AuthGrpcClient {
 }
 
 impl AuthGrpcClient {
+    pub async fn connect(addr: String) -> Result<Self, tonic::transport::Error> {
+        let client = AuthServiceClient::connect(addr).await?;
+        Ok(Self { client })
+    }
 
     pub async fn signup(
         &mut self,

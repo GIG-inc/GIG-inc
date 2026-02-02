@@ -21,7 +21,12 @@ impl SupabaseClient {
         }
     }
 
-    pub async fn signup_user(&self, email: &str, password: &str, phone: &Option<String>) -> Result<AuthResponse, reqwest::Error> {
+    pub async fn signup_user(
+        &self,
+        email: &str,
+        password: &str,
+        phone: &Option<String>
+    ) -> Result<AuthResponse, reqwest::Error> {
         let url = format!("{}/auth/v1/signup", self.base_url);
 
         let response = self

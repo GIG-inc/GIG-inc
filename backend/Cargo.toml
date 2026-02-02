@@ -2,6 +2,6 @@
 resolver = "3"
 members = [
     "auth_service",
-    "payments_service",
+    "payments_service", "r_api_gateway",
     "r_internal_service",
 ]

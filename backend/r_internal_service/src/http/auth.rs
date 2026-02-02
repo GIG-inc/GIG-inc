@@ -2,7 +2,7 @@ use axum::{extract::State, Json};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use tokio::sync::Mutex;
-use crate::grpc::all_internal_clients::InternalClients;
+use crate::grpc::auth_client::AuthGrpcClient;
 
 #[derive(Deserialize)]
 pub struct SignupHttpRequest {
@@ -94,13 +94,12 @@ pub struct VerifySessionHttpResponse{
 
 
 pub async fn signup_handler(
-    State(auth_client): State<Arc<Mutex<InternalClients>>>,
+    State(auth_client): State<Arc<Mutex<AuthGrpcClient>>>,
     Json(payload): Json<SignupHttpRequest>,
 ) -> Result<Json<AuthHttpResponse>, String> {
-    let mut clients = auth_client.lock().await;
+    let mut client = auth_client.lock().await;
 
-    let response = clients
-        .auth
+    let response = client
         .signup(payload.email, payload.password, payload.phone)
         .await
         .map_err(|e| e.to_string())?;
@@ -113,13 +112,12 @@ pub async fn signup_handler(
 }
 
 pub async fn login_handler(
-    State(auth_client): State<Arc<Mutex<InternalClients>>>,
+    State(auth_client): State<Arc<Mutex<AuthGrpcClient>>>,
     Json(payload): Json<LoginHttpRequest>,
 ) -> Result<Json<AuthHttpResponse>, String> {
     let mut client = auth_client.lock().await;
 
     let response = client
-        .auth
         .login(payload.email, payload.password)
         .await
         .map_err(|e| e.to_string())?;
@@ -132,47 +130,40 @@ pub async fn login_handler(
 }
 
 pub async fn logout_handler(
-    State(auth_client): State<Arc<Mutex<InternalClients>>>,
+    State(auth_client): State<Arc<Mutex<AuthGrpcClient>>>,
     Json(payload): Json<LogoutHttpRequest>,
 )->Result<Json<EmptyHttpResponse>, String>{
     let mut client = auth_client.lock().await;
 
-    let response = client
-        .auth
+    client
         .logout(payload.access_token)
         .await
         .map_err(|e| e.to_string())?;
 
-    Ok(Json(EmptyHttpResponse{
-
-    }))
+    Ok(Json(EmptyHttpResponse{}))
 }
 
 pub async fn password_reset_handler(
-    State(auth_client): State<Arc<Mutex<InternalClients>>>,
+    State(auth_client): State<Arc<Mutex<AuthGrpcClient>>>,
     Json(payload): Json<PasswordRestHttpRequest>,
 ) ->Result<Json<EmptyHttpResponse>, String>{
     let mut client = auth_client.lock().await;
 
-    let response = client
-        .auth
+    client
         .password_reset(payload.email)
         .await
         .map_err(|e| e.to_string())?;
 
-    Ok(Json(EmptyHttpResponse{
-
-    }))
+    Ok(Json(EmptyHttpResponse{}))
 }
 
 pub async fn get_profile_handler(
-    State(auth_client): State<Arc<Mutex<InternalClients>>>,
+    State(auth_client): State<Arc<Mutex<AuthGrpcClient>>>,
     Json(payload): Json<GetProfileHttpRequest>,
 )->Result<Json<UserHttp>, String>{
     let mut client = auth_client.lock().await;
 
     let response = client
-        .auth
         .get_profile(payload.access_token)
         .await
         .map_err(|e| e.to_string())?;
@@ -190,13 +181,12 @@ pub async fn get_profile_handler(
 }
 
 pub async fn update_user_handler(
-    State(auth_client): State<Arc<Mutex<InternalClients>>>,
+    State(auth_client): State<Arc<Mutex<AuthGrpcClient>>>,
     Json(payload): Json<UpdateUserHttpRequest>
 )->Result<Json<UpdateUserHttpResponse>, String>{
     let mut client = auth_client.lock().await;
 
     let response = client
-        .auth
         .update_user(payload.access_token, payload.email, payload.password)
         .await
         .map_err(|e| e.to_string())?;
@@ -207,13 +197,12 @@ pub async fn update_user_handler(
 }
 
 pub async fn refresh_session_handler(
-    State(auth_client): State<Arc<Mutex<InternalClients>>>,
+    State(auth_client): State<Arc<Mutex<AuthGrpcClient>>>,
     Json(payload): Json<RefreshSessionHttpRequest>,
 ) ->Result<Json<RefreshTokenHttpResponse>, String>{
     let mut client = auth_client.lock().await;
 
     let response = client
-        .auth
         .refresh_session(payload.refresh_token)
         .await
         .map_err(|e| e.to_string())?;
@@ -241,13 +230,12 @@ pub async fn refresh_session_handler(
 }
 
 pub async fn verify_session_handler(
-    State(auth_client): State<Arc<Mutex<InternalClients>>>,
+    State(auth_client): State<Arc<Mutex<AuthGrpcClient>>>,
     Json(payload): Json<VerifySessionRequestHttpRequest>
 )->Result<Json<VerifySessionHttpResponse>, String>{
-    let mut client= auth_client.lock().await;
+    let mut client = auth_client.lock().await;
 
     let response = client
-        .auth
         .verify_session(payload.access_token)
         .await
         .map_err(|e| e.to_string())?;
