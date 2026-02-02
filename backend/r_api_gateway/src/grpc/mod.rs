@@ -1,1 +1,4 @@
-mod all_intenal_clients;
+pub mod auth{
+    tonic::include_proto!("auth");
+}
+pub mod auth_client;
