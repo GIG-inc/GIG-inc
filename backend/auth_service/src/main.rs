@@ -69,27 +69,25 @@ async fn main() -> Result<(), AppError> {
         .with_state(app_state.clone())
         .layer(cors);
 
-    // --- HTTP listener ---
     let port: u16 = std::env::var("PORT")
-        .unwrap_or_else(|_| "8000".to_string()) // fallback for local dev
-        .parse()
-        .map_err(|e| AppError::InternalError(format!("Invalid PORT: {}", e)))?;
+        .unwrap_or_else(|_| "8000".to_string())
+        .parse::<u16>()
+        .unwrap_or(8000);
 
     let addr: SocketAddr = format!("0.0.0.0:{}", port)
-        .parse()
-        .map_err(|e| AppError::InternalError(format!("Invalid HTTP socket address: {}", e)))?;
+        .parse::<SocketAddr>()
+        .map_err(|e: std::net::AddrParseError| AppError::InternalError(e.to_string()))?;
 
     let listener = TcpListener::bind(addr)
         .await
-        .map_err(|e| AppError::InternalError(format!("Failed to bind HTTP listener: {}", e)))?;
+        .map_err(|e| AppError::InternalError(e.to_string()))?;
 
     tracing::info!("🚀 HTTP server running at http://{}", addr);
 
-    // --- gRPC listener ---
-    let grpc_addr: SocketAddr = std::env::var("GRPC_SERVER_ADDRESS")
-        .unwrap_or_else(|_| "0.0.0.0:50051".to_string()) // fallback for local dev
+
+    let grpc_addr: SocketAddr = "0.0.0.0:50051"
         .parse()
-        .map_err(|e| AppError::InternalError(format!("Invalid gRPC socket address: {}", e)))?;
+        .map_err(|e: std::net::AddrParseError| AppError::InternalError(e.to_string()))?;
 
     let grpc_state = app_state.clone();
 
@@ -111,7 +109,7 @@ async fn main() -> Result<(), AppError> {
 
     axum::serve(listener, app.into_make_service_with_connect_info::<SocketAddr>())
         .await
-        .map_err(|e| AppError::InternalError(format!("HTTP server error: {}", e)))?;
+        .map_err(|e| AppError::InternalError(e.to_string()))?;
 
     Ok(())
 }
