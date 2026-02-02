@@ -1,8 +1,10 @@
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let protoc_path = protoc_bin_vendored::protoc_bin_path()?;
 
-    // Tell Cargo to set PROTOC for this build (safe, no unsafe block)
-    println!("cargo:rustc-env=PROTOC={}", protoc_path.display());
+    // This is REQUIRED so prost-build can see protoc
+    unsafe {
+        std::env::set_var("PROTOC", protoc_path);
+    }
 
     tonic_build::configure()
         .build_server(true)
